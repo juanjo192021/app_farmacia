@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">farmacia-fameza</string>
+    <string name="contra_subrayado"><u>Forgot your password?</u></string>
+    <string name="registrar_subrayado"><u>Registrate</u></string>
 </resources>

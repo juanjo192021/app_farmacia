@@ -5,13 +5,116 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/button_menu"
+    android:backgroundTint="@color/primary"
     tools:context=".Inicio">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="172dp"
-        tools:layout_editor_absoluteY="442dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:backgroundTint="@color/primary"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:backgroundTint="@color/primary"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="10dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                app:srcCompat="@android:drawable/ic_menu_sort_by_size" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="11dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                app:srcCompat="@drawable/logo_fameza" />
+
+            <TextView
+                android:id="@+id/txtMarcaMenu"
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingTop="30dp"
+                android:text="Fameza"
+                android:textColor="@color/white"
+                android:textSize="30sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="533dp"
+            android:background="@color/white"
+            android:orientation="vertical"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="86dp"
+            android:backgroundTint="@color/white"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="@color/primary"
+                android:pointerIcon="none"
+                android:text="Home"
+                android:textSize="18dp"
+                app:cornerRadius="0dp"
+                app:icon="@drawable/baseline_home_24"
+                app:iconGravity="top"
+                app:iconPadding="0dp"
+                app:iconSize="40dp" />
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="match_parent"
+                android:layout_height="86dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/primary"
+                android:text="Inventory"
+                android:textColorHint="@color/white"
+                android:textSize="18dp"
+                app:cornerRadius="0dp"
+                app:icon="@drawable/baseline_inventory_24"
+                app:iconGravity="top"
+                app:iconPadding="0dp"
+                app:iconSize="40dp" />
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="@color/primary"
+                android:text="Improve"
+                android:textColorLink="@color/white"
+                android:textSize="18dp"
+                app:cornerRadius="0dp"
+                app:icon="@drawable/baseline_history_24"
+                app:iconGravity="top"
+                app:iconPadding="0dp"
+                app:iconSize="40dp" />
+        </LinearLayout>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

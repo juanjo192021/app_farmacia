@@ -5,11 +5,12 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#2C348B"
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:layout_width="329dp"
-        android:layout_height="556dp"
+        android:layout_width="355dp"
+        android:layout_height="547dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,7 +25,8 @@
             <ImageView
                 android:id="@+id/imageView3"
                 android:layout_width="match_parent"
-                android:layout_height="130dp"
+                android:layout_height="112dp"
+                android:backgroundTint="#2C348B"
                 app:srcCompat="@drawable/logo_fameza"
                 tools:srcCompat="@drawable/logo_fameza" />
 
@@ -41,9 +43,11 @@
                     android:id="@+id/textView6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Inicia Sesión con tu cuenta"
+                    android:text="¡Bienvenido!"
                     android:textAlignment="center"
-                    android:textSize="24sp" />
+                    android:textColor="#FFFFFF"
+                    android:textSize="34sp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -68,13 +72,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/lblNombreUsuario"
-                    android:layout_width="match_parent"
-                    android:layout_height="28dp"
-                    android:text="Nombre de Usuario"
-                    android:textSize="18sp" />
-
                 <Space
                     android:layout_width="match_parent"
                     android:layout_height="26dp" />
@@ -83,8 +80,18 @@
                     android:id="@+id/txtNombreUsuario"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/background_login"
+                    android:backgroundTint="@color/white"
+                    android:drawableStart="@drawable/outline_email_24"
+                    android:drawablePadding="10dp"
                     android:ems="10"
-                    android:inputType="text" />
+                    android:hint="Email"
+                    android:inputType="text"
+                    android:minWidth="50dp"
+                    android:minHeight="50dp"
+                    android:padding="10dp"
+                    android:textColor="#000000"
+                    android:textColorHint="#7C7B7B" />
 
             </LinearLayout>
 
@@ -97,28 +104,36 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/lblContrasenia"
+                <EditText
+                    android:id="@+id/txtContrasenia"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Contraseña"
+                    android:background="@drawable/background_login"
+                    android:backgroundTint="@color/white"
+                    android:drawableStart="@drawable/outline_lock_24"
+                    android:drawablePadding="10dp"
+                    android:hint="Password"
+                    android:minWidth="50dp"
+                    android:minHeight="50dp"
+                    android:padding="10dp"
+                    android:textColor="#000000"
+                    android:textColorHint="#7C7B7B"
                     android:textSize="18sp" />
 
                 <Space
                     android:layout_width="match_parent"
                     android:layout_height="26dp" />
 
-                <EditText
-                    android:id="@+id/txtContrasenia"
+                <TextView
+                    android:id="@+id/txtRecContrasenia"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textPassword" />
-            </LinearLayout>
+                    android:layout_marginTop="10dp"
+                    android:paddingStart="8dp"
+                    android:text="@string/contra_subrayado"
+                    android:textColor="@color/white" />
 
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="26sp" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -133,7 +148,9 @@
                         android:id="@+id/btnIniciarSesion"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Iniciar Sesión"
+                        android:backgroundTint="#009fe3"
+                        android:onClick="isAuthenticated"
+                        android:text="Login"
                         android:textAlignment="center"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="parent"
