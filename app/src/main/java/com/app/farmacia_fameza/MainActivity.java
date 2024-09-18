@@ -78,8 +78,16 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
 
                 if (!response.isSuccessful()) {
-                    Toast.makeText(MainActivity.this, "Error en la respuesta: " + response.code() + " " + response.body(), Toast.LENGTH_SHORT).show();
-                    return;
+
+                    if(response.code()==404){
+                        Toast.makeText(MainActivity.this, "Error " + response.code() + ": No existe registro de un usuario con ese email", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if(response.code()==401){
+                        Toast.makeText(MainActivity.this, "Error " + response.code() + ": El usuario se encuentra sin autorizacion de acceso", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
                 }
 
                 ApiResponse apiResponse = response.body();
