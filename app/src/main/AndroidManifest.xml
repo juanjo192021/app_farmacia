@@ -25,15 +25,6 @@
             android:label="@string/title_activity_menu"
             android:theme="@style/Theme.Farmaciafameza.NoActionBar" />
         <activity
-            android:name=".view.frmProductDetail"
-            android:exported="false" />
-        <activity
-            android:name=".view.frmProductList"
-            android:exported="false" />
-        <activity
-            android:name=".Inicio"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
