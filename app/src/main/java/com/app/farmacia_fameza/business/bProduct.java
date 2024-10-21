@@ -1,0 +1,36 @@
+package com.app.farmacia_fameza.business;
+
+import android.content.Context;
+
+import com.app.farmacia_fameza.controller.cProduct;
+import com.app.farmacia_fameza.models.Product;
+
+import java.util.List;
+
+public class bProduct {
+    private cProduct CProduct;
+
+    public bProduct(Context context) {
+        CProduct=new cProduct(context);
+    }
+
+    public List<Product> showProducts(){
+        return CProduct.getProducts();
+    }
+
+    public boolean insertProduct(Product product){
+        return CProduct.insertProduct(product);
+    }
+
+    public boolean updateProduct(Product product){
+        return CProduct.updateProduct(product);
+    }
+
+    public boolean changeStockProduct(int productId, int quantity, boolean isIncrease){
+        return CProduct.changeStock(productId,quantity,isIncrease);
+    }
+
+    public boolean deleteProduct(int idProduct){
+        return CProduct.deleteProduct(idProduct);
+    }
+}
