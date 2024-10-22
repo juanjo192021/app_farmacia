@@ -1,22 +1,22 @@
-package com.app.farmacia_fameza.models;
+package com.app.farmacia_fameza.dto;
 
-import java.io.Serializable;
-import java.util.List;
+public class ItemListDTO {
 
-public class Category implements Serializable {
     private Integer id;
     private String name;
     private Integer status;
     private Integer count_Product;
 
-    public Category() {
+    public ItemListDTO() {
         this.id = 0;
-        this.name = "name";
+        this.count_Product = 0;
         this.status = 0;
+        this.name = "name";
     }
 
-    public Category(Integer id, String name, Integer status) {
+    public ItemListDTO(Integer id, Integer count_Product, String name, Integer status) {
         this.id = id;
+        this.count_Product = count_Product;
         this.name = name;
         this.status = status;
     }
@@ -27,6 +27,14 @@ public class Category implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getCount_Product() {
+        return count_Product;
+    }
+
+    public void setCount_Product(Integer count_Product) {
+        this.count_Product = count_Product;
     }
 
     public String getName() {

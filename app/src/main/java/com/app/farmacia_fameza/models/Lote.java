@@ -4,34 +4,34 @@ public class Lote {
     private Integer id;
     private String lote_number;
     private String expiration_date;
+    private String production_date;
+    private String alert_date;
     private Integer quantity;
-    private Product product;
-    private Supplier supplier;
 
-    public Lote() {
-        this.id = 0;
-        this.lote_number = "lote_number";
-        this.expiration_date = "expiration_date";
-        this.quantity = 0;
-        this.product = new Product();
-        this.supplier = new Supplier();
-    }
-
-    public Lote(Integer id, String lote_number, String expiration_date, Product product, Integer quantity, Supplier supplier) {
+    public Lote(String alert_date, String expiration_date, Integer id, String lote_number, String production_date, Integer quantity) {
+        this.alert_date = alert_date;
+        this.expiration_date = expiration_date;
         this.id = id;
         this.lote_number = lote_number;
-        this.expiration_date = expiration_date;
-        this.product = product;
+        this.production_date = production_date;
         this.quantity = quantity;
-        this.supplier = supplier;
     }
 
-    public Integer getId() {
-        return id;
+    public Lote() {
+        this.alert_date = "alert_date";
+        this.expiration_date = "expiration_date";
+        this.id = 0;
+        this.lote_number = "lote_number";
+        this.production_date = "production_date";
+        this.quantity = 0;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public String getAlert_date() {
+        return alert_date;
+    }
+
+    public void setAlert_date(String alert_date) {
+        this.alert_date = alert_date;
     }
 
     public String getExpiration_date() {
@@ -42,20 +42,20 @@ public class Lote {
         this.expiration_date = expiration_date;
     }
 
-    public String getLote_number() {
-        return lote_number;
+    public Integer getId() {
+        return id;
     }
 
-    public void setLote_number(String lote_number) {
-        this.lote_number = lote_number;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public Product getProduct() {
-        return product;
+    public String getProduction_date() {
+        return production_date;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setProduction_date(String production_date) {
+        this.production_date = production_date;
     }
 
     public Integer getQuantity() {
@@ -66,19 +66,11 @@ public class Lote {
         this.quantity = quantity;
     }
 
-    public Supplier getSupplier() {
-        return supplier;
+    public String getLote_number() {
+        return lote_number;
     }
 
-    public void setSupplier(Supplier supplier) {
-        this.supplier = supplier;
-    }
-
-    public void updateProductStock() {
-        if (product != null && quantity != null) {
-            // Sumar la cantidad del lote al stock actual del producto
-            Integer newStock = product.getStock_actual() + quantity;
-            product.setStock_actual(newStock);
-        }
+    public void setLote_number(String lote_number) {
+        this.lote_number = lote_number;
     }
 }

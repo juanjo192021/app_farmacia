@@ -3,6 +3,7 @@ package com.app.farmacia_fameza.business;
 import android.content.Context;
 
 import com.app.farmacia_fameza.controller.cProduct;
+import com.app.farmacia_fameza.dto.ProductListDTO;
 import com.app.farmacia_fameza.models.Product;
 
 import java.util.List;
@@ -14,8 +15,12 @@ public class bProduct {
         CProduct=new cProduct(context);
     }
 
-    public List<Product> showProducts(){
+    public List<ProductListDTO> getProducts(){
         return CProduct.getProducts();
+    }
+
+    public Product getDetailProduct(int idProduct){
+        return CProduct.getDetailProduct(idProduct);
     }
 
     public boolean insertProduct(Product product){

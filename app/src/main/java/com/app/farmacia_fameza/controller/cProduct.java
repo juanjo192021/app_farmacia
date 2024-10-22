@@ -10,6 +10,7 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 
 import com.app.farmacia_fameza.dao.conexion;
+import com.app.farmacia_fameza.dto.ProductListDTO;
 import com.app.farmacia_fameza.models.Product;
 
 import java.util.ArrayList;
@@ -25,32 +26,26 @@ public class cProduct extends conexion {
     }
 
     @SuppressLint("Range")
-    public List<Product> getProducts() {
-        List<Product> productList = new ArrayList<>();
+    public List<ProductListDTO> getProducts() {
+        List<ProductListDTO> productList = new ArrayList<>();
         SQLiteDatabase database = this.getReadableDatabase();
         Cursor cursor = null;
 
         try {
-            // Consultar productos con su lote más reciente, obteniendo también la fecha de expiración
-            String query = "SELECT p.*, l.expiration_date " +
+            String query = "SELECT id, name, unit_price, stock " +
                     "FROM " + TABLE_PRODUCT + " p " +
-                    "LEFT JOIN " + TABLE_LOTE + " l ON p.id = l.product_id " +
-                    "ORDER BY l.expiration_date DESC"; // Obtenemos el lote más reciente
+                    "ORDER BY name ASC"; // Puedes ajustar el orden si es necesario
 
-            cursor = database.rawQuery(query, null); // No se utilizan LIMIT ni OFFSET
+            cursor = database.rawQuery(query, null);
 
             // Recorrer el cursor y agregar productos a la lista
             if (cursor.moveToFirst()) {
                 do {
-                    Product product = new Product();
+                    ProductListDTO product = new ProductListDTO();
                     product.setId(cursor.getInt(cursor.getColumnIndex("id")));
-                    product.setSku(cursor.getString(cursor.getColumnIndex("sku")));
                     product.setName(cursor.getString(cursor.getColumnIndex("name")));
-                    product.setDescription(cursor.getString(cursor.getColumnIndex("description")));
-                    product.setImage(cursor.getString(cursor.getColumnIndex("image")));
-                    product.setStock_actual(cursor.getInt(cursor.getColumnIndex("stock")));
                     product.setUnit_price(cursor.getDouble(cursor.getColumnIndex("unit_price")));
-                    product.setStatus(cursor.getInt(cursor.getColumnIndex("status")));
+                    product.setStock_actual(cursor.getInt(cursor.getColumnIndex("stock")));
 
                     productList.add(product);
                 } while (cursor.moveToNext());
@@ -69,6 +64,58 @@ public class cProduct extends conexion {
         return productList;
     }
 
+    @SuppressLint("Range")
+    public Product getDetailProduct(int productId) {
+        Product product = null;
+        SQLiteDatabase database = this.getReadableDatabase();
+        Cursor cursor = null;
+
+        try {
+            String query = "SELECT p.*, l.lote_number, l.expiration_date, c.name AS category_name, b.name AS brand_name " +
+                    "FROM " + TABLE_PRODUCT + " p " +
+                    "LEFT JOIN " + TABLE_LOTE + " l ON p.lote_id = l.id " +
+                    "LEFT JOIN " + TABLE_CATEGORY + " c ON p.category_id = c.id " +
+                    "LEFT JOIN " + TABLE_BRAND + " b ON p.brand_id = b.id " +
+                    "WHERE p.id = ?"; // Filtrar por ID
+
+            cursor = database.rawQuery(query, new String[]{String.valueOf(productId)});
+
+            // Si encontramos el producto
+            if (cursor.moveToFirst()) {
+                product = new Product();
+                product.setId(cursor.getInt(cursor.getColumnIndex("id")));
+                product.setSku(cursor.getString(cursor.getColumnIndex("sku")));
+                product.setName(cursor.getString(cursor.getColumnIndex("name")));
+                product.setDescription(cursor.getString(cursor.getColumnIndex("description")));
+                product.setImage(cursor.getString(cursor.getColumnIndex("image")));
+                product.setStock_actual(cursor.getInt(cursor.getColumnIndex("stock")));
+                product.setUnit_price(cursor.getDouble(cursor.getColumnIndex("unit_price")));
+                product.setStatus(cursor.getInt(cursor.getColumnIndex("status")));
+
+                // Agregamos los campos adicionales
+                String loteNumber = cursor.getString(cursor.getColumnIndex("lote_number")); // Número de lote
+                String expirationDate = cursor.getString(cursor.getColumnIndex("expiration_date")); // Fecha de expiración
+                String categoryName = cursor.getString(cursor.getColumnIndex("category_name")); // Nombre de la categoría
+                String brandName = cursor.getString(cursor.getColumnIndex("brand_name")); // Nombre de la marca
+
+                product.getLote().setLote_number(loteNumber);
+                product.getLote().setExpiration_date(expirationDate);
+                product.getCategory().setName(categoryName);
+                product.getBrand().setName(brandName);
+            }
+        } catch (Exception e) {
+            Log.e("Get Product Detail Error", "Error al obtener el producto: " + e.getMessage());
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            if (database != null && database.isOpen()) {
+                database.close();
+            }
+        }
+
+        return product;
+    }
 
     public boolean insertProduct(Product product) {
         // Abrir la base de datos para escritura

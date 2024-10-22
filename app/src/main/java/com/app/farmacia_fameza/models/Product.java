@@ -12,6 +12,7 @@ public class Product implements Serializable {
     private Double unit_price;
     private Brand brand;
     private Category category;
+    private Lote lote;
     private Integer status;
 
     public Product() {
@@ -24,10 +25,11 @@ public class Product implements Serializable {
         this.unit_price = 0.0;
         this.brand = new Brand();
         this.category = new Category();
+        this.lote = new Lote();
         this.status = 0;
     }
 
-    public Product(String sku, String name, String description, Integer id, String image, Integer stock_actual, Double unit_price, Brand brand, Category category, Integer status) {
+    public Product(String sku, String name, String description, Integer id, String image, Integer stock_actual, Double unit_price, Brand brand, Category category, Lote lote, Integer status) {
         this.sku = sku;
         this.name = name;
         this.description = description;
@@ -37,7 +39,24 @@ public class Product implements Serializable {
         this.unit_price = unit_price;
         this.brand = brand;
         this.category = category;
+        this.lote = lote;
         this.status = status;
+    }
+
+    public Brand getBrand() {
+        return brand;
+    }
+
+    public void setBrand(Brand brand) {
+        this.brand = brand;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public Integer getId() {
@@ -46,14 +65,6 @@ public class Product implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getDescription() {
@@ -72,12 +83,36 @@ public class Product implements Serializable {
         this.image = image;
     }
 
+    public Lote getLote() {
+        return lote;
+    }
+
+    public void setLote(Lote lote) {
+        this.lote = lote;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getSku() {
         return sku;
     }
 
     public void setSku(String sku) {
         this.sku = sku;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public Integer getStock_actual() {
@@ -94,29 +129,5 @@ public class Product implements Serializable {
 
     public void setUnit_price(Double unit_price) {
         this.unit_price = unit_price;
-    }
-
-    public Brand getBrand() {
-        return brand;
-    }
-
-    public void setBrand(Brand brand) {
-        this.brand = brand;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
     }
 }
