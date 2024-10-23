@@ -34,7 +34,27 @@
     <fragment
         android:id="@+id/productListFragment"
         android:name="com.app.farmacia_fameza.view.ProductListFragment"
-        android:label="@string/product_category_label"
+        android:label="@string/products_list_label"
         tools:layout="@layout/fragment_list_product" />
+    <fragment
+        android:id="@+id/categoryCrudFragment"
+        android:name="com.app.farmacia_fameza.CategoryCrudFragment"
+        android:label="@string/category_configuration"
+        tools:layout="@layout/fragment_category_crud" />
+    <fragment
+        android:id="@+id/brandCrudFragment"
+        android:name="com.app.farmacia_fameza.brandCrudFragment"
+        android:label="@string/brand_configuration"
+        tools:layout="@layout/fragment_brand_crud" />
+    <fragment
+        android:id="@+id/addProductFragment"
+        android:name="com.app.farmacia_fameza.addProductFragment"
+        android:label="@string/product_add"
+        tools:layout="@layout/fragment_add_product" />
+    <fragment
+        android:id="@+id/categoryListFragment"
+        android:name="com.app.farmacia_fameza.CategoryListFragment"
+        android:label="@string/category_list_configuration"
+        tools:layout="@layout/fragment_category_list" />
 
 </navigation>

@@ -17,8 +17,12 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="product_detail_label">Detalles del Producto</string>
-    <string name="product_category_label">Productos</string>
+    <string name="products_list_label">Productos</string>
+    <string name="category_configuration">Confgurar Categoria</string>
+    <string name="brand_configuration">Confgurar Marca</string>
+    <string name="product_add">Añadir Producto</string>
     <string name="login">Login</string>
     <string name="irRegister">¿No tiene una cuenta? Registrate</string>
+    <string name="category_list_configuration">Seleccionar Categoria</string>
 
 </resources>

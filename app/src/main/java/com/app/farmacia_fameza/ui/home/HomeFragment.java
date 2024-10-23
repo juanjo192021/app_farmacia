@@ -35,6 +35,15 @@ public class HomeFragment extends Fragment{
     private void loadProductListFragment() {
         ProductListFragment productListFragment = new ProductListFragment();
 
+        // Crear un nuevo Bundle
+        Bundle bundle = new Bundle();
+
+        // Agregar los datos que quieras pasar al fragmento
+        bundle.putBoolean("key_boolean", true);
+
+        // Establecer el Bundle en el fragmento
+        productListFragment.setArguments(bundle);
+
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.replace(R.id.productFrameLayout, productListFragment);  // ID de FragmentContainerView
         transaction.commit();
