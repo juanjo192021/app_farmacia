@@ -18,4 +18,15 @@
         android:icon="@drawable/plus_sign"
         android:title="Agregar Producto"
         app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/add_category"
+        android:icon="@drawable/plus_sign"
+        android:title="Agregar categoria"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/edit_category"
+        android:title="Editar categoria"
+        app:showAsAction="ifRoom" />
 </menu>

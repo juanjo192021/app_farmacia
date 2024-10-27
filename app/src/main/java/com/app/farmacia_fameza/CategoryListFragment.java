@@ -99,8 +99,17 @@ public class CategoryListFragment extends Fragment implements categoryListAdapte
             // Navegar al fragmento de detalles o a la lista de productos
             navController.navigate(R.id.productListFragment, bundle);
         }else{
+            // Si es el fragmento de CRUD de categorías
+            Bundle bundle = new Bundle();
+
+            // Agregar argumentos específicos para el CategoryCrudFragment
+            bundle.putString("nameCategory", category.getName());
+            bundle.putString("statusCategory", String.valueOf(category.getStatus()));
+            bundle.putString("quantityCategory", String.valueOf(category.getCount_Product()));
+            bundle.putBoolean("isEditFrame", true);
+
             NavController navController = Navigation.findNavController(v);
-            navController.navigate(R.id.categoryCrudFragment);
+            navController.navigate(R.id.categoryCrudFragment, bundle);
         }
 
     }

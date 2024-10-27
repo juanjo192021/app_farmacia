@@ -26,4 +26,8 @@ public class bCategory {
         return CCategory.getProductsByCategory(idCategory);
     }
 
+    public boolean addCategory(String name, int status){
+        return CCategory.addCategory(name, status);
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.app.farmacia_fameza.controller;
 
 import android.annotation.SuppressLint;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -103,5 +104,32 @@ public class cCategory extends conexion {
         }
 
         return productList;
+    }
+
+    public boolean addCategory(String name, int status) {
+        SQLiteDatabase database = this.getWritableDatabase();
+        boolean success = false;
+
+        try {
+            // Crear un ContentValues con los valores de la nueva categoría
+            ContentValues values = new ContentValues();
+            values.put("name", name);
+            values.put("status", status);
+
+            // Insertar la nueva categoría en la tabla de categorías
+            long result = database.insert(TABLE_CATEGORY, null, values);
+
+            // Si el resultado es -1, significa que la inserción falló
+            success = result != -1;
+
+        } catch (Exception e) {
+            Log.e("Add Category Error", "Error al agregar categoría: " + e.getMessage());
+        } finally {
+            if (database != null && database.isOpen()) {
+                database.close();
+            }
+        }
+
+        return success;
     }
 }

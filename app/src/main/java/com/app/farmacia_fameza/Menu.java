@@ -4,10 +4,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.app.farmacia_fameza.view.ProductListFragment;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -50,6 +52,11 @@ public class Menu extends AppCompatActivity {
         });
     }
 
+    public void handleCategoryButtonClick() {
+        // Lógica que deseas ejecutar cuando se hace clic en el botón
+        // Aquí puedes invocar cualquier función que necesites
+    }
+
     @Override
     public boolean onPrepareOptionsMenu(android.view.Menu menu) {
 
@@ -67,13 +74,26 @@ public class Menu extends AppCompatActivity {
                     .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM); // Muestra en la acción si hay espacio
         }
 
-        // Si estamos en el fragmento de categoría o marca, inflar el menú original
+        // Si estamos en el fragmento de categoría , inflar el menú original
         if (currentFragmentId == R.id.nav_category) {
-            menu.add(0, R.id.configurationCategory, 0, "Configurar Cateogoria")
+            menu.add(0, R.id.configurationCategory, 0, "Configurar Categoria")
                     .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER); // Muestra en la acción si hay espacio
         }
 
-        // Si estamos en el fragmento de categoría o marca, inflar el menú original
+        // Si estamos en el fragmento de categoría , inflar el menú original
+        if (currentFragmentId == R.id.categoryListFragment) {
+            menu.add(0, R.id.add_category, 0, "Agregar Categoria")
+                    .setIcon(R.drawable.plus_sign)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM); // Muestra en la acción si hay espacio
+        }
+
+        // Si estamos en el fragmento de crud categoria, inflar el menú original
+        if (currentFragmentId == R.id.categoryCrudFragment) {
+            menu.add(0, R.id.edit_category, 0, "Editar")
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM); // Muestra en la acción si hay espacio
+        }
+
+        // Si estamos en el fragmento de marca, inflar el menú original
         if (currentFragmentId == R.id.nav_brand) {
             menu.add(0, R.id.configurationBrand, 0, "Configurar Marca")
                     .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER); // Muestra en la acción si hay espacio
@@ -102,6 +122,20 @@ public class Menu extends AppCompatActivity {
             navController.navigate(R.id.categoryListFragment, bundle);
         }
 
+        if (id == R.id.add_category) {
+            Bundle args = new Bundle();
+            args.putBoolean("isEditMode", false);  // Indicador de modo "añadir"
+            NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_menu);
+            navController.navigate(R.id.categoryCrudFragment, args); // Reemplaza con el ID de tu nuevo fragmento
+        }
+
+        if (id == R.id.edit_category) {
+            Bundle args = new Bundle();
+            args.putBoolean("isEditMode", true);  // Indicador de modo "editar"
+            NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_menu);
+            navController.navigate(R.id.categoryCrudFragment, args); // Reemplaza con el ID de tu nuevo fragmento
+        }
+
         // Verificar si se hizo clic en el ítem "CRUD"
         if (id == R.id.configurationBrand) {
             // Navegar hacia la actividad o fragmento CRUD
@@ -115,6 +149,7 @@ public class Menu extends AppCompatActivity {
             navController.navigate(R.id.addProductFragment); // Reemplaza con el ID de tu nuevo fragmento
             return true;
         }
+
 
         return super.onOptionsItemSelected(item);
     }

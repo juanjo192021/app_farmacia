@@ -22,7 +22,6 @@ import com.app.farmacia_fameza.view.frmRegister;
 public class MainActivity extends AppCompatActivity {
 
     EditText txtEmail, txtPassword;
-    private Button buttonLogin;
     TextView Registrarse;
 
 
@@ -39,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
         txtEmail = findViewById(R.id.txtNombreUsuario);
         txtPassword = findViewById(R.id.txtContrasenia);
-        buttonLogin = findViewById(R.id.btnIniciarSesion);
+        Button buttonLogin = findViewById(R.id.btnIniciarSesion);
         TextView txtRegistrarse = findViewById(R.id.txtRegistrarse);
 
 
