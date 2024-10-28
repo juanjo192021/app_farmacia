@@ -132,4 +132,35 @@ public class cCategory extends conexion {
 
         return success;
     }
+
+    @SuppressLint("Range")
+    public List<String> getCategoryName() {
+        List<String> brandList = new ArrayList<>();
+        SQLiteDatabase database = this.getReadableDatabase();
+        Cursor cursor = null;
+
+        try {
+            String query = "SELECT name FROM " + TABLE_CATEGORY;
+            cursor = database.rawQuery(query, null);
+
+            // Recorrer el cursor y agregar marcas a la lista
+            if (cursor.moveToFirst()) {
+                do {
+                    String nameProduct = cursor.getString(cursor.getColumnIndex("name"));
+                    brandList.add(nameProduct);
+                } while (cursor.moveToNext());
+            }
+        } catch (Exception e) {
+            Log.e("Get Category Error", "Error al obtener categorias: " + e.getMessage());
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            if (database != null && database.isOpen()) {
+                database.close();
+            }
+        }
+
+        return brandList;
+    }
 }

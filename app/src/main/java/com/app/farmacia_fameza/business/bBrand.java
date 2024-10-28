@@ -1,6 +1,7 @@
 package com.app.farmacia_fameza.business;
 
 import android.content.Context;
+import android.widget.Spinner;
 
 import com.app.farmacia_fameza.dto.ItemListDTO;
 
@@ -25,5 +26,9 @@ public class bBrand {
 
     public List<ProductListDTO> getProductsByBrand(int idBrand){
         return CBrand.getProductsByBrand(idBrand);
+    }
+
+    public List<String> getBrandsName(){
+        return CBrand.getBrandsName();
     }
 }

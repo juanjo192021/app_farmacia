@@ -10,7 +10,9 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 
 import com.app.farmacia_fameza.dao.conexion;
+import com.app.farmacia_fameza.dto.ProductAddDTO;
 import com.app.farmacia_fameza.dto.ProductListDTO;
+import com.app.farmacia_fameza.models.Lote;
 import com.app.farmacia_fameza.models.Product;
 
 import java.util.ArrayList;
@@ -117,7 +119,41 @@ public class cProduct extends conexion {
         return product;
     }
 
-    public boolean insertProduct(Product product) {
+    public boolean insertProduct(ProductAddDTO productAddDTO){
+        SQLiteDatabase database = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        try{
+            values.put("sku", productAddDTO.getSku());
+            values.put("name", productAddDTO.getName());
+            values.put("description", productAddDTO.getDescription());
+            values.put("image", productAddDTO.getImage());
+            values.put("unit_price", productAddDTO.getUnit_price());
+            values.put("brand",productAddDTO.getBrand().getId());
+            values.put("category",productAddDTO.getCategory().getId());
+            values.put("stock", 0);
+            values.putNull("lote");
+            values.put("status", 1);
+
+            Log.d("Insert Product", "Datos:" + values);
+            long result = database.insert(TABLE_PRODUCT, null, values);
+            if (result == -1) {
+                Log.e("Insert Product", "Error al insertar el producto");
+                return false;
+            } else {
+                Log.d("Insert Product", "Producto insertado exitosamente con ID: " + result);
+                return true;
+            }
+        } catch (Exception e){
+            Log.e("Insert Product Error", "Error al insertar producto: " + e.getMessage());
+            return false;
+        } finally {
+            // Cerrar la base de datos después de usarla
+            if (database != null && database.isOpen()) {
+                database.close();
+            }
+        }
+    }
+    /*public boolean insertProduct(Product product) {
         // Abrir la base de datos para escritura
         SQLiteDatabase database = this.getWritableDatabase();
 
@@ -306,7 +342,5 @@ public class cProduct extends conexion {
                 database.close();
             }
         }
-    }
-
-
+    }*/
 }

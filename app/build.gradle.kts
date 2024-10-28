@@ -47,6 +47,10 @@ dependencies {
     // define any required OkHttp artifacts without version
     implementation("com.squareup.okhttp3:okhttp")
     implementation("com.squareup.okhttp3:logging-interceptor")
+
+    implementation ("androidx.appcompat:appcompat:1.4.1") // Verifica si hay una versión más reciente
+    implementation ("com.google.android.material:material:1.4.0")// Si usas Material Design
+
     implementation(libs.lifecycle.livedata.ktx)
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.navigation.fragment)

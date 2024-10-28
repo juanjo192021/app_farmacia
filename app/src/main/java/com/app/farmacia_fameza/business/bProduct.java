@@ -3,6 +3,7 @@ package com.app.farmacia_fameza.business;
 import android.content.Context;
 
 import com.app.farmacia_fameza.controller.cProduct;
+import com.app.farmacia_fameza.dto.ProductAddDTO;
 import com.app.farmacia_fameza.dto.ProductListDTO;
 import com.app.farmacia_fameza.models.Product;
 
@@ -23,7 +24,10 @@ public class bProduct {
         return CProduct.getDetailProduct(idProduct);
     }
 
-    public boolean insertProduct(Product product){
+    public boolean insertProduct(ProductAddDTO product){
+        return CProduct.insertProduct(product);
+    }
+    /*public boolean insertProduct(Product product){
         return CProduct.insertProduct(product);
     }
 
@@ -37,5 +41,5 @@ public class bProduct {
 
     public boolean deleteProduct(int idProduct){
         return CProduct.deleteProduct(idProduct);
-    }
+    }*/
 }

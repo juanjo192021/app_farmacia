@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import androidx.annotation.Nullable;
 
@@ -61,6 +63,37 @@ public class cBrand extends conexion {
         }
 
         return categoryList;
+    }
+
+    @SuppressLint("Range")
+    public List<String> getBrandsName() {
+        List<String> brandList = new ArrayList<>();
+        SQLiteDatabase database = this.getReadableDatabase();
+        Cursor cursor = null;
+
+        try {
+            String query = "SELECT name FROM " + TABLE_BRAND;
+            cursor = database.rawQuery(query, null);
+
+            // Recorrer el cursor y agregar marcas a la lista
+            if (cursor.moveToFirst()) {
+                do {
+                    String nameProduct = cursor.getString(cursor.getColumnIndex("name"));
+                    brandList.add(nameProduct);
+                } while (cursor.moveToNext());
+            }
+        } catch (Exception e) {
+            Log.e("Get Brands Error", "Error al obtener marcas: " + e.getMessage());
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            if (database != null && database.isOpen()) {
+                database.close();
+            }
+        }
+
+        return brandList;
     }
 
     @SuppressLint("Range")

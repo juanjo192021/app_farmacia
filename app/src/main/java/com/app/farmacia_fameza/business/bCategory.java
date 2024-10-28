@@ -30,4 +30,7 @@ public class bCategory {
         return CCategory.addCategory(name, status);
     }
 
+    public List<String> getCategoryName(){
+        return CCategory.getCategoryName();
+    }
 }
