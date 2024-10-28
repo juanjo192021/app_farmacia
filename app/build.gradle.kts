@@ -39,12 +39,13 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
-    // define a BOM and its version
 
-    // define any required OkHttp artifacts without version
-
+    // Implementacion Spinner
     implementation ("androidx.appcompat:appcompat:1.4.1") // Verifica si hay una versión más reciente
     implementation ("com.google.android.material:material:1.4.0")// Si usas Material Design
+
+    //Implementacion Carga de Imagenes
+    implementation ("com.squareup.picasso:picasso:2.8")
 
     implementation(libs.lifecycle.livedata.ktx)
     implementation(libs.lifecycle.viewmodel.ktx)

@@ -145,7 +145,7 @@ public class addProductFragment extends Fragment{
         }
     }
 
-    private ProductAddDTO completeDataProduct(){
+    private ProductAddDTO completeDataProduct() {
         ProductAddDTO product = new ProductAddDTO();
         String n = nameProduct.getText().toString();
         String s = skuProduct.getText().toString();

@@ -8,9 +8,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.app.farmacia_fameza.models.Product;
+import com.squareup.picasso.Picasso;
 
 
 public class ProductDetailFragment extends Fragment {
@@ -46,9 +48,9 @@ public class ProductDetailFragment extends Fragment {
         TextView productDescriptionTextView = root.findViewById(R.id.productDescriptionTextView);
         TextView productStockTextView = root.findViewById(R.id.productStockTextView);
         TextView productPriceTextView = root.findViewById(R.id.productPriceTextView);
-        //TextView productImageTextView = root.findViewById(R.id.productImageView);
         TextView productBrandTextView = root.findViewById(R.id.productBrandTextView);
         TextView productCategoryTextView = root.findViewById(R.id.productCategoryTextView);
+        ImageView imageDetailProduct = root.findViewById(R.id.productImageView);
 
         // Muestra los detalles del producto
         if (product != null) {
@@ -56,10 +58,9 @@ public class ProductDetailFragment extends Fragment {
             productDescriptionTextView.setText(product.getDescription());
             productStockTextView.setText(String.valueOf(product.getStock_actual()));
             productPriceTextView.setText(String.valueOf(product.getUnit_price()));
-            //productImageTextView.setText(product.getImage());
             productBrandTextView.setText(String.valueOf(product.getBrand().getName()));
             productCategoryTextView.setText(String.valueOf(product.getCategory().getName()));
-
+            Picasso.get().load(product.getImage()).into(imageDetailProduct);
         }
 
         return root;
