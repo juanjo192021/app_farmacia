@@ -112,6 +112,8 @@ public class addProductFragment extends Fragment{
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_product, container, false);
 
+        context = requireActivity();
+
         nameProduct = view.findViewById(R.id.txtRegisterNombre);
         skuProduct = view.findViewById(R.id.txtRegisterSKU);
         descriptionProduct = view.findViewById(R.id.txtRegisterDescription);
@@ -127,20 +129,18 @@ public class addProductFragment extends Fragment{
 
         buttonAddProduct.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                // Colocar el proceso de agregar
-            }
+            public void onClick(View v) { saveProduct();}
         });
-        // Inflate the layout for this fragment
         return view;
     }
 
-    /*private void saveProduct(){
+    private void saveProduct(){
         ProductAddDTO product = completeDataProduct();
         if(id == 0){
             bProduct.insertProduct(product);
             Toast.makeText(context, "Guardar OK", Toast.LENGTH_LONG).show();
         }else{
+            bProduct.updateProduct(product);
             Toast.makeText(context, "Actualizado OK", Toast.LENGTH_LONG).show();
         }
     }
@@ -154,7 +154,6 @@ public class addProductFragment extends Fragment{
         String b = brandProduct.getSelectedItem().toString();
         String c = categoryProduct.getSelectedItem().toString();
         String i = imageProduct.getText().toString();
-
         product.setName(n);
         product.setSku(s);
         product.setDescription(d);
@@ -163,5 +162,5 @@ public class addProductFragment extends Fragment{
         product.setCategory(c);
         product.setImage(i);
         return product;
-    }*/
+    }
 }

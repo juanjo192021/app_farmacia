@@ -27,6 +27,12 @@ public class bProduct {
     public boolean insertProduct(ProductAddDTO product){
         return CProduct.insertProduct(product);
     }
+
+    public boolean updateProduct(ProductAddDTO product){
+        return CProduct.updateProduct(product);
+    }
+
+    public Integer getIDProduct(String nameSKU){return CProduct.getIDProduct(nameSKU);}
     /*public boolean insertProduct(Product product){
         return CProduct.insertProduct(product);
     }

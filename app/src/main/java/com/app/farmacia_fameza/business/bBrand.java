@@ -31,4 +31,6 @@ public class bBrand {
     public List<String> getBrandsName(){
         return CBrand.getBrandsName();
     }
+
+    public Integer getIDBrand(String nameBrand){return CBrand.getIDBrand(nameBrand);}
 }

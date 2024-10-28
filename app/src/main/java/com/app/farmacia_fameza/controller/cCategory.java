@@ -163,4 +163,29 @@ public class cCategory extends conexion {
 
         return brandList;
     }
+
+    public Integer getIDCategory(String nameCategory){
+        Integer categoryId = null;
+        SQLiteDatabase database = this.getReadableDatabase();
+        Cursor cursor = null;
+
+        try {
+            String query = "SELECT id FROM " + TABLE_CATEGORY + " WHERE name = ?";
+            cursor = database.rawQuery(query, new String[]{nameCategory});
+
+            if (cursor.moveToFirst()) {
+                categoryId = cursor.getInt(0);
+            }
+        } catch (Exception e) {
+            Log.e("Get Category ID Error", "Error al obtener ID del category: " + e.getMessage());
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            if (database != null && database.isOpen()) {
+                database.close();
+            }
+        }
+        return categoryId;
+    }
 }

@@ -134,4 +134,30 @@ public class cBrand extends conexion {
 
         return productList;
     }
+
+    public Integer getIDBrand(String nameBrand) {
+        Integer brandId = null;
+        SQLiteDatabase database = this.getReadableDatabase();
+        Cursor cursor = null;
+
+        try {
+            String query = "SELECT id FROM " + TABLE_BRAND + " WHERE name = ?";
+            cursor = database.rawQuery(query, new String[]{nameBrand});
+
+            if (cursor.moveToFirst()) {
+                brandId = cursor.getInt(0);
+            }
+        } catch (Exception e) {
+            Log.e("Get Brand ID Error", "Error al obtener ID del brand: " + e.getMessage());
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            if (database != null && database.isOpen()) {
+                database.close();
+            }
+        }
+        return brandId;
+    }
+
 }

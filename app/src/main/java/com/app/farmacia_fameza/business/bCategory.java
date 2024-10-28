@@ -33,4 +33,6 @@ public class bCategory {
     public List<String> getCategoryName(){
         return CCategory.getCategoryName();
     }
+
+    public Integer getIDCategory(String nameCategory){return CCategory.getIDCategory(nameCategory);}
 }
