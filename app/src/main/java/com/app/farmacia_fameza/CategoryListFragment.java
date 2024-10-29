@@ -139,7 +139,6 @@ public class CategoryListFragment extends Fragment implements categoryListAdapte
         });
         bottomSheetDialog.setContentView(bottomSheetView);
         bottomSheetDialog.show();
-
     }
 
     @Override

@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 
 public class conexion extends SQLiteOpenHelper {
     private static final String DB_NAME = "Farmacia.db";
-    private static final int DB_VERSION = 4;
+    private static final int DB_VERSION = 5;
 
     // Table Names
     public static final String TABLE_BRAND = "Brand";
@@ -167,10 +167,10 @@ public class conexion extends SQLiteOpenHelper {
 
         // Insert data into Product table
         db.execSQL("INSERT INTO " + TABLE_PRODUCT + " (sku, name, description, image, stock, unit_price, brand_id, category_id, lote_id, status) VALUES " +
-                "('SKU001', 'Paracetamol 500mg', 'Alivio del dolor y reducción de fiebre.', 'paracetamol.jpg', 100, 5.99, 1, 1, 1, 1), " +
-                "('SKU002', 'Amoxicilina 500mg', 'Antibiótico para infecciones bacterianas.', 'amoxicilina.jpg', 50, 12.49, 2, 2, 2, 1), " +
-                "('SKU003', 'Vitamina C 1000mg', 'Suplemento de vitamina C para el sistema inmunológico.', 'vitamina_c.jpg', 200, 8.99, 3, 3, 3, 1), " +
-                "('SKU004', 'Loratadina 10mg', 'Antihistamínico para aliviar alergias.', 'loratadina.jpg', 80, 4.99, 4, 4, 1, 1)");
+                "('SKU001', 'Paracetamol 500mg', 'Alivio del dolor y reducción de fiebre.', 'https://res.cloudinary.com/dwx7qadjn/image/upload/v1730146398/Farmacia/Paracetamol_w0lzpq.png', 100, 5.99, 1, 1, 1, 1), " +
+                "('SKU002', 'Amoxicilina 500mg', 'Antibiótico para infecciones bacterianas.', 'https://res.cloudinary.com/dwx7qadjn/image/upload/v1730144177/Farmacia/Amoxicilina_uwibjr.png', 50, 12.49, 2, 2, 2, 1), " +
+                "('SKU003', 'Vitamina C 1000mg', 'Suplemento de vitamina C para el sistema inmunológico.', 'https://res.cloudinary.com/dwx7qadjn/image/upload/v1730238645/Farmacia/VitaminaC_oalopf.png', 200, 8.99, 3, 3, 3, 1), " +
+                "('SKU004', 'Loratadina 10mg', 'Antihistamínico para aliviar alergias.', 'https://res.cloudinary.com/dwx7qadjn/image/upload/v1730238706/Farmacia/Loratadina_grxdca.jpg', 80, 4.99, 4, 4, 1, 1)");
 
         // Insert data into User table
         db.execSQL("INSERT INTO " + TABLE_USER + " (first_name, last_name, email, password, date_birth, cell_phone, role_id, status) VALUES " +

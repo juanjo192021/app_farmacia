@@ -16,6 +16,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.app.farmacia_fameza.ProductDetailFragment;
 import com.app.farmacia_fameza.R;
@@ -24,6 +26,9 @@ import com.app.farmacia_fameza.business.bProduct;
 import com.app.farmacia_fameza.databinding.FragmentListProductBinding;
 import com.app.farmacia_fameza.dto.ProductListDTO;
 import com.app.farmacia_fameza.models.Product;
+import com.bumptech.glide.Glide;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.io.Serializable;
 import java.util.List;
@@ -99,17 +104,58 @@ public class ProductListFragment extends Fragment implements productListAdapter.
 
     public void onProductClick(ProductListDTO productDTO, View v) {
 
+        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(
+                getActivity(), R.style.BottomSheetDialogTheme
+        );
+        View bottomSheetView = LayoutInflater.from(getActivity().getApplicationContext())
+                .inflate(
+                        R.layout.modal_editproduct,
+                        (LinearLayout) getView().findViewById(R.id.bottomLayoutEditProduct)
+                );
+
         Product product = BProduct.getDetailProduct(productDTO.getId());
+        TextView modalNameProduct = bottomSheetView.findViewById(R.id.txtModalNameProduct);
+        TextView modalDescriptionProduct = bottomSheetView.findViewById(R.id.txtModalEditDescription);
+        TextView modalPriceProduct = bottomSheetView.findViewById(R.id.txtModalEditPrice);
+        TextView modalBrandProduct = bottomSheetView.findViewById(R.id.txtModalEditBrand);
+        TextView modalCategoryProduct = bottomSheetView.findViewById(R.id.txtModalEditCategory);
+        TextView modalStatusProduct = bottomSheetView.findViewById(R.id.txtModalEditStatus);
+        TextView modalStockProduct = bottomSheetView.findViewById(R.id.txtModalEditStock);
 
-        // Obtener el NavController
-        NavController navController = Navigation.findNavController(v);
+        modalNameProduct.setText(product.getName());
+        modalDescriptionProduct.setText(product.getDescription());
+        modalPriceProduct.setText(product.getUnit_price().toString());
+        modalBrandProduct.setText(product.getBrand().getName());
+        modalCategoryProduct.setText(product.getCategory().getName());
+        modalStockProduct.setText(product.getStock_actual().toString());
 
-        // Crear un Bundle para pasar el producto
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(ProductDetailFragment.ARG_PRODUCT, (Serializable) product);
+        if(product.getStatus() == 1){
+            modalStatusProduct.setText("Activo");
+        }else{
+            modalStatusProduct.setText("Inactivo");
+        }
 
-        // Navegar al fragmento de detalles
-        navController.navigate(R.id.productDetailFragment, bundle);
+        RoundedImageView imageModalEditProduct = bottomSheetView.findViewById(R.id.imageModalEditProduct);
+        String imageUrl = product.getImage();
+
+        Glide.with(this)
+                .load(imageUrl)
+                //.placeholder(R.drawable.botonedit)
+                //.error(R.drawable.error_image)
+                .into(imageModalEditProduct);
+
+        bottomSheetView.findViewById(R.id.btnModalEditProduct).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(ProductDetailFragment.ARG_PRODUCT, (Serializable) product);
+                NavController navController = Navigation.findNavController(v);
+                navController.navigate(R.id.productDetailFragment, bundle);
+                bottomSheetDialog.dismiss();
+            }
+        });
+        bottomSheetDialog.setContentView(bottomSheetView);
+        bottomSheetDialog.show();
     }
 
     @Override

@@ -44,8 +44,14 @@ dependencies {
     implementation ("androidx.appcompat:appcompat:1.4.1") // Verifica si hay una versión más reciente
     implementation ("com.google.android.material:material:1.4.0")// Si usas Material Design
 
+    implementation ("com.makeramen:roundedimageview:2.3.0")
+
+    implementation ("com.github.bumptech.glide:glide:4.12.0")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")
+
     //Implementacion Carga de Imagenes
     implementation ("com.squareup.picasso:picasso:2.8")
+
 
     implementation(libs.lifecycle.livedata.ktx)
     implementation(libs.lifecycle.viewmodel.ktx)
