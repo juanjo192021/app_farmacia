@@ -30,13 +30,16 @@ public class cBrand extends conexion {
 
     @SuppressLint("Range")
     public List<ItemListDTO> getBrands() {
-        List<ItemListDTO> categoryList = new ArrayList<>();
+        List<ItemListDTO> brandList = new ArrayList<>();
         SQLiteDatabase database = this.getReadableDatabase();
         Cursor cursor = null;
 
         try {
-            String query = "SELECT b.*" +
-                    "FROM " + TABLE_BRAND + " b ";
+            String query = "SELECT b.id, b.name, b.status, COUNT(p.id) AS product_count " +
+                    "FROM " + TABLE_BRAND + " b " +
+                    "LEFT JOIN " + TABLE_PRODUCT + " p ON b.id = p.brand_id " +
+                    "GROUP BY b.id, b.name, b.status " +
+                    "ORDER BY b.name;";
 
             cursor = database.rawQuery(query, null);
 
@@ -46,9 +49,15 @@ public class cBrand extends conexion {
                     ItemListDTO itemListDTO = new ItemListDTO();
                     itemListDTO.setId(cursor.getInt(cursor.getColumnIndex("id")));
                     itemListDTO.setName(cursor.getString(cursor.getColumnIndex("name")));
-                    itemListDTO.setStatus(cursor.getInt(cursor.getColumnIndex("status")));
 
-                    categoryList.add(itemListDTO);
+                    // Convertir status de 1/0 a "Activo"/"Inactivo"
+                    int statusValue = cursor.getInt(cursor.getColumnIndex("status"));
+                    String status = (statusValue == 1) ? "Activo" : "Inactivo";
+                    itemListDTO.setStatus(status);  // Usa este campo en lugar de `status`
+
+                    itemListDTO.setCount_Product(cursor.getInt(cursor.getColumnIndex("product_count")));
+
+                    brandList.add(itemListDTO);
                 } while (cursor.moveToNext());
             }
         } catch (Exception e) {
@@ -62,8 +71,9 @@ public class cBrand extends conexion {
             }
         }
 
-        return categoryList;
+        return brandList;
     }
+
 
     @SuppressLint("Range")
     public List<String> getBrandsName() {

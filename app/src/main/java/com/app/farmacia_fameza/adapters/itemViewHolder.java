@@ -31,7 +31,7 @@ public class itemViewHolder extends RecyclerView.ViewHolder{
     public void bindData(ItemListDTO item) {
         name.setText(item.getName());
         quantity.setText(String.valueOf(item.getCount_Product()));
-        status.setText(String.valueOf(item.getStatus()));
+        status.setText(item.getStatus());
     }
 
 }

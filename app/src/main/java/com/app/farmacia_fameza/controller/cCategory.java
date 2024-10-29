@@ -47,7 +47,12 @@ public class cCategory extends conexion {
                     ItemListDTO itemListDTO = new ItemListDTO();
                     itemListDTO.setId(cursor.getInt(cursor.getColumnIndex("id")));
                     itemListDTO.setName(cursor.getString(cursor.getColumnIndex("name")));
-                    itemListDTO.setStatus(cursor.getInt(cursor.getColumnIndex("status")));
+
+                    // Convertir status de 1/0 a "Activo"/"Inactivo"
+                    int statusValue = cursor.getInt(cursor.getColumnIndex("status"));
+                    String status = (statusValue == 1) ? "Activo" : "Inactivo";
+                    itemListDTO.setStatus(status);  // Usa este campo en lugar de `status`
+
                     itemListDTO.setCount_Product(cursor.getInt(cursor.getColumnIndex("product_count")));
 
                     categoryList.add(itemListDTO);

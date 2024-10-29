@@ -4,21 +4,21 @@ public class ItemListDTO {
 
     private Integer id;
     private String name;
-    private Integer status;
+    private String status;
     private Integer count_Product;
 
     public ItemListDTO() {
         this.id = 0;
-        this.count_Product = 0;
-        this.status = 0;
         this.name = "name";
+        this.status = "status";
+        this.count_Product = 0;
     }
 
-    public ItemListDTO(Integer id, Integer count_Product, String name, Integer status) {
+    public ItemListDTO(Integer id, String name, String status, Integer count_Product) {
         this.id = id;
-        this.count_Product = count_Product;
         this.name = name;
         this.status = status;
+        this.count_Product = count_Product;
     }
 
     public Integer getId() {
@@ -45,11 +45,11 @@ public class ItemListDTO {
         this.name = name;
     }
 
-    public Integer getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 }

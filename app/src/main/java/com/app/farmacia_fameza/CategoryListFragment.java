@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.app.farmacia_fameza.adapters.categoryListAdapter;
 import com.app.farmacia_fameza.business.bCategory;
@@ -92,6 +93,15 @@ public class CategoryListFragment extends Fragment implements categoryListAdapte
                         R.layout.modal_layout,
                         (LinearLayout) getView().findViewById(R.id.bottomLayoutModal)
                 );
+
+        TextView modalCategoryName = bottomSheetView.findViewById(R.id.txtNameCategoryModal);
+        TextView modalCategoryStatus = bottomSheetView.findViewById(R.id.txtStatusCategoryModal);
+        TextView modalCategoryCountProduct = bottomSheetView.findViewById(R.id.txtCountProductCategoryModal);
+
+        modalCategoryName.setText(category.getName());
+        modalCategoryStatus.setText(category.getStatus());
+        modalCategoryCountProduct.setText(String.valueOf(category.getCount_Product()));
+
         bottomSheetView.findViewById(R.id.btnEditOfCategory).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -101,7 +111,7 @@ public class CategoryListFragment extends Fragment implements categoryListAdapte
                 // Agregar argumentos específicos para el CategoryCrudFragment
                 bundle.putInt("idCategory", category.getId());
                 bundle.putString("nameCategory", category.getName());
-                bundle.putString("statusCategory", String.valueOf(category.getStatus()));
+                bundle.putString("statusCategory", category.getStatus());
                 bundle.putString("quantityCategory", String.valueOf(category.getCount_Product()));
                 bundle.putBoolean("isEditFrame", true);
 
