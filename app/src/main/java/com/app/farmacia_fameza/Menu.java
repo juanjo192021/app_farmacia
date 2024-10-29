@@ -74,24 +74,12 @@ public class Menu extends AppCompatActivity {
                     .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM); // Muestra en la acción si hay espacio
         }
 
-        // Si estamos en el fragmento de categoría , inflar el menú original
-        if (currentFragmentId == R.id.nav_category) {
-            menu.add(0, R.id.configurationCategory, 0, "Configurar Categoria")
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER); // Muestra en la acción si hay espacio
-        }
 
         // Si estamos en el fragmento de categoría , inflar el menú original
-        if (currentFragmentId == R.id.categoryListFragment) {
+        if (currentFragmentId == R.id.nav_category) {
             menu.add(0, R.id.add_category, 0, "Agregar Categoria")
                     .setIcon(R.drawable.plus_sign)
                     .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM); // Muestra en la acción si hay espacio
-        }
-
-
-        // Si estamos en el fragmento de marca, inflar el menú original
-        if (currentFragmentId == R.id.nav_brand) {
-            menu.add(0, R.id.configurationBrand, 0, "Configurar Marca")
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER); // Muestra en la acción si hay espacio
         }
 
         return super.onPrepareOptionsMenu(menu);
@@ -107,22 +95,6 @@ public class Menu extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
-        // Verificar si se hizo clic en el ítem "CRUD"
-        if (id == R.id.configurationCategory) {
-            // Navegar hacia la actividad o fragmento CRUD
-            Bundle bundle = new Bundle();
-            bundle.putBoolean("key_boolean", false);
-            NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_menu);
-            navController.navigate(R.id.categoryListFragment, bundle);
-        }
-
-        // Verificar si se hizo clic en el ítem "CRUD"
-        if (id == R.id.configurationBrand) {
-            // Navegar hacia la actividad o fragmento CRUD
-            NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_menu);
-            navController.navigate(R.id.brandCrudFragment);
-        }
 
         if (id == R.id.add_category) {
             Bundle args = new Bundle();

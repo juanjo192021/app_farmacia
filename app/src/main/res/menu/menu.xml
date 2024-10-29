@@ -1,17 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item
-        android:id="@+id/configurationCategory"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
-
-    <item
-        android:id="@+id/configurationBrand"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
 
     <item
         android:id="@+id/add_product"
@@ -19,10 +8,6 @@
         android:title="Agregar Producto"
         app:showAsAction="ifRoom" />
 
-    <item
-        android:id="@+id/edit_product"
-        android:title="Editar Producto"
-        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/add_category"
@@ -30,8 +15,4 @@
         android:title="Agregar categoria"
         app:showAsAction="ifRoom" />
 
-    <item
-        android:id="@+id/edit_category"
-        android:title="Editar categoria"
-        app:showAsAction="ifRoom" />
 </menu>

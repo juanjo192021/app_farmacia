@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import com.app.farmacia_fameza.adapters.categoryListAdapter;
 import com.app.farmacia_fameza.business.bCategory;
@@ -24,6 +25,7 @@ import com.app.farmacia_fameza.dto.ItemListDTO;
 import com.app.farmacia_fameza.dto.ProductListDTO;
 import com.app.farmacia_fameza.models.Product;
 import com.app.farmacia_fameza.view.ProductListFragment;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.io.Serializable;
 import java.util.List;
@@ -82,36 +84,51 @@ public class CategoryListFragment extends Fragment implements categoryListAdapte
     @Override
     public void onCategoryClick(ItemListDTO category, View v) {
 
-        boolean isProductListFragment = true;
-        if (getArguments() != null) {
-            isProductListFragment = getArguments().getBoolean("key_boolean", true); // false es el valor por defecto
-        }
-        if (isProductListFragment) {
-            List<ProductListDTO> products = BCategory.getProductsByCategory(category.getId());
+        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(
+                getActivity(), R.style.BottomSheetDialogTheme
+        );
+        View bottomSheetView = LayoutInflater.from(getActivity().getApplicationContext())
+                .inflate(
+                        R.layout.modal_layout,
+                        (LinearLayout) getView().findViewById(R.id.bottomLayoutModal)
+                );
+        bottomSheetView.findViewById(R.id.btnEditOfCategory).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Si es el fragmento de CRUD de categorías
+                Bundle bundle = new Bundle();
 
-            // Obtener el NavController
-            NavController navController = Navigation.findNavController(v);
+                // Agregar argumentos específicos para el CategoryCrudFragment
+                bundle.putInt("idCategory", category.getId());
+                bundle.putString("nameCategory", category.getName());
+                bundle.putString("statusCategory", String.valueOf(category.getStatus()));
+                bundle.putString("quantityCategory", String.valueOf(category.getCount_Product()));
+                bundle.putBoolean("isEditFrame", true);
 
-            // Crear un Bundle para pasar la lista de productos
-            Bundle bundle = new Bundle();
-            bundle.putSerializable(ProductListFragment.ARG_PRODUCT_LIST, (Serializable) products);
+                NavController navController = Navigation.findNavController(v);
+                navController.navigate(R.id.categoryCrudFragment, bundle);
+                bottomSheetDialog.dismiss();
+            }
+        });
+        bottomSheetView.findViewById(R.id.btnListProductOfCategory).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<ProductListDTO> products = BCategory.getProductsByCategory(category.getId());
 
-            // Navegar al fragmento de detalles o a la lista de productos
-            navController.navigate(R.id.productListFragment, bundle);
-        }else{
-            // Si es el fragmento de CRUD de categorías
-            Bundle bundle = new Bundle();
+                // Obtener el NavController
+                NavController navController = Navigation.findNavController(v);
 
-            // Agregar argumentos específicos para el CategoryCrudFragment
-            bundle.putInt("idCategory", category.getId());
-            bundle.putString("nameCategory", category.getName());
-            bundle.putString("statusCategory", String.valueOf(category.getStatus()));
-            bundle.putString("quantityCategory", String.valueOf(category.getCount_Product()));
-            bundle.putBoolean("isEditFrame", true);
+                // Crear un Bundle para pasar la lista de productos
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(ProductListFragment.ARG_PRODUCT_LIST, (Serializable) products);
 
-            NavController navController = Navigation.findNavController(v);
-            navController.navigate(R.id.categoryCrudFragment, bundle);
-        }
+                // Navegar al fragmento de detalles o a la lista de productos
+                navController.navigate(R.id.productListFragment, bundle);
+                bottomSheetDialog.dismiss();
+            }
+        });
+        bottomSheetDialog.setContentView(bottomSheetView);
+        bottomSheetDialog.show();
 
     }
 
