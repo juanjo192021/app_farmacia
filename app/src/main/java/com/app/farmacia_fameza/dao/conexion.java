@@ -174,7 +174,7 @@ public class conexion extends SQLiteOpenHelper {
 
         // Insert data into User table
         db.execSQL("INSERT INTO " + TABLE_USER + " (first_name, last_name, email, password, date_birth, cell_phone, role_id, status) VALUES " +
-                "('Ana', 'Gonzalez', 'ana.gonzalez@example.com', 'password123', '1990-03-15', '800-456-789', 1, 1), " +
+                "('Ana', 'Gonzalez', 'ana.gonzalez@example.com', 'password123', '1990-03-15', '1990-456-789', 1, 1), " +
                 "('Luis', 'Martinez', 'luis.martinez@example.com', 'password123', '1985-07-22', '800-654-321', 2, 1), " +
                 "('Carla', 'Lopez', 'carla.lopez@example.com', 'password123', '1992-11-01', '800-321-987', 3, 1)");
 
@@ -201,7 +201,6 @@ public class conexion extends SQLiteOpenHelper {
                 "(1, 1, 5), " +
                 "(1, 2, 2), " +
                 "(2, 3, 3)");
-
     }
 
     @Override

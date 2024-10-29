@@ -103,6 +103,7 @@ public class CategoryListFragment extends Fragment implements categoryListAdapte
             Bundle bundle = new Bundle();
 
             // Agregar argumentos específicos para el CategoryCrudFragment
+            bundle.putInt("idCategory", category.getId());
             bundle.putString("nameCategory", category.getName());
             bundle.putString("statusCategory", String.valueOf(category.getStatus()));
             bundle.putString("quantityCategory", String.valueOf(category.getCount_Product()));

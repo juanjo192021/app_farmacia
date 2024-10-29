@@ -20,6 +20,11 @@
         app:showAsAction="ifRoom" />
 
     <item
+        android:id="@+id/edit_product"
+        android:title="Editar Producto"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/add_category"
         android:icon="@drawable/plus_sign"
         android:title="Agregar categoria"

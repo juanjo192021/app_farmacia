@@ -34,5 +34,8 @@ public class bCategory {
         return CCategory.getCategoryName();
     }
 
-    public Integer getIDCategory(String nameCategory){return CCategory.getIDCategory(nameCategory);}
+    public boolean editCategory(int id, String name, int status){
+        return CCategory.editCategory(id, name, status);
+    }
+
 }

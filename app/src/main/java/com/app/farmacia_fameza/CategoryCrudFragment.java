@@ -19,16 +19,16 @@ import com.app.farmacia_fameza.business.bCategory;
 public class CategoryCrudFragment extends Fragment {
 
     private bCategory Bcategory;
+    private static final String ARG_ID = "idCategory";
     private static final String ARG_NAME = "nameCategory";
     private static final String ARG_STATUS = "statusCategory";
     private static final String ARG_QUANTITY = "quantityCategory";
-    private static final String ARG_IS_EDIT_MODE = "isEditMode";
     private static final String ARG_IS_EDIT_FRAME = "isEditFrame";
 
+    private int idCategory;
     private String nameCategory;
     private String statusCategory;
     private String quantityCategory;
-    private boolean isEditMode;
     private boolean isEditFrame;
 
     private EditText nameCategoryTV, statusCategoryTV;
@@ -39,11 +39,11 @@ public class CategoryCrudFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
+            idCategory = getArguments().getInt(ARG_ID);
             nameCategory = getArguments().getString(ARG_NAME);
             statusCategory = getArguments().getString(ARG_STATUS);
             quantityCategory = getArguments().getString(ARG_QUANTITY);
             isEditFrame = getArguments().getBoolean(ARG_IS_EDIT_FRAME, false);
-            isEditMode = getArguments().getBoolean(ARG_IS_EDIT_MODE, false);
         }
     }
 
@@ -61,7 +61,7 @@ public class CategoryCrudFragment extends Fragment {
         quantityCategoryTV = view.findViewById(R.id.quantityTextViewC);
 
         // Configuración de vistas en función del modo (agregar o editar)
-        if (isEditMode || isEditFrame) {
+        if (isEditFrame) {
             setupEditMode();
         } else {
             setupAddMode();
@@ -89,22 +89,16 @@ public class CategoryCrudFragment extends Fragment {
         }
 
         buttonAddCategory.setText("Editar");
-        buttonAddCategory.setVisibility(View.INVISIBLE);
 
-        if(!isEditFrame){
-            Log.d("comprobar", "Nuevo texto para nameCategoryTV: " + nameCategory);
-            // Configura el enfoque y muestra el teclado
-            buttonAddCategory.setVisibility(View.VISIBLE);
-            nameCategoryTV.requestFocus();
-            nameCategoryTV.setFocusableInTouchMode(true);
+        // Configura el enfoque y muestra el teclado
+        nameCategoryTV.requestFocus();
+        nameCategoryTV.setFocusableInTouchMode(true);
 
-            showKeyboard(nameCategoryTV);
-        }
+        showKeyboard(nameCategoryTV);
     }
 
     private void setupAddMode() {
         buttonAddCategory.setText("Agregar");
-        buttonAddCategory.setVisibility(View.VISIBLE);
 
         // Enfocar y abrir el teclado para el campo de nombre en modo agregar
         nameCategoryTV.requestFocus();
@@ -112,20 +106,29 @@ public class CategoryCrudFragment extends Fragment {
     }
 
     private void handleCategorySave() {
+        String Mode = (String) buttonAddCategory.getText();
         String name = nameCategoryTV.getText().toString().trim();
         String statusText = statusCategoryTV.getText().toString().trim();
         int status = statusText.equals("Inactivo") ? 0 : 1;
+        if(Mode.equals("Agregar")){
+            boolean isAdded = Bcategory.addCategory(name, status);
 
-        boolean isAdded = Bcategory.addCategory(name, status);
-
-        if (isAdded) {
-            Toast.makeText(getContext(), "Categoría agregada con éxito", Toast.LENGTH_SHORT).show();
-            if (!isEditMode) {
+            if (isAdded) {
+                Toast.makeText(getContext(), "Categoría agregada con éxito", Toast.LENGTH_SHORT).show();
                 nameCategoryTV.setText("");
                 statusCategoryTV.setText("");
+            } else {
+                Toast.makeText(getContext(), "Error al agregar la categoría", Toast.LENGTH_SHORT).show();
             }
-        } else {
-            Toast.makeText(getContext(), "Error al agregar la categoría", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            boolean isEdited = Bcategory.editCategory(idCategory, name, status);
+
+            if (isEdited) {
+                Toast.makeText(getContext(), "Categoría editada con éxito", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getContext(), "Error al editar la categoría", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 

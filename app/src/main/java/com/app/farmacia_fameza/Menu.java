@@ -87,11 +87,6 @@ public class Menu extends AppCompatActivity {
                     .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM); // Muestra en la acción si hay espacio
         }
 
-        // Si estamos en el fragmento de crud categoria, inflar el menú original
-        if (currentFragmentId == R.id.categoryCrudFragment) {
-            menu.add(0, R.id.edit_category, 0, "Editar")
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM); // Muestra en la acción si hay espacio
-        }
 
         // Si estamos en el fragmento de marca, inflar el menú original
         if (currentFragmentId == R.id.nav_brand) {
@@ -122,25 +117,18 @@ public class Menu extends AppCompatActivity {
             navController.navigate(R.id.categoryListFragment, bundle);
         }
 
-        if (id == R.id.add_category) {
-            Bundle args = new Bundle();
-            args.putBoolean("isEditMode", false);  // Indicador de modo "añadir"
-            NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_menu);
-            navController.navigate(R.id.categoryCrudFragment, args); // Reemplaza con el ID de tu nuevo fragmento
-        }
-
-        if (id == R.id.edit_category) {
-            Bundle args = new Bundle();
-            args.putBoolean("isEditMode", true);  // Indicador de modo "editar"
-            NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_menu);
-            navController.navigate(R.id.categoryCrudFragment, args); // Reemplaza con el ID de tu nuevo fragmento
-        }
-
         // Verificar si se hizo clic en el ítem "CRUD"
         if (id == R.id.configurationBrand) {
             // Navegar hacia la actividad o fragmento CRUD
             NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_menu);
             navController.navigate(R.id.brandCrudFragment);
+        }
+
+        if (id == R.id.add_category) {
+            Bundle args = new Bundle();
+            args.putBoolean("isEditMode", false);  // Indicador de modo "añadir"
+            NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_menu);
+            navController.navigate(R.id.categoryCrudFragment, args); // Reemplaza con el ID de tu nuevo fragmento
         }
 
         // Verificar si se hizo clic en el ítem "Agregar Producto"

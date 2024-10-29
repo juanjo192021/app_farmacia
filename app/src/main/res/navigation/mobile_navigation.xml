@@ -51,6 +51,7 @@
         android:name="com.app.farmacia_fameza.addProductFragment"
         android:label="@string/product_add"
         tools:layout="@layout/fragment_add_product" />
+
     <fragment
         android:id="@+id/categoryListFragment"
         android:name="com.app.farmacia_fameza.CategoryListFragment"

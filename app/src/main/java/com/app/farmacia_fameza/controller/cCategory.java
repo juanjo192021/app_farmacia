@@ -133,6 +133,34 @@ public class cCategory extends conexion {
         return success;
     }
 
+    public boolean editCategory(int id, String name, int status) {
+        SQLiteDatabase database = this.getWritableDatabase();
+        boolean success = false;
+
+        try {
+            // Crear un ContentValues con los nuevos valores para la categoría
+            ContentValues values = new ContentValues();
+            values.put("name", name);
+            values.put("status", status);
+
+            // Actualizar la categoría en la tabla usando el id como criterio
+            int result = database.update(TABLE_CATEGORY, values, "id = ?", new String[]{String.valueOf(id)});
+
+            // Si el resultado es mayor a 0, significa que la actualización fue exitosa
+            success = result > 0;
+
+        } catch (Exception e) {
+            Log.e("Edit Category Error", "Error al editar categoría: " + e.getMessage());
+        } finally {
+            if (database != null && database.isOpen()) {
+                database.close();
+            }
+        }
+
+        return success;
+    }
+
+
     @SuppressLint("Range")
     public List<String> getCategoryName() {
         List<String> brandList = new ArrayList<>();
