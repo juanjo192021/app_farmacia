@@ -93,12 +93,10 @@ public class addProductFragment extends Fragment{
 
     private void saveProduct(){
         ProductAddDTO product = completeDataProduct();
+        context = requireActivity();
         if(id == 0){
             bProduct.insertProduct(product);
             Toast.makeText(context, "Guardar OK", Toast.LENGTH_LONG).show();
-        }else{
-            bProduct.updateProduct(product);
-            Toast.makeText(context, "Actualizado OK", Toast.LENGTH_LONG).show();
         }
     }
 

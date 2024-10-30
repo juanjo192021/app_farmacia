@@ -5,6 +5,7 @@ import android.content.Context;
 import com.app.farmacia_fameza.controller.cProduct;
 import com.app.farmacia_fameza.dto.ProductAddDTO;
 import com.app.farmacia_fameza.dto.ProductListDTO;
+import com.app.farmacia_fameza.dto.ProductUpdateDTO;
 import com.app.farmacia_fameza.models.Product;
 
 import java.util.List;
@@ -28,11 +29,9 @@ public class bProduct {
         return CProduct.insertProduct(product);
     }
 
-    public boolean updateProduct(ProductAddDTO product){
-        return CProduct.updateProduct(product);
-    }
+    public boolean updateProduct(ProductUpdateDTO product){return CProduct.updateProduct(product);}
 
-    public Integer getIDProduct(String nameSKU){return CProduct.getIDProduct(nameSKU);}
+    public boolean existsProductById(Integer id){return CProduct.existsProductById(id);}
     /*public boolean insertProduct(Product product){
         return CProduct.insertProduct(product);
     }

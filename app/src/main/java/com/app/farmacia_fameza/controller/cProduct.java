@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import com.app.farmacia_fameza.dao.conexion;
 import com.app.farmacia_fameza.dto.ProductAddDTO;
 import com.app.farmacia_fameza.dto.ProductListDTO;
+import com.app.farmacia_fameza.dto.ProductUpdateDTO;
 import com.app.farmacia_fameza.models.Brand;
 import com.app.farmacia_fameza.models.Lote;
 import com.app.farmacia_fameza.models.Product;
@@ -161,32 +162,29 @@ public class cProduct extends conexion {
         }
     }
 
-    public boolean updateProduct(ProductAddDTO productAddDTO){
+    public boolean updateProduct(ProductUpdateDTO productUpdateDTO){
         SQLiteDatabase database = this.getWritableDatabase();
-        int idProduct = getIDProduct(productAddDTO.getSku());
-        int idBrand = cBrand.getIDBrand(productAddDTO.getBrand());
-        int idCategory = cCategory.getIDCategory(productAddDTO.getCategory());
+        int idBrand = cBrand.getIDBrand(productUpdateDTO.getBrand());
+        int idCategory = cCategory.getIDCategory(productUpdateDTO.getCategory());
         try{
             ContentValues values = new ContentValues();
-            values.put("sku", productAddDTO.getSku());
-            values.put("name", productAddDTO.getName());
-            values.put("description", productAddDTO.getDescription());
-            values.put("image", productAddDTO.getImage());
-            values.put("unit_price", productAddDTO.getUnit_price());
+            values.put("name", productUpdateDTO.getName());
+            values.put("description", productUpdateDTO.getDescription());
+            values.put("image", productUpdateDTO.getImage());
+            values.put("unit_price", productUpdateDTO.getUnit_price());
             values.put("brand_id",idBrand);
             values.put("category_id",idCategory);
-            //values.put("stock", 0);
-            //values.put("status", 1);
-            String whereClause = "sku=?";
-            String[] whereArgs = { String.valueOf(productAddDTO.getSku()) };
+            values.put("status", productUpdateDTO.getStatus());
+            String whereClause = "id=?";
+            String[] whereArgs = { String.valueOf(productUpdateDTO.getId()) };
 
             int rowsAffected = database.update(TABLE_PRODUCT, values, whereClause, whereArgs);
 
             if (rowsAffected > 0) {
-                Log.d("Update Product", "Producto actualizado exitosamente con ID: " + productAddDTO.getSku());
+                Log.d("Update Product", "Producto actualizado exitosamente con ID: " + productUpdateDTO.getId());
                 return true;
             } else {
-                Log.e("Update Product", "No se pudo actualizar el producto con ID: " + productAddDTO.getSku());
+                Log.e("Update Product", "No se pudo actualizar el producto con ID: " + productUpdateDTO.getId());
                 return false;
             }
         } catch (Exception e){
@@ -199,20 +197,20 @@ public class cProduct extends conexion {
         }
     }
 
-    public Integer getIDProduct(String nameSKU){
-        Integer productId = null;
+    public boolean existsProductById(Integer id) {
+        boolean exists = false;
         SQLiteDatabase database = this.getReadableDatabase();
         Cursor cursor = null;
 
         try {
-            String query = "SELECT id FROM " + TABLE_PRODUCT + " WHERE sku = ?";
-            cursor = database.rawQuery(query, new String[]{nameSKU});
+            String query = "SELECT 1 FROM " + TABLE_PRODUCT + " WHERE id = ?";
+            cursor = database.rawQuery(query, new String[]{String.valueOf(id)});
 
             if (cursor.moveToFirst()) {
-                productId = cursor.getInt(0);
+                exists = true;
             }
         } catch (Exception e) {
-            Log.e("Get Product ID Error", "Error al obtener ID del product: " + e.getMessage());
+            Log.e("Check Product Exists Error", "Error al verificar si el producto existe: " + e.getMessage());
         } finally {
             if (cursor != null) {
                 cursor.close();
@@ -221,6 +219,7 @@ public class cProduct extends conexion {
                 database.close();
             }
         }
-        return productId;
+        return exists;
     }
+
 }
