@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bottomDetailProductModal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/modal_layout_background"
+    android:backgroundTint="@color/primary"
+    android:padding="20dp"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|top"
+        android:scaleType="centerCrop"
+        android:src="@drawable/baseline_remove_24" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="Ingreso de Producto"
+            android:textColor="@color/white"
+            android:textSize="26dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="102dp"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/cantidad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="10dp"
+            android:text="SKU "
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="15dp" />
+
+        <EditText
+            android:id="@+id/txt_SkuProdLote"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:background="@drawable/background_login"
+            android:backgroundTint="@color/white"
+            android:drawableStart="@drawable/baseline_filter_alt_24"
+            android:drawablePadding="10sp"
+            android:ems="10"
+            android:hint="SKU del producto"
+            android:inputType="text"
+            android:paddingStart="20dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/Cantidad"
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            android:paddingStart="10dp"
+            android:text="Cantidad"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/txt_CantidadProdLote"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:background="@drawable/background_login"
+            android:backgroundTint="#FFFFFF"
+            android:drawableStart="@drawable/baseline_quantity_24"
+            android:drawablePadding="10sp"
+            android:ems="10"
+            android:hint="Cantidad"
+            android:inputType="text"
+            android:paddingStart="20dp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_AgregarProdLote"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/tertiary"
+        android:textColor="@color/white"
+        android:text="Agregar al lote"
+        android:textSize="16sp" />
+
+
+</LinearLayout>

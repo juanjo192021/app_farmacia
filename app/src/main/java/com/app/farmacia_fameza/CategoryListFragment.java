@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +23,6 @@ import com.app.farmacia_fameza.business.bCategory;
 import com.app.farmacia_fameza.databinding.FragmentCategoryListBinding;
 import com.app.farmacia_fameza.dto.ItemListDTO;
 import com.app.farmacia_fameza.dto.ProductListDTO;
-import com.app.farmacia_fameza.models.Product;
 import com.app.farmacia_fameza.view.ProductListFragment;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
@@ -90,8 +88,8 @@ public class CategoryListFragment extends Fragment implements categoryListAdapte
         );
         View bottomSheetView = LayoutInflater.from(getActivity().getApplicationContext())
                 .inflate(
-                        R.layout.modal_layout,
-                        (LinearLayout) getView().findViewById(R.id.bottomLayoutModal)
+                        R.layout.modal_category,
+                        (LinearLayout) getView().findViewById(R.id.bottomCategoryModal)
                 );
 
         TextView modalCategoryName = bottomSheetView.findViewById(R.id.txtNameCategoryModal);

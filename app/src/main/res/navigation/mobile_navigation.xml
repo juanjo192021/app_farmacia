@@ -26,6 +26,13 @@
         android:name="com.app.farmacia_fameza.ui.brand.BrandFragment"
         android:label="@string/menu_brand"
         tools:layout="@layout/fragment_brand" />
+
+    <fragment
+        android:id="@+id/nav_lote"
+        android:name="com.app.farmacia_fameza.ui.lote.LoteFragment"
+        android:label="fragment_lote"
+        tools:layout="@layout/fragment_lote" />
+
     <fragment
         android:id="@+id/productDetailFragment"
         android:name="com.app.farmacia_fameza.ProductDetailFragment"

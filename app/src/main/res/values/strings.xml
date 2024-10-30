@@ -24,5 +24,6 @@
     <string name="login">Login</string>
     <string name="irRegister">¿No tiene una cuenta? Registrate</string>
     <string name="category_list_configuration">Configurar Categorias</string>
+    <string name="menu_lote">Lotes</string>
 
 </resources>
