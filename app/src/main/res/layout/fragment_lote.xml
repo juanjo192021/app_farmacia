@@ -19,10 +19,11 @@
             android:id="@+id/txt_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ingreso de Lotes"
             android:layout_marginTop="10dp"
+            android:text="Ingreso de Lotes"
             android:textAlignment="center"
-            android:textSize="34sp" />
+            android:textSize="34sp"
+            android:textStyle="bold" />
 
         <TableRow
             android:layout_width="match_parent"
@@ -41,7 +42,8 @@
                     android:layout_width="34dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Codigo" />
+                    android:text="Codigo"
+                    android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/txt_codigoLote"
@@ -70,7 +72,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Fecha" />
+                    android:text="Fecha"
+                    android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/txt_FechaLote"
@@ -96,19 +99,22 @@
 
                 <TextView
                     android:id="@+id/textView14"
-                    android:layout_width="39dp"
+                    android:layout_width="10dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Proveedor" />
+                    android:text="Proveedor"
+                    android:textStyle="bold" />
 
-                <EditText
-                    android:id="@+id/txt_ProveedorLote"
+                <Spinner
+                    android:id="@+id/spinner_ProveedorLote"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:layout_weight="1"
+                    android:hint="Seleccionar Proveedor"
                     android:ems="10"
-                    android:hint="Luchiin"
-                    android:inputType="text" />
+                    android:spinnerMode="dropdown"
+                    android:backgroundTint="@color/white" />
+
             </LinearLayout>
 
         </TableRow>
@@ -140,38 +146,39 @@
             </LinearLayout>
         </TableRow>
 
-        <TableLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="323dp">
+            android:layout_height="320dp">
 
-            <TableRow
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-        </TableLayout>
+                        <TableLayout
+                            android:id="@+id/tblInsertProducts"
+                            android:layout_width="match_parent"
+                            android:layout_height="323dp" />
+                    </LinearLayout>
+                </HorizontalScrollView>
+            </LinearLayout>
+        </ScrollView>
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/btn_AgregarEntryLote"
                 android:layout_width="196dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="110dp"

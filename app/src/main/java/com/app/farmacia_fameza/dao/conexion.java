@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 
 public class conexion extends SQLiteOpenHelper {
     private static final String DB_NAME = "Farmacia.db";
-    private static final int DB_VERSION = 5;
+    private static final int DB_VERSION = 6;
 
     // Table Names
     public static final String TABLE_BRAND = "Brand";
@@ -16,7 +16,6 @@ public class conexion extends SQLiteOpenHelper {
     public static final String TABLE_ROLE = "Role";
     public static final String TABLE_USER = "User";
     public static final String TABLE_PRODUCT = "Product";
-    public static final String TABLE_LOTE = "Lote";
     public static final String TABLE_PRODUCT_ENTRY = "Product_Entry";
     public static final String TABLE_PRODUCT_ENTRY_DETAIL = "Product_Entry_Detail";
     public static final String TABLE_PRODUCT_OUTPUT = "Product_Output";
@@ -69,16 +68,7 @@ public class conexion extends SQLiteOpenHelper {
                 "contact_phone TEXT, " +
                 "email TEXT)");
 
-        // Create Lote table
-        db.execSQL("CREATE TABLE " + TABLE_LOTE + " (" +
-                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "lote_number TEXT NOT NULL, " +
-                "expiration_date TEXT NOT NULL, " +
-                "production_date TEXT NOT NULL, " +
-                "alert_date TEXT NOT NULL, " +
-                "quantity INTEGER NOT NULL)");
-
-        // Create Product table with reference to Lote
+        // Create Product table
         db.execSQL("CREATE TABLE " + TABLE_PRODUCT + " (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "sku TEXT UNIQUE, " +
@@ -89,28 +79,27 @@ public class conexion extends SQLiteOpenHelper {
                 "unit_price DECIMAL(10, 2) NOT NULL, " +
                 "brand_id INTEGER, " +
                 "category_id INTEGER, " +
-                "lote_id INTEGER, " +
                 "status INTEGER DEFAULT 1, " +
                 "FOREIGN KEY (brand_id) REFERENCES " + TABLE_BRAND + "(id), " +
-                "FOREIGN KEY (category_id) REFERENCES " + TABLE_CATEGORY + "(id), " +
-                "FOREIGN KEY (lote_id) REFERENCES " + TABLE_LOTE + "(id))");
+                "FOREIGN KEY (category_id) REFERENCES " + TABLE_CATEGORY + "(id))");
 
         // Create Product_Entry table
         db.execSQL("CREATE TABLE " + TABLE_PRODUCT_ENTRY + " (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "entry_code TEXT NOT NULL, " +
-                "entry_date TEXT NOT NULL, " +
-                "user_id INTEGER NOT NULL, " +
-                "supplier_id INTEGER, " +
-                "FOREIGN KEY (user_id) REFERENCES " + TABLE_USER + "(id), " +
+                "number_entry TEXT NOT NULL, " +
+                "date_entry TEXT NOT NULL, " +
+                "supplier_id INTEGER NOT NULL, " +
                 "FOREIGN KEY (supplier_id) REFERENCES " + TABLE_SUPPLIER + "(id))");
 
         // Create Product_Entry_Detail table
         db.execSQL("CREATE TABLE " + TABLE_PRODUCT_ENTRY_DETAIL + " (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "entry_id INTEGER NOT NULL, " +
-                "product_id INTEGER NOT NULL, " +
+                "entry_id INTEGER, " +
+                "product_id INTEGER, " +
                 "quantity INTEGER NOT NULL, " +
+                "expiration_date TEXT NOT NULL, " +
+                "production_date TEXT NOT NULL, " +
+                "alert_date TEXT NOT NULL, " +
                 "FOREIGN KEY (entry_id) REFERENCES " + TABLE_PRODUCT_ENTRY + "(id), " +
                 "FOREIGN KEY (product_id) REFERENCES " + TABLE_PRODUCT + "(id))");
 
@@ -119,88 +108,83 @@ public class conexion extends SQLiteOpenHelper {
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "output_code TEXT NOT NULL, " +
                 "output_date TEXT NOT NULL, " +
-                "user_id INTEGER NOT NULL, " +
+                "user_id INTEGER, " +
                 "FOREIGN KEY (user_id) REFERENCES " + TABLE_USER + "(id))");
 
         // Create Product_Output_Detail table
         db.execSQL("CREATE TABLE " + TABLE_PRODUCT_OUTPUT_DETAIL + " (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "output_id INTEGER NOT NULL, " +
-                "product_id INTEGER NOT NULL, " +
+                "output_id INTEGER, " +
+                "product_id INTEGER, " +
                 "quantity INTEGER NOT NULL, " +
                 "FOREIGN KEY (output_id) REFERENCES " + TABLE_PRODUCT_OUTPUT + "(id), " +
                 "FOREIGN KEY (product_id) REFERENCES " + TABLE_PRODUCT + "(id))");
 
-        // Inserción de datos de ejemplo
-
-        // Insert data into Role table
-        db.execSQL("INSERT INTO " + TABLE_ROLE + " (name, description, status) VALUES " +
-                "('admin', 'Administrador del Sistema', 1), " +
-                "('pharmacist', 'Farmacéutico', 1), " +
-                "('manager', 'Gerente de la Farmacia', 1)");
-
-        // Insert data into Brand table
+        // Insertar datos en la tabla Brand
         db.execSQL("INSERT INTO " + TABLE_BRAND + " (name, status) VALUES " +
+                "('Laboratorios Bayer', 1), " +
                 "('Pfizer', 1), " +
-                "('Bayer', 1), " +
-                "('GSK', 1), " +
-                "('Johnson & Johnson', 1)");
+                "('La Roche', 1), " +
+                "('Merck', 1)");
 
-        // Insert data into Category table
+        // Insertar datos en la tabla Category
         db.execSQL("INSERT INTO " + TABLE_CATEGORY + " (name, status) VALUES " +
-                "('Analgesics', 1), " +
-                "('Antibiotics', 1), " +
-                "('Vitamins', 1), " +
-                "('Antihistamines', 1)");
+                "('Analgésicos', 1), " +
+                "('Antibióticos', 1), " +
+                "('Suplementos', 1), " +
+                "('Antihistamínicos', 1)");
 
-        // Insert data into Supplier table
-        db.execSQL("INSERT INTO " + TABLE_SUPPLIER + " (name, contact_phone, email) VALUES " +
-                "('Distribuidora Farmacéutica SA', '800-123-456', 'contacto@distribuidora.com'), " +
-                "('Proveedores de Salud Ltda.', '800-987-654', 'info@proveedoresdesalud.com'), " +
-                "('Farmacias Unidas', '800-321-654', 'ventas@farmaciasunidas.com')");
+        // Insertar datos en la tabla Role
+        db.execSQL("INSERT INTO " + TABLE_ROLE + " (name, description, status) VALUES " +
+                "('Administrador', 'Acceso completo al sistema', 1), " +
+                "('Vendedor', 'Acceso limitado para gestionar ventas', 1), " +
+                "('Almacén', 'Acceso para gestionar inventario', 1)");
 
-        // Insert data into Lote table
-        db.execSQL("INSERT INTO " + TABLE_LOTE + " (lote_number, expiration_date, production_date, alert_date, quantity) VALUES " +
-                "('L001', '2025-12-31', '2024-01-01', '2025-11-30', 200), " +
-                "('L002', '2026-06-30', '2024-02-15', '2026-05-30', 150), " +
-                "('L003', '2025-10-15', '2024-04-10', '2025-09-15', 100)");
-
-        // Insert data into Product table
-        db.execSQL("INSERT INTO " + TABLE_PRODUCT + " (sku, name, description, image, stock, unit_price, brand_id, category_id, lote_id, status) VALUES " +
-                "('SKU001', 'Paracetamol 500mg', 'Alivio del dolor y reducción de fiebre.', 'https://res.cloudinary.com/dwx7qadjn/image/upload/v1730146398/Farmacia/Paracetamol_w0lzpq.png', 100, 5.99, 1, 1, 1, 1), " +
-                "('SKU002', 'Amoxicilina 500mg', 'Antibiótico para infecciones bacterianas.', 'https://res.cloudinary.com/dwx7qadjn/image/upload/v1730144177/Farmacia/Amoxicilina_uwibjr.png', 50, 12.49, 2, 2, 2, 1), " +
-                "('SKU003', 'Vitamina C 1000mg', 'Suplemento de vitamina C para el sistema inmunológico.', 'https://res.cloudinary.com/dwx7qadjn/image/upload/v1730238645/Farmacia/VitaminaC_oalopf.png', 200, 8.99, 3, 3, 3, 1), " +
-                "('SKU004', 'Loratadina 10mg', 'Antihistamínico para aliviar alergias.', 'https://res.cloudinary.com/dwx7qadjn/image/upload/v1730238706/Farmacia/Loratadina_grxdca.jpg', 80, 4.99, 4, 4, 1, 1)");
-
-        // Insert data into User table
+        // Insertar datos en la tabla User
         db.execSQL("INSERT INTO " + TABLE_USER + " (first_name, last_name, email, password, date_birth, cell_phone, role_id, status) VALUES " +
-                "('Ana', 'Gonzalez', 'ana.gonzalez@example.com', 'password123', '1990-03-15', '1990-456-789', 1, 1), " +
-                "('Luis', 'Martinez', 'luis.martinez@example.com', 'password123', '1985-07-22', '800-654-321', 2, 1), " +
-                "('Carla', 'Lopez', 'carla.lopez@example.com', 'password123', '1992-11-01', '800-321-987', 3, 1)");
+                "('Juan', 'Perez', 'juan.perez@example.com', 'password123', '1985-04-15', '555123456', 1, 1), " +
+                "('Maria', 'Lopez', 'maria.lopez@example.com', 'password123', '1990-09-22', '555987654', 2, 1), " +
+                "('Carlos', 'Ramirez', 'carlos.ramirez@example.com', 'password123', '1988-06-10', '555654321', 3, 1)");
 
-        // Insert data into Product_Entry table
-        db.execSQL("INSERT INTO " + TABLE_PRODUCT_ENTRY + " (entry_code, entry_date, user_id, supplier_id) VALUES " +
-                "('ENTRY001', '2024-10-20', 1, 1), " +
-                "('ENTRY002', '2024-10-21', 2, 2), " +
-                "('ENTRY003', '2024-10-22', 3, 3)");
+        // Insertar datos en la tabla Supplier
+        db.execSQL("INSERT INTO " + TABLE_SUPPLIER + " (name, contact_phone, email) VALUES " +
+                "('Proveedor Farmacéutico A', '555111222', 'proveedora@example.com'), " +
+                "('Distribuidora Medicinal B', '555333444', 'distribuidorab@example.com'), " +
+                "('Lab Salud C', '555555666', 'labsaludc@example.com')");
 
-        // Insert data into Product_Entry_Detail table
-        db.execSQL("INSERT INTO " + TABLE_PRODUCT_ENTRY_DETAIL + " (entry_id, product_id, quantity) VALUES " +
-                "(1, 1, 50), " +
-                "(1, 2, 30), " +
-                "(2, 3, 20), " +
-                "(3, 4, 10)");
+        // Insertar datos en la tabla Product
+        db.execSQL("INSERT INTO " + TABLE_PRODUCT + " (sku, name, description, image, stock, unit_price, brand_id, category_id, status) VALUES " +
+                "('SKU001', 'Paracetamol 500mg', 'Alivio del dolor y reducción de fiebre.', 'https://res.cloudinary.com/dwx7qadjn/image/upload/v1730146398/Farmacia/Paracetamol_w0lzpq.png', 100, 5.99, 1, 1, 1), " +
+                "('SKU002', 'Amoxicilina 500mg', 'Antibiótico para infecciones bacterianas.', 'https://res.cloudinary.com/dwx7qadjn/image/upload/v1730144177/Farmacia/Amoxicilina_uwibjr.png', 50, 12.49, 2, 2, 1), " +
+                "('SKU003', 'Vitamina C 1000mg', 'Suplemento de vitamina C para el sistema inmunológico.', 'https://res.cloudinary.com/dwx7qadjn/image/upload/v1730238645/Farmacia/VitaminaC_oalopf.png', 200, 8.99, 3, 3, 1), " +
+                "('SKU004', 'Loratadina 10mg', 'Antihistamínico para aliviar alergias.', 'https://res.cloudinary.com/dwx7qadjn/image/upload/v1730238706/Farmacia/Loratadina_grxdca.jpg', 80, 4.99, 4, 4, 1)");
 
-        // Insert data into Product_Output table
+        // Insertar datos en la tabla Product_Entry
+        db.execSQL("INSERT INTO " + TABLE_PRODUCT_ENTRY + " (number_entry, date_entry, supplier_id) VALUES " +
+                "('ENT001', '2024-01-10', 1), " +
+                "('ENT002', '2024-01-12', 2), " +
+                "('ENT003', '2024-01-15', 3)");
+
+        // Insertar datos en la tabla Product_Entry_Detail
+        db.execSQL("INSERT INTO " + TABLE_PRODUCT_ENTRY_DETAIL + " (entry_id, product_id, quantity, expiration_date, production_date, alert_date) VALUES " +
+                "(1, 1, 50, '2025-01-10', '2023-12-01', '2024-12-10'), " +
+                "(1, 2, 30, '2025-06-10', '2024-01-01', '2025-05-10'), " +
+                "(2, 3, 100, '2024-12-10', '2023-11-01', '2024-11-10'), " +
+                "(3, 4, 70, '2025-03-15', '2024-02-10', '2025-02-15')");
+
+        // Insertar datos en la tabla Product_Output
         db.execSQL("INSERT INTO " + TABLE_PRODUCT_OUTPUT + " (output_code, output_date, user_id) VALUES " +
-                "('OUTPUT001', '2024-10-23', 1), " +
-                "('OUTPUT002', '2024-10-24', 2)");
+                "('OUT001', '2024-01-20', 1), " +
+                "('OUT002', '2024-01-25', 2), " +
+                "('OUT003', '2024-02-01', 3)");
 
-        // Insert data into Product_Output_Detail table
+        // Insertar datos en la tabla Product_Output_Detail
         db.execSQL("INSERT INTO " + TABLE_PRODUCT_OUTPUT_DETAIL + " (output_id, product_id, quantity) VALUES " +
-                "(1, 1, 5), " +
-                "(1, 2, 2), " +
-                "(2, 3, 3)");
+                "(1, 1, 10), " +
+                "(1, 2, 5), " +
+                "(2, 3, 20), " +
+                "(3, 4, 15)");
+
     }
 
     @Override
@@ -210,7 +194,6 @@ public class conexion extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ROLE);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRODUCT);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_LOTE);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRODUCT_ENTRY);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRODUCT_ENTRY_DETAIL);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRODUCT_OUTPUT);

@@ -13,8 +13,6 @@ import com.app.farmacia_fameza.dao.conexion;
 import com.app.farmacia_fameza.dto.ProductAddDTO;
 import com.app.farmacia_fameza.dto.ProductListDTO;
 import com.app.farmacia_fameza.dto.ProductUpdateDTO;
-import com.app.farmacia_fameza.models.Brand;
-import com.app.farmacia_fameza.models.Lote;
 import com.app.farmacia_fameza.models.Product;
 
 import java.util.ArrayList;
@@ -79,9 +77,8 @@ public class cProduct extends conexion {
         Cursor cursor = null;
 
         try {
-            String query = "SELECT p.*, l.lote_number, l.expiration_date, c.name AS category_name, b.name AS brand_name " +
+            String query = "SELECT p.*, c.name AS category_name, b.name AS brand_name " +
                     "FROM " + TABLE_PRODUCT + " p " +
-                    "LEFT JOIN " + TABLE_LOTE + " l ON p.lote_id = l.id " +
                     "LEFT JOIN " + TABLE_CATEGORY + " c ON p.category_id = c.id " +
                     "LEFT JOIN " + TABLE_BRAND + " b ON p.brand_id = b.id " +
                     "WHERE p.id = ?"; // Filtrar por ID
@@ -100,14 +97,9 @@ public class cProduct extends conexion {
                 product.setUnit_price(cursor.getDouble(cursor.getColumnIndex("unit_price")));
                 product.setStatus(cursor.getInt(cursor.getColumnIndex("status")));
 
-                // Agregamos los campos adicionales
-                String loteNumber = cursor.getString(cursor.getColumnIndex("lote_number")); // Número de lote
-                String expirationDate = cursor.getString(cursor.getColumnIndex("expiration_date")); // Fecha de expiración
                 String categoryName = cursor.getString(cursor.getColumnIndex("category_name")); // Nombre de la categoría
                 String brandName = cursor.getString(cursor.getColumnIndex("brand_name")); // Nombre de la marca
 
-                product.getLote().setLote_number(loteNumber);
-                product.getLote().setExpiration_date(expirationDate);
                 product.getCategory().setName(categoryName);
                 product.getBrand().setName(brandName);
             }
@@ -139,7 +131,6 @@ public class cProduct extends conexion {
             values.put("brand_id",idBrand);
             values.put("category_id",idCategory);
             values.put("stock", 0);
-            values.putNull("lote_id");
             values.put("status", 1);
 
             Log.d("Insert Product", "Datos:" + values);
@@ -209,6 +200,7 @@ public class cProduct extends conexion {
             if (cursor.moveToFirst()) {
                 exists = true;
             }
+
         } catch (Exception e) {
             Log.e("Check Product Exists Error", "Error al verificar si el producto existe: " + e.getMessage());
         } finally {
@@ -220,6 +212,80 @@ public class cProduct extends conexion {
             }
         }
         return exists;
+    }
+
+    public Integer getIDProductBySKU(String sku) {
+        Integer productId = null;
+        SQLiteDatabase database = this.getReadableDatabase();
+        Cursor cursor = null;
+
+        try {
+            String query = "SELECT id FROM " + TABLE_PRODUCT + " WHERE sku = ?";
+            cursor = database.rawQuery(query, new String[]{sku});
+
+            if (cursor.moveToFirst()) {
+                productId = cursor.getInt(0);
+            }
+        } catch (Exception e) {
+            Log.e("Get Product ID Error", "Error al obtener ID del producto: " + e.getMessage());
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            if (database != null && database.isOpen()) {
+                database.close();
+            }
+        }
+        return productId;
+    }
+
+    public void updateProductStock(int productId, int quantityToAdd) {
+        SQLiteDatabase database = this.getWritableDatabase();
+
+        try {
+            // Obtener la cantidad actual de stock
+            int currentStock = getCurrentStock(productId, database);
+
+            // Calcular el nuevo stock
+            int newStock = currentStock + quantityToAdd;
+
+            // Crear valores para la actualización
+            ContentValues values = new ContentValues();
+            values.put("stock", newStock); // Suponiendo que la columna se llama "stock"
+
+            // Actualizar el stock en la tabla de productos
+            database.update(TABLE_PRODUCT, values, "id = ?", new String[]{String.valueOf(productId)});
+
+            Log.d("Update Product Stock", "Stock actualizado para producto ID: " + productId + " a " + newStock);
+
+        } catch (Exception e) {
+            Log.e("Update Stock Error", "Error al actualizar el stock para producto ID: " + productId + " - " + e.getMessage());
+        } finally {
+            if (database != null && database.isOpen()) {
+                database.close();
+            }
+        }
+    }
+
+    private int getCurrentStock(int productId, SQLiteDatabase database) {
+        int stock = 0;
+        Cursor cursor = null;
+
+        try {
+            String query = "SELECT stock FROM " + TABLE_PRODUCT + " WHERE id = ?";
+            cursor = database.rawQuery(query, new String[]{String.valueOf(productId)});
+
+            if (cursor.moveToFirst()) {
+                stock = cursor.getInt(0);
+            }
+        } catch (Exception e) {
+            Log.e("Get Current Stock Error", "Error al obtener el stock actual para producto ID: " + productId + " - " + e.getMessage());
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return stock;
     }
 
 }

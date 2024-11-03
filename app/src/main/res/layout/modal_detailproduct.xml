@@ -29,7 +29,6 @@
             android:text="Ingreso de Producto"
             android:textColor="@color/white"
             android:textSize="26dp" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -39,11 +38,10 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/cantidad"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="10dp"
-            android:text="SKU "
+            android:text="SKU del Producto"
             android:textColor="@color/white"
             android:textSize="16sp" />
 
@@ -52,7 +50,7 @@
             android:layout_height="15dp" />
 
         <EditText
-            android:id="@+id/txt_SkuProdLote"
+            android:id="@+id/editTextSkuProdLote"
             android:layout_width="match_parent"
             android:layout_height="42dp"
             android:background="@drawable/background_login"
@@ -60,7 +58,7 @@
             android:drawableStart="@drawable/baseline_filter_alt_24"
             android:drawablePadding="10sp"
             android:ems="10"
-            android:hint="SKU del producto"
+            android:hint="SKU"
             android:inputType="text"
             android:paddingStart="20dp" />
 
@@ -72,7 +70,6 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/Cantidad"
             android:layout_width="match_parent"
             android:layout_height="34dp"
             android:paddingStart="10dp"
@@ -85,7 +82,7 @@
             android:layout_height="wrap_content" />
 
         <EditText
-            android:id="@+id/txt_CantidadProdLote"
+            android:id="@+id/editTextCantidadProdLote"
             android:layout_width="match_parent"
             android:layout_height="46dp"
             android:background="@drawable/background_login"
@@ -94,6 +91,68 @@
             android:drawablePadding="10sp"
             android:ems="10"
             android:hint="Cantidad"
+            android:inputType="text"
+            android:paddingStart="20dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            android:paddingStart="10dp"
+            android:text="Fecha de Produccion"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/editTextFechaProduccionProdLote"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:background="@drawable/background_login"
+            android:backgroundTint="#FFFFFF"
+            android:drawableStart="@drawable/baseline_quantity_24"
+            android:drawablePadding="10sp"
+            android:ems="10"
+            android:hint="Fecha Produccion"
+            android:inputType="text"
+            android:paddingStart="20dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            android:paddingStart="10dp"
+            android:text="Fecha de Expiracion"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/editTextFechaExpiracionProdLote"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:background="@drawable/background_login"
+            android:backgroundTint="#FFFFFF"
+            android:drawableStart="@drawable/baseline_quantity_24"
+            android:drawablePadding="10sp"
+            android:ems="10"
+            android:hint="Fecha Expiracion"
             android:inputType="text"
             android:paddingStart="20dp" />
     </LinearLayout>

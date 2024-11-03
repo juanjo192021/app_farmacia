@@ -12,7 +12,6 @@ public class Product implements Serializable {
     private Double unit_price;
     private Brand brand;
     private Category category;
-    private Lote lote;
     private Integer status;
 
     public Product() {
@@ -25,11 +24,10 @@ public class Product implements Serializable {
         this.unit_price = 0.0;
         this.brand = new Brand();
         this.category = new Category();
-        this.lote = new Lote();
         this.status = 0;
     }
 
-    public Product(String sku, String name, String description, Integer id, String image, Integer stock_actual, Double unit_price, Brand brand, Category category, Lote lote, Integer status) {
+    public Product(String sku, String name, String description, Integer id, String image, Integer stock_actual, Double unit_price, Brand brand, Category category, Integer status) {
         this.sku = sku;
         this.name = name;
         this.description = description;
@@ -39,7 +37,6 @@ public class Product implements Serializable {
         this.unit_price = unit_price;
         this.brand = brand;
         this.category = category;
-        this.lote = lote;
         this.status = status;
     }
 
@@ -81,14 +78,6 @@ public class Product implements Serializable {
 
     public void setImage(String image) {
         this.image = image;
-    }
-
-    public Lote getLote() {
-        return lote;
-    }
-
-    public void setLote(Lote lote) {
-        this.lote = lote;
     }
 
     public String getName() {
