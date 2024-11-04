@@ -66,7 +66,6 @@ public class LoteFragment extends Fragment {
         btnAddProduct = root.findViewById(R.id.btn_AgregarLote);
         btnSaveEntry = root.findViewById(R.id.btn_AgregarEntryLote);
 
-
         tblInsertProducts = root.findViewById(R.id.tblInsertProducts); // Referencia a TableLayout
         tblInsertProducts.setGravity(View.TEXT_ALIGNMENT_CENTER);
 

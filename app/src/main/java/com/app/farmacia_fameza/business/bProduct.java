@@ -32,19 +32,4 @@ public class bProduct {
     public boolean updateProduct(ProductUpdateDTO product){return CProduct.updateProduct(product);}
 
     public boolean existsProductById(Integer id){return CProduct.existsProductById(id);}
-    /*public boolean insertProduct(Product product){
-        return CProduct.insertProduct(product);
-    }
-
-    public boolean updateProduct(Product product){
-        return CProduct.updateProduct(product);
-    }
-
-    public boolean changeStockProduct(int productId, int quantity, boolean isIncrease){
-        return CProduct.changeStock(productId,quantity,isIncrease);
-    }
-
-    public boolean deleteProduct(int idProduct){
-        return CProduct.deleteProduct(idProduct);
-    }*/
 }

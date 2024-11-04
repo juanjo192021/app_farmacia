@@ -239,19 +239,25 @@ public class cProduct extends conexion {
         return productId;
     }
 
-    public void updateProductStock(int productId, int quantityToAdd) {
+    public void updateProductStock(int productId, int quantity, boolean isAddition) {
         SQLiteDatabase database = this.getWritableDatabase();
 
         try {
             // Obtener la cantidad actual de stock
             int currentStock = getCurrentStock(productId, database);
 
-            // Calcular el nuevo stock
-            int newStock = currentStock + quantityToAdd;
+            // Calcular el nuevo stock basado en si es una suma o una resta
+            int newStock = isAddition ? currentStock + quantity : currentStock - quantity;
+
+            // Asegurarse de que el stock no sea negativo
+            if (newStock < 0) {
+                Log.e("Update Product Stock", "No se puede reducir el stock por debajo de cero para el producto ID: " + productId);
+                return;
+            }
 
             // Crear valores para la actualización
             ContentValues values = new ContentValues();
-            values.put("stock", newStock); // Suponiendo que la columna se llama "stock"
+            values.put("stock", newStock);
 
             // Actualizar el stock en la tabla de productos
             database.update(TABLE_PRODUCT, values, "id = ?", new String[]{String.valueOf(productId)});
@@ -266,6 +272,7 @@ public class cProduct extends conexion {
             }
         }
     }
+
 
     private int getCurrentStock(int productId, SQLiteDatabase database) {
         int stock = 0;

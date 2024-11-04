@@ -34,6 +34,12 @@
         tools:layout="@layout/fragment_lote" />
 
     <fragment
+        android:id="@+id/nav_output"
+        android:name="com.app.farmacia_fameza.ui.output.OutputFragment"
+        android:label="fragment_output"
+        tools:layout="@layout/fragment_output" />
+
+    <fragment
         android:id="@+id/productDetailFragment"
         android:name="com.app.farmacia_fameza.ProductDetailFragment"
         android:label="@string/product_detail_label"

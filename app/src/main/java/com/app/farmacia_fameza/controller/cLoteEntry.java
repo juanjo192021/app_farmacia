@@ -63,8 +63,8 @@ public class cLoteEntry extends conexion{
                     return false;
                 }
 
-                // Actualizar el stock del producto
-                CProduct.updateProductStock(idProduct, detail.getQuantity());
+                // Actualizar el stock del producto - isAddition = true
+                CProduct.updateProductStock(idProduct, detail.getQuantity(), true);
             }
 
             Log.d("Insert Entry With Details", "Entrada y detalles insertados exitosamente");
