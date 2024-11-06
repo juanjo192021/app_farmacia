@@ -43,6 +43,7 @@
                     android:id="@+id/textView6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/alata"
                     android:text="¡Bienvenido!"
                     android:textAlignment="center"
                     android:textColor="#FFFFFF"
@@ -65,7 +66,7 @@
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="26dp" />
+                android:layout_height="20dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -74,7 +75,7 @@
 
                 <Space
                     android:layout_width="match_parent"
-                    android:layout_height="26dp" />
+                    android:layout_height="20dp" />
 
                 <EditText
                     android:id="@+id/txtNombreUsuario"
@@ -145,9 +146,9 @@
                     android:id="@+id/btnIniciarSesion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="#009fe3"
-                    android:text="@string/login"
                     android:layout_gravity="center"
+                    android:backgroundTint="@color/tertiary"
+                    android:text="@string/login"
                     android:textSize="18sp" />
 
                 <TextView

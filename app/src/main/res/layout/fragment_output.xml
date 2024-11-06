@@ -9,20 +9,26 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
+        android:background="#2C348B"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
+
         <TextView
             android:id="@+id/txt_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:fontFamily="@font/alata"
             android:text="Salida de Productos"
             android:textAlignment="center"
+            android:textColor="@color/white"
             android:textSize="34sp"
             android:textStyle="bold" />
 
@@ -43,19 +49,28 @@
                     android:layout_width="34dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Codigo"
+                    android:gravity="center"
+                    android:text="Codigo:"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/txt_codigoSalida"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:layout_weight="1"
+                    android:background="@drawable/background_login"
+                    android:backgroundTint="@color/white"
                     android:ems="10"
-                    android:hint="001"
+                    android:hint="Ejm:001"
                     android:inputType="text" />
             </LinearLayout>
         </TableRow>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
 
         <TableRow
             android:layout_width="match_parent"
@@ -70,29 +85,31 @@
 
                 <TextView
                     android:id="@+id/textView5"
-                    android:layout_width="wrap_content"
+                    android:layout_width="34dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Fecha"
+                    android:gravity="center"
+                    android:text="Fecha:"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/txt_FechaSalida"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:layout_weight="1"
+                    android:background="@drawable/background_login"
+                    android:backgroundTint="@color/white"
                     android:ems="10"
-                    android:hint="03-08-2011"
+                    android:hint="Ejm:03-08-2011"
                     android:inputType="text" />
             </LinearLayout>
         </TableRow>
 
-        <TableRow
+        <Space
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp">
-        </TableRow>
+            android:layout_height="20dp" />
 
         <TableRow
             android:layout_width="match_parent"
@@ -132,7 +149,8 @@
 
                 <HorizontalScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="@color/white">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -142,16 +160,20 @@
                         <TableLayout
                             android:id="@+id/tblInsertProductsOutput"
                             android:layout_width="match_parent"
-                            android:layout_gravity="center"
-                            android:layout_height="323dp" />
+                            android:layout_height="323dp"
+                            android:layout_gravity="center" />
                     </LinearLayout>
                 </HorizontalScrollView>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
         </ScrollView>
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <Button
                 android:id="@+id/btn_AgregarOutput"

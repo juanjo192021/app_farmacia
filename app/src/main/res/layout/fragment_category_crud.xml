@@ -4,18 +4,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
+    android:background="#2C348B"
+    android:backgroundTint="#2C348B"
+    android:padding="20dp"
     tools:context=".CategoryCrudFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#2C348B"
         android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:src="@drawable/logo_fameza" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="21dp" />
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/alata"
+            android:gravity="center"
+            android:text="Registrar Categoria"
+            android:textColor="@color/white"
+            android:textSize="34sp"
+            android:textStyle="bold" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="49dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/circular_border"
+            android:backgroundTintMode="src_in"
             android:orientation="vertical"
             android:padding="16dp">
 
@@ -33,16 +61,17 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Nombre"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:text="Nombre:"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
 
                 <EditText
                     android:id="@+id/nameTextViewC"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@android:color/transparent"
+                    android:background="@drawable/background_login"
+                    android:backgroundTint="@color/white"
                     android:cursorVisible="true"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
@@ -74,16 +103,17 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Estado"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:text="Estado:"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
 
                 <EditText
                     android:id="@+id/statusTextViewC"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@android:color/transparent"
+                    android:background="@drawable/background_login"
+                    android:backgroundTint="@color/white"
                     android:cursorVisible="true"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
@@ -114,15 +144,17 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Cantidad de Productos"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:text="Cantidad de Productos:"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/quantityTextViewC"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="@drawable/background_login"
+                    android:backgroundTint="@color/white"
                     android:gravity="end"
                     android:text="0"
                     android:textColor="@color/black"
@@ -130,13 +162,19 @@
             </LinearLayout>
         </LinearLayout>
 
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="35dp" />
+
         <Button
             android:id="@+id/btnAddCategory"
-            android:layout_width="127dp"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:text="Agregar" />
+            android:backgroundTint="@color/tertiary"
+            android:text="Agregar"
+            android:textColorLink="@color/secondary" />
 
     </LinearLayout>
 
