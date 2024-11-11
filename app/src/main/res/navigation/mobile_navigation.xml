@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.app.farmacia_fameza.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_nav_home_to_productDetailFragment"
+            app:destination="@id/productDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_category"
+        android:name="com.app.farmacia_fameza.ui.category.CategoryFragment"
+        android:label="@string/menu_category"
+        tools:layout="@layout/fragment_category" />
+
+    <fragment
+        android:id="@+id/nav_brand"
+        android:name="com.app.farmacia_fameza.ui.brand.BrandFragment"
+        android:label="@string/menu_brand"
+        tools:layout="@layout/fragment_brand" />
+
+    <fragment
+        android:id="@+id/nav_lote"
+        android:name="com.app.farmacia_fameza.ui.lote.LoteFragment"
+        android:label="fragment_lote"
+        tools:layout="@layout/fragment_lote" />
+
+    <fragment
+        android:id="@+id/nav_output"
+        android:name="com.app.farmacia_fameza.ui.output.OutputFragment"
+        android:label="fragment_output"
+        tools:layout="@layout/fragment_output" />
+
+    <fragment
+        android:id="@+id/productDetailFragment"
+        android:name="com.app.farmacia_fameza.ProductDetailFragment"
+        android:label="@string/product_detail_label"
+        tools:layout="@layout/fragment_product_detail" />
+    <fragment
+        android:id="@+id/productListFragment"
+        android:name="com.app.farmacia_fameza.view.ProductListFragment"
+        android:label="@string/products_list_label"
+        tools:layout="@layout/fragment_list_product" />
+    <fragment
+        android:id="@+id/categoryCrudFragment"
+        android:name="com.app.farmacia_fameza.CategoryCrudFragment"
+        android:label="@string/category_configuration"
+        tools:layout="@layout/fragment_category_crud" />
+    <fragment
+        android:id="@+id/brandCrudFragment"
+        android:name="com.app.farmacia_fameza.brandCrudFragment"
+        android:label="@string/brand_configuration"
+        tools:layout="@layout/fragment_brand_crud" />
+    <fragment
+        android:id="@+id/addProductFragment"
+        android:name="com.app.farmacia_fameza.addProductFragment"
+        android:label="@string/product_add"
+        tools:layout="@layout/fragment_add_product" />
+
+    <fragment
+        android:id="@+id/categoryListFragment"
+        android:name="com.app.farmacia_fameza.CategoryListFragment"
+        android:label="@string/category_list_configuration"
+        tools:layout="@layout/fragment_category_list" />
+
+</navigation>

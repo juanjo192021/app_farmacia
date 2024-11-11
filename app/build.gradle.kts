@@ -29,6 +29,9 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -36,14 +39,25 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
-    implementation("com.squareup.retrofit2:retrofit:2.11.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
-    // define a BOM and its version
-    implementation(platform("com.squareup.okhttp3:okhttp-bom:4.12.0"))
 
-    // define any required OkHttp artifacts without version
-    implementation("com.squareup.okhttp3:okhttp")
-    implementation("com.squareup.okhttp3:logging-interceptor")
+    // Implementacion Spinner
+    implementation ("androidx.appcompat:appcompat:1.4.1") // Verifica si hay una versión más reciente
+    implementation ("com.google.android.material:material:1.4.0")// Si usas Material Design
+
+    implementation ("com.makeramen:roundedimageview:2.3.0")
+
+    implementation ("com.github.bumptech.glide:glide:4.12.0")
+    implementation(libs.legacy.support.v4)
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")
+
+    //Implementacion Carga de Imagenes
+    implementation ("com.squareup.picasso:picasso:2.8")
+
+
+    implementation(libs.lifecycle.livedata.ktx)
+    implementation(libs.lifecycle.viewmodel.ktx)
+    implementation(libs.navigation.fragment)
+    implementation(libs.navigation.ui)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

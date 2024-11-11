@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/frameDetailProduct"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".ProductDetailFragment"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="@dimen/common_padding_min"
+        android:padding="16dp"
+        android:animateLayoutChanges="true">
+
+        <!-- ImageView para la imagen del producto -->
+        <ImageView
+            android:id="@+id/imageEditProductDetail"
+            android:layout_width="194dp"
+            android:layout_height="@dimen/image_prductDetail_map_size"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_gravity="center"
+            android:paddingLeft="14dp"
+            android:paddingRight="14dp"
+            android:src="@drawable/button_menu" />
+
+        <!-- TextView para el nombre del producto -->
+        <LinearLayout
+            android:layout_width="227dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/txtEditProductDetailName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:gravity="center_horizontal"
+                android:inputType="text"
+                android:text="nameProduct" />
+
+            <ImageView
+                android:id="@+id/btnBatchHistory"
+                android:layout_width="85dp"
+                android:layout_height="29dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:src="@drawable/botoninfo" />
+        </LinearLayout>
+
+        <!-- Línea divisoria debajo de la descripción -->
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="11dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/circular_border"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/descriptionText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="10dp"
+                android:text="Description:"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/txtEditProductDetailDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="text"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:id="@+id/stockLayout"
+                android:layout_width="312dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <!-- TextView para "Stock" alineado a la izquierda -->
+                <TextView
+                    android:id="@+id/stockText"
+                    android:layout_width="15dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Image:"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/txtEditProductDetailImage"
+                    android:layout_width="172dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="text"
+                    android:lineSpacingExtra="16sp"
+                    android:textSize="16sp" />/>
+
+                <!-- TextView para la cantidad de stock alineado a la derecha -->
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/categoryLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <!-- TextView para "Stock" alineado a la izquierda -->
+                <TextView
+                    android:id="@+id/categoryText"
+                    android:layout_width="39dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Category:"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/spinnerProductDetailCategory"
+                    android:layout_width="142dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />/>
+
+                <!-- TextView para la cantidad de stock alineado a la derecha -->
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/brandLayout"
+                android:layout_width="272dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <!-- TextView para "Stock" alineado a la izquierda -->
+                <TextView
+                    android:id="@+id/brandText"
+                    android:layout_width="27dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Brand:"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/spinnerEditProductDetailBrand"
+                    android:layout_width="147dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />/>
+
+                <!-- TextView para la cantidad de stock alineado a la derecha -->
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/statusLayout"
+                android:layout_width="241dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <!-- TextView para "Stock" alineado a la izquierda -->
+                <TextView
+                    android:id="@+id/statusText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Status:"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/spinnerEditProductDetailStatus"
+                    android:layout_width="144dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />/>
+
+                <!-- TextView para la cantidad de stock alineado a la derecha -->
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/priceLayout"
+                android:layout_width="169dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/PriceText"
+                    android:layout_width="149dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Price:"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/txtxEditProductDetailPrice"
+                    android:layout_width="165dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="text"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnDetailProductUpdate"
+                android:layout_width="175dp"
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="Actualizar" />
+        </LinearLayout>
+
+    </LinearLayout>
+</FrameLayout>

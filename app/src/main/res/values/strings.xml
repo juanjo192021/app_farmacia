@@ -2,4 +2,29 @@
     <string name="app_name">farmacia-fameza</string>
     <string name="contra_subrayado"><u>Forgot your password?</u></string>
     <string name="registrar_subrayado"><u>Registrate</u></string>
+    <string name="title_activity_menu">Menu</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Farmacia Fameza</string>
+    <string name="nav_header_subtitle">fameza.inventary@gmail.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Productos</string>
+    <string name="menu_category">Categorias</string>
+    <string name="menu_brand">Marcas</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="product_detail_label">Detalles del Producto</string>
+    <string name="products_list_label">Productos</string>
+    <string name="category_configuration">Confgurar Categoria</string>
+    <string name="brand_configuration">Confgurar Marca</string>
+    <string name="product_add">Añadir Producto</string>
+    <string name="login">Login</string>
+    <string name="irRegister">¿No tiene una cuenta? Registrate</string>
+    <string name="category_list_configuration">Configurar Categorias</string>
+    <string name="menu_entry">Entradas</string>
+    <string name="menu_output">Salidas</string>
+
 </resources>
