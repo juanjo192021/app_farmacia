@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 
 import com.app.farmacia_fameza.dao.conexion;
 import com.app.farmacia_fameza.dto.ProductAddDTO;
+import com.app.farmacia_fameza.dto.ProductKardexDTO;
 import com.app.farmacia_fameza.dto.ProductListDTO;
 import com.app.farmacia_fameza.dto.ProductUpdateDTO;
 import com.app.farmacia_fameza.models.Product;
@@ -214,6 +215,29 @@ public class cProduct extends conexion {
         return exists;
     }
 
+    public String searchSKU(Integer id){
+        String sku = null;
+        SQLiteDatabase database = this.getReadableDatabase();
+        Cursor cursor = null;
+        try {
+            String query = "SELECT sku FROM " + TABLE_PRODUCT + " WHERE id = ?";
+            cursor = database.rawQuery(query, new String[]{String.valueOf(id)});
+            if (cursor.moveToFirst()) {
+                sku = cursor.getString(0);
+            }
+        }catch (Exception e){
+            Log.e("Get Search SKU Error", "Error al obtener SKU del producto: " + e.getMessage());
+        }finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            if (database != null && database.isOpen()) {
+                database.close();
+            }
+        }
+        return sku;
+    }
+
     public Integer getIDProductBySKU(String sku) {
         Integer productId = null;
         SQLiteDatabase database = this.getReadableDatabase();
@@ -295,4 +319,36 @@ public class cProduct extends conexion {
         return stock;
     }
 
+    public List<ProductKardexDTO> getProductData(Integer id){
+        List<ProductKardexDTO> productEntries = new ArrayList<>();
+        SQLiteDatabase database = this.getReadableDatabase();
+        String query = "SELECT ped.entry_id, pe.date_entry, ped.alert_date, ped.expiration_date, s.name, " +
+                "COALESCE(ped.quantity, 0) AS entry_quantity, COALESCE(pod.quantity, 0) AS output_quantity, " +
+                "COALESCE(ped.quantity, 0) - COALESCE(pod.quantity, 0) AS remaining_quantity " +
+                "FROM " + TABLE_PRODUCT_ENTRY_DETAIL + " ped " +
+                "INNER JOIN "+ TABLE_PRODUCT_ENTRY + " pe ON ped.entry_id = pe.id " +
+                "INNER JOIN " + TABLE_SUPPLIER  + " s ON pe.supplier_id = s.id " +
+                "LEFT JOIN " + TABLE_PRODUCT_OUTPUT_DETAIL + " pod ON ped.product_id = pod.product_id " +
+                "WHERE ped.product_id = ?";
+
+        Cursor cursor = database.rawQuery(query, new String[]{String.valueOf(id)});
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                int entryId = cursor.getInt(0);
+                String dateEntry = cursor.getString(1);
+                String alertDate = cursor.getString(2);
+                String expirationDate = cursor.getString(3);
+                String supplierName = cursor.getString(4);
+                int entryQuantity = cursor.getInt(5);
+                int outputQuantity = cursor.getInt(6);
+                int remainingQuantity = cursor.getInt(7);
+
+                productEntries.add(new ProductKardexDTO(entryId, dateEntry, alertDate, expirationDate,
+                        supplierName, entryQuantity, outputQuantity, remainingQuantity));
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        database.close();
+        return productEntries;
+    }
 }

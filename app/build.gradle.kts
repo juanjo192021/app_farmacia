@@ -53,6 +53,8 @@ dependencies {
     //Implementacion Carga de Imagenes
     implementation ("com.squareup.picasso:picasso:2.8")
 
+    //Implementacion Generar PDF Kardex
+    implementation ("com.itextpdf:itext7-core:7.2.3")
 
     implementation(libs.lifecycle.livedata.ktx)
     implementation(libs.lifecycle.viewmodel.ktx)

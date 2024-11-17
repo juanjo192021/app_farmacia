@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 
 public class conexion extends SQLiteOpenHelper {
     private static final String DB_NAME = "Farmacia.db";
-    private static final int DB_VERSION = 6;
+    private static final int DB_VERSION = 7;
 
     // Table Names
     public static final String TABLE_BRAND = "Brand";
@@ -21,6 +21,7 @@ public class conexion extends SQLiteOpenHelper {
     public static final String TABLE_PRODUCT_OUTPUT = "Product_Output";
     public static final String TABLE_PRODUCT_OUTPUT_DETAIL = "Product_Output_Detail";
     public static final String TABLE_SUPPLIER = "Supplier";
+    public static final String TABLE_INVENTORY_TRANSACTION = "Inventory_Transaction";
 
     // Constructor
     public conexion(@Nullable Context context) {
@@ -120,6 +121,13 @@ public class conexion extends SQLiteOpenHelper {
                 "FOREIGN KEY (output_id) REFERENCES " + TABLE_PRODUCT_OUTPUT + "(id), " +
                 "FOREIGN KEY (product_id) REFERENCES " + TABLE_PRODUCT + "(id))");
 
+        // Create Inventory_Transaction table
+        db.execSQL("CREATE TABLE " + TABLE_INVENTORY_TRANSACTION + " (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "transaction_type TEXT NOT NULL, " +
+                "transaction_id INTEGER, " +
+                "detail TEXT NOT NULL)");
+
         // Insertar datos en la tabla Brand
         db.execSQL("INSERT INTO " + TABLE_BRAND + " (name, status) VALUES " +
                 "('Laboratorios Bayer', 1), " +
@@ -184,7 +192,6 @@ public class conexion extends SQLiteOpenHelper {
                 "(1, 2, 5), " +
                 "(2, 3, 20), " +
                 "(3, 4, 15)");
-
     }
 
     @Override
