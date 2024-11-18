@@ -2,6 +2,7 @@ package com.app.farmacia_fameza;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -50,14 +51,19 @@ public class MainActivity extends AppCompatActivity {
                 String email = txtEmail.getText().toString();
                 String password = txtPassword.getText().toString();
 
-                if(BUser.login(new User(email,password))){
-                    Toast.makeText(MainActivity.this, "Login exitoso", Toast.LENGTH_SHORT).show();
-                    Intent x=new Intent(MainActivity.this, Menu.class);
-                    startActivity(x);
-                    finish();
-                }else{
-                    Toast.makeText(MainActivity.this, "Usuario o contraseña incorrectos", Toast.LENGTH_SHORT).show();
+                if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                    Toast.makeText(MainActivity.this, "Por favor, ingresa un correo electrónico válido", Toast.LENGTH_SHORT).show();
+                    return;
                 }
+
+                if(!BUser.login(new User(email,password))){
+                    Toast.makeText(MainActivity.this, "Correo electrónico o contraseña incorrectos", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                Intent x=new Intent(MainActivity.this, Menu.class);
+                startActivity(x);
+                finish();
             }
         });
     }
