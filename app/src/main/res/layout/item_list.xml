@@ -38,14 +38,14 @@
                     android:layout_marginBottom="2dp"
                     android:text="Item"
                     android:textColor="@color/black"
-                    android:textSize="24sp"
+                    android:textSize="22sp"
                     android:textStyle="bold"/>
                 <TextView
                     android:id="@+id/itemStatus"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Activo"
-                    android:textSize="18sp"/>
+                    android:textSize="16sp"/>
             </LinearLayout>
             <TextView
                 android:id="@+id/itemQuantity"

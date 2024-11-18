@@ -12,37 +12,51 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
+        <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:background="@color/white"
-            android:elevation="4dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="16dp">
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/btnBuscarProduct"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingEnd="10dp"
-                android:text="Buscar:"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:paddingTop="25sp"
+                android:paddingBottom="25sp">
 
-            <EditText
-                android:id="@+id/searchEditTextProduct"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/edit_text_background"
-                android:gravity="center_vertical"
-                android:hint="Productos"
-                android:padding="12dp"
-                android:textSize="18sp" />
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/btnBuscarProduct"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="18sp"
+                    android:layout_marginEnd="28sp"
+                    android:gravity="center"
+                    android:text="Buscar:"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/searchEditTextProduct"
+                        android:layout_width="242dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/edit_text_background"
+                        android:gravity="center_vertical"
+                        android:paddingTop="7sp"
+                        android:paddingBottom="7sp"
+                        android:paddingLeft="8sp"
+                        android:paddingRight="8sp"
+                        android:textSize="18sp"
+                        android:singleLine="true"
+                        android:ellipsize="end"
+                        android:scrollHorizontally="true"/>
+                </LinearLayout>
+
+            </TableRow>
+
+        </TableLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewProduct"
