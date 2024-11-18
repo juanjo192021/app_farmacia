@@ -1,13 +1,11 @@
 package com.app.farmacia_fameza.business;
 
 import android.content.Context;
-import android.widget.Spinner;
 
 import com.app.farmacia_fameza.dto.ItemListDTO;
 
 import com.app.farmacia_fameza.controller.cBrand;
 import com.app.farmacia_fameza.dto.ProductListDTO;
-import com.app.farmacia_fameza.models.Product;
 
 
 import java.util.List;
@@ -33,4 +31,12 @@ public class bBrand {
     }
 
     public Integer getIDBrand(String nameBrand){return CBrand.getIDBrand(nameBrand);}
+
+    public boolean addBrand(String name, int status){
+        return CBrand.addBrand(name, status);
+    }
+
+    public boolean editBrand(int id, String name, int status){
+        return CBrand.editBrand(id, name, status);
+    }
 }

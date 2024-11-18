@@ -2,7 +2,6 @@ package com.app.farmacia_fameza;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -18,9 +17,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.app.farmacia_fameza.adapters.categoryListAdapter;
-import com.app.farmacia_fameza.business.bCategory;
-import com.app.farmacia_fameza.databinding.FragmentCategoryListBinding;
+import com.app.farmacia_fameza.adapters.brandListAdapter;
+import com.app.farmacia_fameza.business.bBrand;
+import com.app.farmacia_fameza.databinding.FragmentBrandListBinding;
 import com.app.farmacia_fameza.dto.ItemListDTO;
 import com.app.farmacia_fameza.dto.ProductListDTO;
 import com.app.farmacia_fameza.view.ProductListFragment;
@@ -29,59 +28,67 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import java.io.Serializable;
 import java.util.List;
 
-public class CategoryListFragment extends Fragment implements categoryListAdapter.OnCategoryClickListener {
+public class BrandListFragment extends Fragment implements brandListAdapter.OnBrandClickListener{
 
-    List<ItemListDTO> listCategories;
-    bCategory BCategory;
-    categoryListAdapter categoryListAdapter;
+    List<ItemListDTO> listBrands;
+    bBrand BBrand;
+    brandListAdapter brandListAdapter;
 
-    private FragmentCategoryListBinding binding;
+    private FragmentBrandListBinding binding;
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         // Inflar el layout del fragmento
-        binding = FragmentCategoryListBinding.inflate(inflater, container, false);
+        binding = FragmentBrandListBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        // Inicializar BProduct
-        BCategory = new bCategory(getContext());
+        BBrand = new bBrand(getContext());
 
-        getCategories();
+        getBrands();
         setupSearchFilter();
 
         return root;
     }
 
     private void setupSearchFilter() {
-        EditText searchEditText = binding.searchEditTextCategory;
+        EditText searchEditText = binding.searchEditTextBrand;
         searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // No se necesita implementar nada aquí
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                categoryListAdapter.filter(s.toString());
+                // Llama al método de filtrado en el adaptador de la lista
+                brandListAdapter.filter(s.toString());
             }
 
             @Override
             public void afterTextChanged(Editable s) {
+                // No se necesita implementar nada aquí
             }
         });
     }
 
-    public void getCategories(){
-        listCategories = BCategory.getCategories();
+    private void getBrands() {
+        listBrands = BBrand.getBrands();
 
-        categoryListAdapter = new categoryListAdapter(listCategories,this.getContext(),this);
-        RecyclerView recyclerView = binding.recyclerViewCategory;
+        brandListAdapter = new brandListAdapter(listBrands,this.getContext(),this);
+        RecyclerView recyclerView = binding.recyclerViewBrand;
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
-        recyclerView.setAdapter(categoryListAdapter);
+        recyclerView.setAdapter(brandListAdapter);
     }
 
     @Override
-    public void onCategoryClick(ItemListDTO category, View v) {
+    public void onBrandClick(ItemListDTO brand, View v) {
 
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(
                 getActivity(), R.style.BottomSheetDialogTheme
@@ -91,16 +98,16 @@ public class CategoryListFragment extends Fragment implements categoryListAdapte
                         R.layout.modal_collection,
                         (LinearLayout) getView().findViewById(R.id.bottomCollectionModal)
                 );
-
         TextView modaltitle = bottomSheetView.findViewById(R.id.txtCollectionModal);
-        TextView modalCategoryName = bottomSheetView.findViewById(R.id.txtNameCollectionModal);
-        TextView modalCategoryStatus = bottomSheetView.findViewById(R.id.txtStatusCollectionModal);
-        TextView modalCategoryCountProduct = bottomSheetView.findViewById(R.id.txtCountProductCollectionModal);
+        TextView modalBrandName = bottomSheetView.findViewById(R.id.txtNameCollectionModal);
+        TextView modalBrandStatus = bottomSheetView.findViewById(R.id.txtStatusCollectionModal);
+        TextView modalBrandCountProduct = bottomSheetView.findViewById(R.id.txtCountProductCollectionModal);
 
-        modaltitle.setText("Ver Categoria");
-        modalCategoryName.setText(category.getName());
-        modalCategoryStatus.setText(category.getStatus());
-        modalCategoryCountProduct.setText(String.valueOf(category.getCount_Product()));
+        modaltitle.setText("Ver Marca");
+        modalBrandName.setText(brand.getName());
+        modalBrandStatus.setText(brand.getStatus());
+        modalBrandCountProduct.setText(String.valueOf(brand.getCount_Product()));
+
 
         bottomSheetView.findViewById(R.id.btnEditOfCollection).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,21 +116,21 @@ public class CategoryListFragment extends Fragment implements categoryListAdapte
                 Bundle bundle = new Bundle();
 
                 // Agregar argumentos específicos para el CategoryCrudFragment
-                bundle.putInt("idCategory", category.getId());
-                bundle.putString("nameCategory", category.getName());
-                bundle.putString("statusCategory", category.getStatus());
-                bundle.putString("quantityCategory", String.valueOf(category.getCount_Product()));
+                bundle.putInt("idBrand", brand.getId());
+                bundle.putString("nameBrand", brand.getName());
+                bundle.putString("statusBrand", brand.getStatus());
+                bundle.putString("quantityBrand", String.valueOf(brand.getCount_Product()));
                 bundle.putBoolean("isEditFrame", true);
 
                 NavController navController = Navigation.findNavController(v);
-                navController.navigate(R.id.categoryCrudFragment, bundle);
+                navController.navigate(R.id.brandCrudFragment, bundle);
                 bottomSheetDialog.dismiss();
             }
         });
         bottomSheetView.findViewById(R.id.btnListProductOfCollection).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                List<ProductListDTO> products = BCategory.getProductsByCategory(category.getId());
+                List<ProductListDTO> products = BBrand.getProductsByBrand(brand.getId());
 
                 // Obtener el NavController
                 NavController navController = Navigation.findNavController(v);
@@ -139,12 +146,6 @@ public class CategoryListFragment extends Fragment implements categoryListAdapte
         });
         bottomSheetDialog.setContentView(bottomSheetView);
         bottomSheetDialog.show();
-    }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
     }
-
 }

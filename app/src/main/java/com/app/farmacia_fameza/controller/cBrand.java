@@ -1,6 +1,7 @@
 package com.app.farmacia_fameza.controller;
 
 import android.annotation.SuppressLint;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -72,6 +73,60 @@ public class cBrand extends conexion {
         }
 
         return brandList;
+    }
+
+    public boolean addBrand(String name, int status) {
+        SQLiteDatabase database = this.getWritableDatabase();
+        boolean success = false;
+
+        try {
+            // Crear un ContentValues con los valores de la nueva categoría
+            ContentValues values = new ContentValues();
+            values.put("name", name);
+            values.put("status", status);
+
+            // Insertar la nueva categoría en la tabla de categorías
+            long result = database.insert(TABLE_BRAND, null, values);
+
+            // Si el resultado es -1, significa que la inserción falló
+            success = result != -1;
+
+        } catch (Exception e) {
+            Log.e("Add Brand Error", "Error al agregar marca: " + e.getMessage());
+        } finally {
+            if (database != null && database.isOpen()) {
+                database.close();
+            }
+        }
+
+        return success;
+    }
+
+    public boolean editBrand(int id, String name, int status) {
+        SQLiteDatabase database = this.getWritableDatabase();
+        boolean success = false;
+
+        try {
+            // Crear un ContentValues con los nuevos valores para la categoría
+            ContentValues values = new ContentValues();
+            values.put("name", name);
+            values.put("status", status);
+
+            // Actualizar la categoría en la tabla usando el id como criterio
+            int result = database.update(TABLE_BRAND, values, "id = ?", new String[]{String.valueOf(id)});
+
+            // Si el resultado es mayor a 0, significa que la actualización fue exitosa
+            success = result > 0;
+
+        } catch (Exception e) {
+            Log.e("Edit Brand Error", "Error al editar marca: " + e.getMessage());
+        } finally {
+            if (database != null && database.isOpen()) {
+                database.close();
+            }
+        }
+
+        return success;
     }
 
 

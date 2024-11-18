@@ -56,7 +56,7 @@
         tools:layout="@layout/fragment_category_crud" />
     <fragment
         android:id="@+id/brandCrudFragment"
-        android:name="com.app.farmacia_fameza.brandCrudFragment"
+        android:name="com.app.farmacia_fameza.BrandCrudFragment"
         android:label="@string/brand_configuration"
         tools:layout="@layout/fragment_brand_crud" />
     <fragment
@@ -70,5 +70,10 @@
         android:name="com.app.farmacia_fameza.CategoryListFragment"
         android:label="@string/category_list_configuration"
         tools:layout="@layout/fragment_category_list" />
+    <fragment
+        android:id="@+id/brandListFragment"
+        android:name="com.app.farmacia_fameza.BrandListFragment"
+        android:label="fragment_brand_list"
+        tools:layout="@layout/fragment_brand_list" />
 
 </navigation>

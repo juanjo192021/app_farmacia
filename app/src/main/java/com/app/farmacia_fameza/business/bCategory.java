@@ -26,12 +26,12 @@ public class bCategory {
         return CCategory.getProductsByCategory(idCategory);
     }
 
-    public boolean addCategory(String name, int status){
-        return CCategory.addCategory(name, status);
-    }
-
     public List<String> getCategoryName(){
         return CCategory.getCategoryName();
+    }
+
+    public boolean addCategory(String name, int status){
+        return CCategory.addCategory(name, status);
     }
 
     public boolean editCategory(int id, String name, int status){

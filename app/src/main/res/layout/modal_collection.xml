@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/bottomCategoryModal"
+    android:id="@+id/bottomCollectionModal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/modal_layout_background"
     android:orientation="vertical">
     <TextView
-        android:id="@+id/txtCategoryModal"
+        android:id="@+id/txtCollectionModal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -44,7 +44,7 @@
                 android:textSize="17sp"
                 android:textStyle="bold"/>
             <TextView
-                android:id="@+id/txtNameCategoryModal"
+                android:id="@+id/txtNameCollectionModal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Medicamento"
@@ -68,7 +68,7 @@
                 android:textSize="17sp"
                 android:textStyle="bold"/>
             <TextView
-                android:id="@+id/txtStatusCategoryModal"
+                android:id="@+id/txtStatusCollectionModal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Activo"
@@ -92,7 +92,7 @@
                 android:textSize="17sp"
                 android:textStyle="bold"/>
             <TextView
-                android:id="@+id/txtCountProductCategoryModal"
+                android:id="@+id/txtCountProductCollectionModal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="10"
@@ -118,7 +118,7 @@
         android:layout_gravity="center">
 
         <Button
-            android:id="@+id/btnListProductOfCategory"
+            android:id="@+id/btnListProductOfCollection"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:text="Ver productos"
@@ -128,7 +128,7 @@
             android:textSize="15sp"/>
 
         <Button
-            android:id="@+id/btnEditOfCategory"
+            android:id="@+id/btnEditOfCollection"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:text="Editar"
