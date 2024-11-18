@@ -46,4 +46,8 @@ public class bProduct {
     public List<ProductInventoryDTO> completeTableKardex() {
         return CProduct.completeTableKardex();
     }
+
+    public List<ProductInventoryDTO> completeTableKardexFilterMonth(String mes){
+        return  CProduct.completeTableKardexFilterMonth(mes);
+    }
 }

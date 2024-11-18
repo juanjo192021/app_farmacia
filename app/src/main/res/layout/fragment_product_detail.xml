@@ -46,13 +46,6 @@
                 android:inputType="text"
                 android:text="nameProduct" />
 
-            <ImageView
-                android:id="@+id/btnBatchHistory"
-                android:layout_width="85dp"
-                android:layout_height="29dp"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:src="@drawable/botoninfo" />
         </LinearLayout>
 
         <!-- Línea divisoria debajo de la descripción -->

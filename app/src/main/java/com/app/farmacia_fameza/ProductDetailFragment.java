@@ -51,7 +51,7 @@ public class ProductDetailFragment extends Fragment {
     com.app.farmacia_fameza.business.bBrand bBrand;
     com.app.farmacia_fameza.business.bProduct bProduct;
     Button btnUpdateProduct;
-    ImageView btnPDF;
+    //ImageView btnPDF;
     EditText name,description,price,link;
     Spinner brand,category,status;
     ImageView image;
@@ -154,13 +154,13 @@ public class ProductDetailFragment extends Fragment {
             Picasso.get().load(product.getImage()).into(image);
         }
 
-        btnPDF = root.findViewById(R.id.btnBatchHistory);
+        /*btnPDF = root.findViewById(R.id.btnBatchHistory);
         btnPDF.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 generatePdf();
             }
-        });
+        });*/
 
         btnUpdateProduct = root.findViewById(R.id.btnDetailProductUpdate);
         btnUpdateProduct.setOnClickListener(new View.OnClickListener() {
@@ -170,14 +170,11 @@ public class ProductDetailFragment extends Fragment {
         return root;
     }
 
-    private void generatePdf() {
-        ProductUpdateDTO productUpdateDTO = completeDataUpdateProduct();
-        Integer id = productUpdateDTO.getId();
-        String sku = bProduct.searchSKU(id);
+    /*private void generatePdf() {
         List<ProductInventoryDTO> productInventoryDTOList = bProduct.completeTableKardex();
 
         int randomNumber = new Random().nextInt(9000) + 1000;
-        String fileName = "Fameza_" + sku + "_" + randomNumber + ".pdf";
+        String fileName = "FarmaciaFameza"+ "_" + randomNumber + ".pdf";
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
             ContentResolver resolver = requireActivity().getContentResolver();
@@ -213,7 +210,7 @@ public class ProductDetailFragment extends Fragment {
                 Toast.makeText(requireActivity(), "Error al generar el PDF: " + e.getMessage(), Toast.LENGTH_LONG).show();
             }
         }
-    }
+    }*/
 
 
     private void updateProduct(){
