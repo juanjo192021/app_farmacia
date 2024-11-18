@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">farmacia-fameza</string>
-    <string name="contra_subrayado"><u>Forgot your password?</u></string>
+    <string name="contra_subrayado"><u>¿Olvidaste tu contraseña?</u></string>
     <string name="registrar_subrayado"><u>Registrate</u></string>
     <string name="title_activity_menu">Menu</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -21,7 +21,7 @@
     <string name="category_configuration">Confgurar Categoria</string>
     <string name="brand_configuration">Confgurar Marca</string>
     <string name="product_add">Añadir Producto</string>
-    <string name="login">Login</string>
+    <string name="login">Iniciar Sesión</string>
     <string name="irRegister">¿No tiene una cuenta? Registrate</string>
     <string name="category_list_configuration">Configurar Categorias</string>
     <string name="menu_entry">Entradas</string>
