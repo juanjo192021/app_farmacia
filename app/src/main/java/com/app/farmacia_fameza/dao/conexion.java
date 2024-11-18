@@ -192,6 +192,15 @@ public class conexion extends SQLiteOpenHelper {
                 "(1, 2, 5), " +
                 "(2, 3, 20), " +
                 "(3, 4, 15)");
+
+        // Insertar datos en la tabla Inventory_Transaction
+        db.execSQL("INSERT INTO " + TABLE_INVENTORY_TRANSACTION + " (transaction_type, transaction_id, detail) VALUES " +
+                "('entry',1,'compra')," +
+                "('entry',2,'compra')," +
+                "('entry',3,'compra')," +
+                "('output',1,'venta')," +
+                "('output',2,'venta')," +
+                "('output',3,'venta')");
     }
 
     @Override

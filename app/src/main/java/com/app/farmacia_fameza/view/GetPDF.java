@@ -18,6 +18,8 @@ import com.itextpdf.layout.*;
 import com.itextpdf.layout.element.*;
 import com.itextpdf.layout.properties.UnitValue;
 import java.util.List;
+import java.util.Map;
+
 import com.itextpdf.layout.element.Cell;
 
 public class GetPDF {
@@ -30,37 +32,27 @@ public class GetPDF {
             PdfDocument pdfDocument = new PdfDocument(writer);
             Document document = new Document(pdfDocument);
 
+            // Título del reporte
             document.add(new Paragraph("Reporte de Inventario").setBold().setFontSize(16));
 
-            Table table = new Table(UnitValue.createPercentArray(new float[]{2, 3, 2, 3, 3, 3, 3, 3, 3}))
+            // Crear tabla con ancho de columnas proporcionado
+            Table table = new Table(UnitValue.createPercentArray(new float[]{2, 3, 2, 3, 3, 3, 3}))
                     .useAllAvailableWidth();
 
-            // Agregar encabezados
-            String[] headers = {"Lote", "Ingreso", "Aviso", "Vence", "Proveedor", "Entrada", "Salida", "Actual"};
+            // Encabezados de la tabla
+            String[] headers = {"SKU", "Nombre", "Fecha", "Detalle", "Entrada", "Salida", "Saldo"};
             for (String header : headers) {
                 table.addHeaderCell(new Cell().add(new Paragraph(header).setBold()));
             }
 
-            // Procesar cada fila de datos
+            // Agregar filas de datos
             for (Cell[] row : rows) {
-                int totalColumns = 0;
                 for (Cell cell : row) {
                     table.addCell(cell);
-                    totalColumns++;
-
-                    // Si alcanzamos 8 columnas, hacer un salto de fila
-                    if (totalColumns == 8) {
-                        totalColumns = 0; // Reiniciar el conteo para la nueva fila
-                    }
-                }
-
-                // Si la última fila tiene menos de 8 columnas, rellenar con celdas vacías
-                while (totalColumns > 0 && totalColumns < 8) {
-                    table.addCell(new Cell().add(new Paragraph("")));
-                    totalColumns++;
                 }
             }
 
+            // Agregar tabla al documento
             document.add(table);
             document.close();
 
@@ -69,5 +61,4 @@ public class GetPDF {
             Toast.makeText(context, "Error al crear el PDF: " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
-
 }

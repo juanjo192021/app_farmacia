@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.app.farmacia_fameza.controller.cProduct;
 import com.app.farmacia_fameza.dto.ProductAddDTO;
+import com.app.farmacia_fameza.dto.ProductInventoryDTO;
 import com.app.farmacia_fameza.dto.ProductKardexDTO;
 import com.app.farmacia_fameza.dto.ProductListDTO;
 import com.app.farmacia_fameza.dto.ProductUpdateDTO;
@@ -38,7 +39,11 @@ public class bProduct {
         return  CProduct.searchSKU(id);
     }
 
-    public List<ProductKardexDTO> getProductData(Integer id){
+    /*public List<ProductKardexDTO> getProductData(Integer id){
         return CProduct.getProductData(id);
+    }*/
+
+    public List<ProductInventoryDTO> completeTableKardex() {
+        return CProduct.completeTableKardex();
     }
 }

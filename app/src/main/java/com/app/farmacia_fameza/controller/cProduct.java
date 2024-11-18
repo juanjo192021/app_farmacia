@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 
 import com.app.farmacia_fameza.dao.conexion;
 import com.app.farmacia_fameza.dto.ProductAddDTO;
+import com.app.farmacia_fameza.dto.ProductInventoryDTO;
 import com.app.farmacia_fameza.dto.ProductKardexDTO;
 import com.app.farmacia_fameza.dto.ProductListDTO;
 import com.app.farmacia_fameza.dto.ProductUpdateDTO;
@@ -319,7 +320,7 @@ public class cProduct extends conexion {
         return stock;
     }
 
-    public List<ProductKardexDTO> getProductData(Integer id){
+    /*public List<ProductKardexDTO> getProductData(Integer id){
         List<ProductKardexDTO> productEntries = new ArrayList<>();
         SQLiteDatabase database = this.getReadableDatabase();
         String query = "SELECT ped.entry_id, pe.date_entry, ped.alert_date, ped.expiration_date, s.name, " +
@@ -350,5 +351,71 @@ public class cProduct extends conexion {
         }
         database.close();
         return productEntries;
+    }*/
+
+    public List<ProductInventoryDTO>  completeTableKardex(){
+        List<ProductInventoryDTO> productInventoryDTOList = new ArrayList<>();
+        SQLiteDatabase database = this.getReadableDatabase();
+        String query = "SELECT " +
+                "p.sku AS sku, " +
+                "p.name AS nameProduct, " +
+                "CASE " +
+                "    WHEN it.transaction_type = 'entry' THEN pe.date_entry " +
+                "    WHEN it.transaction_type = 'output' THEN po.output_date " +
+                "END AS fecha, " +
+                "it.detail AS detalle, " +
+                "CASE " +
+                "    WHEN it.transaction_type = 'entry' THEN ped.quantity " +
+                "    ELSE 0 " +
+                "END AS entrada, " +
+                "CASE " +
+                "    WHEN it.transaction_type = 'output' THEN pod.quantity " +
+                "    ELSE 0 " +
+                "END AS salida, " +
+                "(SELECT SUM(CASE " +
+                "            WHEN it2.transaction_type = 'entry' THEN ped2.quantity " +
+                "            WHEN it2.transaction_type = 'output' THEN -pod2.quantity " +
+                "            ELSE 0 " +
+                "        END) " +
+                " FROM " + TABLE_INVENTORY_TRANSACTION + " it2 " +
+                " LEFT JOIN " + TABLE_PRODUCT_ENTRY + " pe2 ON it2.transaction_id = pe2.id AND it2.transaction_type = 'entry' " +
+                " LEFT JOIN " + TABLE_PRODUCT_ENTRY_DETAIL + " ped2 ON pe2.id = ped2.entry_id " +
+                " LEFT JOIN " + TABLE_PRODUCT_OUTPUT + " po2 ON it2.transaction_id = po2.id AND it2.transaction_type = 'output' " +
+                " LEFT JOIN " + TABLE_PRODUCT_OUTPUT_DETAIL + " pod2 ON po2.id = pod2.output_id " +
+                " WHERE (ped2.product_id = p.id OR pod2.product_id = p.id) " +
+                "   AND (CASE " +
+                "           WHEN it2.transaction_type = 'entry' THEN pe2.date_entry " +
+                "           WHEN it2.transaction_type = 'output' THEN po2.output_date " +
+                "       END) <= " +
+                "       (CASE " +
+                "           WHEN it.transaction_type = 'entry' THEN pe.date_entry " +
+                "           WHEN it.transaction_type = 'output' THEN po.output_date " +
+                "       END)" +
+                ") AS saldo " +
+                "FROM " + TABLE_INVENTORY_TRANSACTION + " it " +
+                "LEFT JOIN " + TABLE_PRODUCT_ENTRY + " pe ON it.transaction_id = pe.id AND it.transaction_type = 'entry' " +
+                "LEFT JOIN " + TABLE_PRODUCT_ENTRY_DETAIL + " ped ON pe.id = ped.entry_id " +
+                "LEFT JOIN " + TABLE_PRODUCT_OUTPUT + " po ON it.transaction_id = po.id AND it.transaction_type = 'output' " +
+                "LEFT JOIN " + TABLE_PRODUCT_OUTPUT_DETAIL + " pod ON po.id = pod.output_id " +
+                "LEFT JOIN " + TABLE_PRODUCT + " p ON ped.product_id = p.id OR pod.product_id = p.id " +
+                "ORDER BY p.sku, fecha;";
+
+        Cursor cursor = database.rawQuery(query,null);
+        if (cursor != null && cursor.moveToFirst()) {
+            do{
+                String sku = cursor.getString(0);
+                String nameProduct = cursor.getString(1);
+                String fecha = cursor.getString(2);
+                String detalle = cursor.getString(3);
+                Integer entrada = cursor.getInt(4);
+                Integer salida = cursor.getInt(5);
+                Integer saldo = cursor.getInt(6);
+
+                productInventoryDTOList.add(new ProductInventoryDTO(sku,nameProduct,fecha,entrada,detalle,salida,saldo));
+            }while(cursor.moveToNext());
+            cursor.close();
+        }
+        database.close();
+        return  productInventoryDTOList;
     }
 }

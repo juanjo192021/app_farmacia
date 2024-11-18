@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.app.farmacia_fameza.business.bBrand;
 import com.app.farmacia_fameza.business.bCategory;
 import com.app.farmacia_fameza.business.bProduct;
+import com.app.farmacia_fameza.dto.ProductInventoryDTO;
 import com.app.farmacia_fameza.dto.ProductKardexDTO;
 import com.app.farmacia_fameza.dto.ProductUpdateDTO;
 import com.app.farmacia_fameza.models.Product;
@@ -173,7 +174,7 @@ public class ProductDetailFragment extends Fragment {
         ProductUpdateDTO productUpdateDTO = completeDataUpdateProduct();
         Integer id = productUpdateDTO.getId();
         String sku = bProduct.searchSKU(id);
-        List<ProductKardexDTO> productKardexDTOList = bProduct.getProductData(id);
+        List<ProductInventoryDTO> productInventoryDTOList = bProduct.completeTableKardex();
 
         int randomNumber = new Random().nextInt(9000) + 1000;
         String fileName = "Fameza_" + sku + "_" + randomNumber + ".pdf";
@@ -190,16 +191,15 @@ public class ProductDetailFragment extends Fragment {
             try {
                 if (pdfUri != null) {
                     List<Cell[]> tableRows = new ArrayList<>();
-                    for (ProductKardexDTO product : productKardexDTOList) {
+                    for (ProductInventoryDTO product : productInventoryDTOList) {
                         tableRows.add(new Cell[]{
-                                new Cell().add(new Paragraph(String.valueOf(product.getEntryId()))),
-                                new Cell().add(new Paragraph(product.getDateEntry())),
-                                new Cell().add(new Paragraph(product.getAlertDate())),
-                                new Cell().add(new Paragraph(product.getExpirationDate())),
-                                new Cell().add(new Paragraph(product.getSupplierName())),
-                                new Cell().add(new Paragraph(String.valueOf(product.getEntryQuantity()))),
-                                new Cell().add(new Paragraph(String.valueOf(product.getOutputQuantity()))),
-                                new Cell().add(new Paragraph(String.valueOf(product.getRemainingQuantity())))
+                                new Cell().add(new Paragraph(product.getSku())),
+                                new Cell().add(new Paragraph(product.getNameProduct())),
+                                new Cell().add(new Paragraph(product.getFecha())),
+                                new Cell().add(new Paragraph(product.getDetalle())),
+                                new Cell().add(new Paragraph(String.valueOf(product.getEntrada()))),
+                                new Cell().add(new Paragraph(String.valueOf(product.getSalida()))),
+                                new Cell().add(new Paragraph(String.valueOf(product.getSaldo())))
                         });
                     }
                     OutputStream outputStream = resolver.openOutputStream(pdfUri);
