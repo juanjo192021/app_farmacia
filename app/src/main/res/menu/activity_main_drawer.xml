@@ -21,8 +21,8 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_entry" />
         <item
-            android:id="@+id/nav_output"
+            android:id="@+id/nav_kardex"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_output" />
+            android:title="@string/menu_kardex" />
     </group>
 </menu>

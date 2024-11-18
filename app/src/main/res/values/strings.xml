@@ -26,5 +26,6 @@
     <string name="category_list_configuration">Configurar Categorias</string>
     <string name="menu_entry">Entradas</string>
     <string name="menu_output">Salidas</string>
+    <string name="menu_kardex">Kardex</string>
 
 </resources>

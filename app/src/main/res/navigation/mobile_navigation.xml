@@ -40,6 +40,12 @@
         tools:layout="@layout/fragment_output" />
 
     <fragment
+        android:id="@+id/nav_kardex"
+        android:name="com.app.farmacia_fameza.KardexFragment"
+        android:label="fragment_kardex"
+        tools:layout="@layout/fragment_kardex" />
+
+    <fragment
         android:id="@+id/productDetailFragment"
         android:name="com.app.farmacia_fameza.ProductDetailFragment"
         android:label="@string/product_detail_label"

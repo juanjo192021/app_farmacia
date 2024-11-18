@@ -37,14 +37,12 @@ public class Menu extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_category, R.id.nav_brand, R.id.nav_lote, R.id.nav_output)
+                R.id.nav_home, R.id.nav_category, R.id.nav_brand, R.id.nav_lote, R.id.nav_output, R.id.nav_kardex)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_menu);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-
-
 
         // Listener para detectar el fragmento actual y actualizar el menú o íconos
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
