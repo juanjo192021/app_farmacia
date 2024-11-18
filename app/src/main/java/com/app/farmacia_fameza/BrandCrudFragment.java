@@ -39,7 +39,7 @@ public class BrandCrudFragment extends Fragment {
     private String quantityBrand;
     private boolean isEditFrame;
 
-    private EditText nameBrandTV, statusBrandTV;
+    private EditText nameBrandTV;
     private Spinner statusBrandSppiner;
     private TextView quantityBrandTV;
     private Button buttonAddBrand;
@@ -75,6 +75,7 @@ public class BrandCrudFragment extends Fragment {
         buttonAddBrand = view.findViewById(R.id.btnAddBrand);
         nameBrandTV = view.findViewById(R.id.nameTextViewB);
         statusBrandSppiner = view.findViewById(R.id.statusSppinerB);
+        setupStatusSpinner(statusBrandSppiner);
         quantityBrandTV = view.findViewById(R.id.quantityTextViewB);
 
         // Configuración de vistas en función del modo (agregar o editar)
@@ -104,13 +105,14 @@ public class BrandCrudFragment extends Fragment {
         spinner.setAdapter(adapter);
     }
 
-
     private void setupEditMode() {
         if (nameBrand != null) {
             nameBrandTV.setText(nameBrand);
         }
         if (statusBrand != null) {
-            setupStatusSpinner(statusBrandSppiner);
+            if(statusBrand.equals("Inactivo")){
+                statusBrandSppiner.setSelection(1);
+            }
         }
         if (quantityBrand != null) {
             quantityBrandTV.setText(quantityBrand);
@@ -134,23 +136,26 @@ public class BrandCrudFragment extends Fragment {
     }
 
     private void handleBrandSave() {
+        int numberStatus;
         String Mode = (String) buttonAddBrand.getText();
         String name = nameBrandTV.getText().toString().trim();
-        String statusText = statusBrandTV.getText().toString().trim();
-        int status = statusText.equals("Inactivo") ? 0 : 1;
+        if(statusBrandSppiner.getSelectedItem().toString().equals("Activo")){
+            numberStatus = 1;
+        }else{
+            numberStatus = 0;
+        }
         if(Mode.equals("Agregar")){
-            boolean isAdded = Bbrand.addBrand(name, status);
+            boolean isAdded = Bbrand.addBrand(name, numberStatus);
 
             if (isAdded) {
                 Toast.makeText(getContext(), "Marca agregada con éxito", Toast.LENGTH_SHORT).show();
                 nameBrandTV.setText("");
-                statusBrandTV.setText("");
             } else {
                 Toast.makeText(getContext(), "Error al agregar la marca", Toast.LENGTH_SHORT).show();
             }
         }
         else{
-            boolean isEdited = Bbrand.editBrand(idBrand, name, status);
+            boolean isEdited = Bbrand.editBrand(idBrand, name, numberStatus);
 
             if (isEdited) {
                 Toast.makeText(getContext(), "Marca editada con éxito", Toast.LENGTH_SHORT).show();

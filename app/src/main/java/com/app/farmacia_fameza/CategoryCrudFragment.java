@@ -9,12 +9,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.farmacia_fameza.business.bCategory;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class CategoryCrudFragment extends Fragment {
 
@@ -31,7 +36,8 @@ public class CategoryCrudFragment extends Fragment {
     private String quantityCategory;
     private boolean isEditFrame;
 
-    private EditText nameCategoryTV, statusCategoryTV;
+    private EditText nameCategoryTV;
+    private Spinner statusCategorySppiner;
     private TextView quantityCategoryTV;
     private Button buttonAddCategory;
 
@@ -57,7 +63,9 @@ public class CategoryCrudFragment extends Fragment {
 
         buttonAddCategory = view.findViewById(R.id.btnAddCategory);
         nameCategoryTV = view.findViewById(R.id.nameTextViewC);
-        statusCategoryTV = view.findViewById(R.id.statusTextViewC);
+        statusCategorySppiner = view.findViewById(R.id.statusSppinerC);
+        setupStatusSpinner(statusCategorySppiner);
+
         quantityCategoryTV = view.findViewById(R.id.quantityTextViewC);
 
         // Configuración de vistas en función del modo (agregar o editar)
@@ -76,13 +84,25 @@ public class CategoryCrudFragment extends Fragment {
 
         return view;
     }
+    public void setupStatusSpinner(Spinner spinner) {
+        List<String> statusOptions = Arrays.asList("Activo", "Inactivo");
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(requireActivity(),
+                android.R.layout.simple_spinner_item, statusOptions);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinner.setAdapter(adapter);
+    }
+
 
     private void setupEditMode() {
         if (nameCategory != null) {
             nameCategoryTV.setText(nameCategory);
         }
         if (statusCategory != null) {
-            statusCategoryTV.setText(statusCategory);
+            if(statusCategory.equals("Inactivo")){
+                statusCategorySppiner.setSelection(1);
+            }
         }
         if (quantityCategory != null) {
             quantityCategoryTV.setText(quantityCategory);
@@ -106,23 +126,26 @@ public class CategoryCrudFragment extends Fragment {
     }
 
     private void handleCategorySave() {
+        int numberStatus;
         String Mode = (String) buttonAddCategory.getText();
         String name = nameCategoryTV.getText().toString().trim();
-        String statusText = statusCategoryTV.getText().toString().trim();
-        int status = statusText.equals("Inactivo") ? 0 : 1;
+        if(statusCategorySppiner.getSelectedItem().toString().equals("Activo")){
+            numberStatus = 1;
+        }else{
+            numberStatus = 0;
+        }
         if(Mode.equals("Agregar")){
-            boolean isAdded = Bcategory.addCategory(name, status);
+            boolean isAdded = Bcategory.addCategory(name, numberStatus);
 
             if (isAdded) {
                 Toast.makeText(getContext(), "Categoría agregada con éxito", Toast.LENGTH_SHORT).show();
                 nameCategoryTV.setText("");
-                statusCategoryTV.setText("");
             } else {
                 Toast.makeText(getContext(), "Error al agregar la categoría", Toast.LENGTH_SHORT).show();
             }
         }
         else{
-            boolean isEdited = Bcategory.editCategory(idCategory, name, status);
+            boolean isEdited = Bcategory.editCategory(idCategory, name, numberStatus);
 
             if (isEdited) {
                 Toast.makeText(getContext(), "Categoría editada con éxito", Toast.LENGTH_SHORT).show();
