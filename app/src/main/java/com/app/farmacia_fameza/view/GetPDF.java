@@ -5,6 +5,7 @@ import android.os.Environment;
 import android.widget.Toast;
 
 import com.app.farmacia_fameza.dto.ProductKardexDTO;
+import com.itextpdf.kernel.colors.ColorConstants;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
@@ -16,6 +17,7 @@ import java.io.FileOutputStream;
 import com.itextpdf.kernel.pdf.*;
 import com.itextpdf.layout.*;
 import com.itextpdf.layout.element.*;
+import com.itextpdf.layout.properties.TextAlignment;
 import com.itextpdf.layout.properties.UnitValue;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +35,7 @@ public class GetPDF {
             Document document = new Document(pdfDocument);
 
             // Título del reporte
-            document.add(new Paragraph("Reporte de Inventario").setBold().setFontSize(16));
+            document.add(new Paragraph("Reporte de Inventario").setBold().setFontSize(16).setTextAlignment(TextAlignment.CENTER));
 
             // Crear tabla con ancho de columnas proporcionado
             Table table = new Table(UnitValue.createPercentArray(new float[]{2, 3, 2, 3, 3, 3, 3}))
@@ -42,7 +44,11 @@ public class GetPDF {
             // Encabezados de la tabla
             String[] headers = {"SKU", "Nombre", "Fecha", "Detalle", "Entrada", "Salida", "Saldo"};
             for (String header : headers) {
-                table.addHeaderCell(new Cell().add(new Paragraph(header).setBold()));
+                table.addHeaderCell(
+                        new Cell()
+                                .add(new Paragraph(header).setBold().setFontColor(ColorConstants.WHITE))
+                                .setBackgroundColor(ColorConstants.BLUE)
+                );
             }
 
             // Agregar filas de datos

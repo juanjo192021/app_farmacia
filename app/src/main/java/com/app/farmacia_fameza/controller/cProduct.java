@@ -417,7 +417,7 @@ public class cProduct extends conexion {
                 "           WHEN 'noviembre' THEN '11' " +
                 "           WHEN 'diciembre' THEN '12' " +
                 "       END " +
-                "ORDER BY p.sku, fecha;";
+                "ORDER BY fecha;";
         Cursor cursor = database.rawQuery(query, new String[]{month});
         if (cursor != null && cursor.moveToFirst()) {
             do{
