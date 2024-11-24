@@ -139,7 +139,7 @@
                 android:drawableStart="@android:drawable/ic_menu_my_calendar"
                 android:drawablePadding="10dp"
                 android:ems="10"
-                android:hint="Birthday"
+                android:hint="dd/MM/yyyy"
                 android:inputType="text"
                 android:minWidth="50dp"
                 android:minHeight="50dp"
@@ -199,6 +199,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:backgroundTint="@color/tertiary"
+                android:onClick="register"
                 android:text="Registrar"
                 android:textColor="#FFFFFF"
                 android:textSize="20sp" />

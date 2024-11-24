@@ -16,7 +16,6 @@ public class bUser {
         return CUser.login(user);
     }
 
-    public boolean register(User user) {
-        return CUser.registerUser(user);
-    }
+    public boolean register(User user) {return CUser.registerUser(user);}
+
 }

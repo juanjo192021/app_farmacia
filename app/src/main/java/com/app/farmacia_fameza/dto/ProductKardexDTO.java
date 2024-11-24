@@ -1,5 +1,5 @@
 package com.app.farmacia_fameza.dto;
-
+//borrarr
 public class ProductKardexDTO {
     private int entryId;
     private String dateEntry;

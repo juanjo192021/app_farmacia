@@ -57,25 +57,44 @@ public class cUser extends conexion{
     }
 
     public boolean registerUser(User user) {
-        // Abrir la base de datos para escribir
-        SQLiteDatabase database = this.getWritableDatabase();
+        SQLiteDatabase database = null;
 
         try {
+            // Abrir la base de datos para escribir
+            database = this.getWritableDatabase();
+
+            if (database == null || !database.isOpen()) {
+                Log.e("Register", "La base de datos no está abierta");
+                return false;
+            }
+
+            // Validar que los campos no sean nulos
+            if (user.getFirst_name() == null || user.getLast_name() == null || user.getEmail() == null) {
+                Log.e("Register", "Datos de usuario inválidos");
+                return false;
+            }
+
             // Crear un objeto ContentValues para almacenar los valores de los campos
             ContentValues values = new ContentValues();
             values.put("first_name", user.getFirst_name());
             values.put("last_name", user.getLast_name());
             values.put("email", user.getEmail());
             values.put("password", user.getPassword());
-            // Convertir el objeto Date a String en formato "yyyy-MM-dd"
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            String dateString = sdf.format(user.getDate_birth());
-            values.put("date_birth", dateString); // Almacenar la fecha como String
-            values.put("cell_phone", user.getCell_phone());
-            values.put("role", user.getRole().getId());
-            values.put("status", user.getStatus());
 
-            Log.d("Register", "Datos:"+values);
+            // Verificar si la fecha de nacimiento no es nula y formatearla
+            if (user.getDate_birth() != null) {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                String dateString = sdf.format(user.getDate_birth());
+                values.put("date_birth", dateString);
+            } else {
+                values.put("date_birth", ""); // o algún valor predeterminado
+            }
+
+            values.put("cell_phone", user.getCell_phone());
+            values.put("role_id", user.getRole() != null ? user.getRole().getId() : 2);  // Validar el role
+            values.put("status", user.getStatus() != null ? user.getStatus() : 0);  // Validar el status
+
+            Log.d("Register", "Datos: " + values);
 
             // Insertar el nuevo usuario en la base de datos
             long result = database.insert(TABLE_USER, null, values);
