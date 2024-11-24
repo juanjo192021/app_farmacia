@@ -239,6 +239,75 @@ public class cProduct extends conexion {
         return sku;
     }
 
+    public boolean validateRegisterKardex(Integer idProduct){
+        boolean band = false;
+        SQLiteDatabase database = this.getReadableDatabase();
+        Cursor cursor = null;
+        try {
+            String query = "SELECT * FROM " + TABLE_PRODUCT_ENTRY_DETAIL + " WHERE product_id = ?";
+            cursor = database.rawQuery(query, new String[]{String.valueOf(idProduct)});
+            if (cursor.moveToFirst()) {
+                band = true;
+            }
+        }catch (Exception e){
+            Log.e("Get Search Validate Product Error", "Error al validar el producto: " + e.getMessage());
+        }finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            if (database != null && database.isOpen()) {
+                database.close();
+            }
+        }
+        return band;
+    }
+
+    public String searchProductName(String sku){
+        String productName = null;
+        SQLiteDatabase database = this.getReadableDatabase();
+        Cursor cursor = null;
+        try {
+            String query = "SELECT name FROM " + TABLE_PRODUCT + " WHERE sku = ?";
+            cursor = database.rawQuery(query, new String[]{sku});
+            if (cursor.moveToFirst()) {
+                productName = cursor.getString(0);
+            }
+        }catch (Exception e){
+            Log.e("Get Search ProductName Error", "Error al obtener nombre del producto: " + e.getMessage());
+        }finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            if (database != null && database.isOpen()) {
+                database.close();
+            }
+        }
+        return productName;
+    }
+
+    public Integer searchIdProduct(String sku){
+        Integer id = null;
+        SQLiteDatabase database = this.getReadableDatabase();
+        Cursor cursor = null;
+        try {
+            String query = "SELECT id FROM " + TABLE_PRODUCT + " WHERE sku = ?";
+            cursor = database.rawQuery(query, new String[]{sku});
+            if (cursor.moveToFirst()) {
+                id = cursor.getInt(0);
+            }
+        }catch (Exception e){
+            Log.e("Get Search ID Error", "Error al obtener ID del producto: " + e.getMessage());
+        }finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            if (database != null && database.isOpen()) {
+                database.close();
+            }
+        }
+        return id;
+    }
+
     public Integer getIDProductBySKU(String sku) {
         Integer productId = null;
         SQLiteDatabase database = this.getReadableDatabase();
@@ -353,12 +422,13 @@ public class cProduct extends conexion {
         return productEntries;
     }*/
 
-    public List<ProductInventoryDTO> completeTableKardexFilterMonth(String month){
+    public List<ProductInventoryDTO> completeTableKardexFilterMonthSKU(String month, Integer idProduct){
         List<ProductInventoryDTO> productInventoryDTOList = new ArrayList<>();
         SQLiteDatabase database = this.getReadableDatabase();
         String query = "SELECT " +
                 "p.sku AS sku, " +
                 "p.name AS nameProduct, " +
+                "p.unit_price AS unit_price, " +
                 "CASE " +
                 "    WHEN it.transaction_type = 'entry' THEN pe.date_entry " +
                 "    WHEN it.transaction_type = 'output' THEN po.output_date " +
@@ -398,7 +468,8 @@ public class cProduct extends conexion {
                 "LEFT JOIN " + TABLE_PRODUCT_OUTPUT + " po ON it.transaction_id = po.id AND it.transaction_type = 'output' " +
                 "LEFT JOIN " + TABLE_PRODUCT_OUTPUT_DETAIL + " pod ON po.id = pod.output_id " +
                 "LEFT JOIN " + TABLE_PRODUCT + " p ON ped.product_id = p.id OR pod.product_id = p.id " +
-                "WHERE strftime('%m', " +
+                "WHERE p.id = ? AND " +
+                "strftime('%m', " +
                 "       CASE " +
                 "           WHEN it.transaction_type = 'entry' THEN pe.date_entry " +
                 "           WHEN it.transaction_type = 'output' THEN po.output_date " +
@@ -418,25 +489,26 @@ public class cProduct extends conexion {
                 "           WHEN 'diciembre' THEN '12' " +
                 "       END " +
                 "ORDER BY fecha;";
-        Cursor cursor = database.rawQuery(query, new String[]{month});
+        Cursor cursor = database.rawQuery(query, new String[]{String.valueOf(idProduct),month});
         if (cursor != null && cursor.moveToFirst()) {
             do{
                 String sku = cursor.getString(0);
                 String nameProduct = cursor.getString(1);
-                String fecha = cursor.getString(2);
-                String detalle = cursor.getString(3);
-                Integer entrada = cursor.getInt(4);
-                Integer salida = cursor.getInt(5);
-                Integer saldo = cursor.getInt(6);
+                Double precio = cursor.getDouble(2);
+                String fecha = cursor.getString(3);
+                String detalle = cursor.getString(4);
+                Integer entrada = cursor.getInt(5);
+                Integer salida = cursor.getInt(6);
+                Integer saldo = cursor.getInt(7);
 
-                productInventoryDTOList.add(new ProductInventoryDTO(sku,nameProduct,fecha,entrada,detalle,salida,saldo));
+                productInventoryDTOList.add(new ProductInventoryDTO(sku,nameProduct,fecha,detalle,entrada,salida,saldo,precio));
             }while(cursor.moveToNext());
             cursor.close();
         }
         database.close();
         return productInventoryDTOList;
     }
-    public List<ProductInventoryDTO>  completeTableKardex(){
+    /*public List<ProductInventoryDTO>  completeTableKardex(){
         List<ProductInventoryDTO> productInventoryDTOList = new ArrayList<>();
         SQLiteDatabase database = this.getReadableDatabase();
         String query = "SELECT " +
@@ -500,5 +572,5 @@ public class cProduct extends conexion {
         }
         database.close();
         return  productInventoryDTOList;
-    }
+    }*/
 }

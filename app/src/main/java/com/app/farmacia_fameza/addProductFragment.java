@@ -91,6 +91,10 @@ public class addProductFragment extends Fragment{
         return view;
     }
 
+    // Tener en cuenta que se definio el cabezado del url
+    // solo seria necesario poner lo complementario
+    // Ejem: v1732471969/Farmacia/Apronax_fmi0nl.png
+    // para completar la ruta que obtenemos de nuestro repo de cloudinary
     private void saveProduct(){
         ProductAddDTO product = completeDataProduct();
         context = requireActivity();
@@ -109,13 +113,14 @@ public class addProductFragment extends Fragment{
         String b = brandProduct.getSelectedItem().toString();
         String c = categoryProduct.getSelectedItem().toString();
         String i = imageProduct.getText().toString();
+        String url = "https://res.cloudinary.com/dwx7qadjn/image/upload/" + i;
         product.setName(n);
         product.setSku(s);
         product.setDescription(d);
         product.setUnit_price(Double.parseDouble(p));
         product.setBrand(b);
         product.setCategory(c);
-        product.setImage(i);
+        product.setImage(url);
         return product;
     }
 }

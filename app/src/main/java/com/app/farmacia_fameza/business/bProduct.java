@@ -35,19 +35,23 @@ public class bProduct {
 
     public boolean existsProductById(Integer id){return CProduct.existsProductById(id);}
 
-    public String searchSKU(Integer id){
-        return  CProduct.searchSKU(id);
-    }
+    //public String searchSKU(Integer id){return  CProduct.searchSKU(id);}
+
+    public String searchProductName(String sku){return CProduct.searchProductName(sku);}
+
+    public Integer searchIdProduct(String sku){return  CProduct.searchIdProduct(sku);}
+
+    public boolean validateRegisterKardex(Integer idProduct){return CProduct.validateRegisterKardex(idProduct);}
 
     /*public List<ProductKardexDTO> getProductData(Integer id){
         return CProduct.getProductData(id);
     }*/
 
-    public List<ProductInventoryDTO> completeTableKardex() {
+    /*public List<ProductInventoryDTO> completeTableKardex() {
         return CProduct.completeTableKardex();
-    }
+    }*/
 
-    public List<ProductInventoryDTO> completeTableKardexFilterMonth(String mes){
-        return  CProduct.completeTableKardexFilterMonth(mes);
+    public List<ProductInventoryDTO> completeTableKardexFilterMonthSKU(String mes,Integer idProduct){
+        return  CProduct.completeTableKardexFilterMonthSKU(mes,idProduct);
     }
 }

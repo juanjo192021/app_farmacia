@@ -184,14 +184,16 @@ public class conexion extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO " + TABLE_PRODUCT_OUTPUT + " (output_code, output_date, user_id) VALUES " +
                 "('OUT001', '2024-01-20', 1), " +
                 "('OUT002', '2024-01-25', 2), " +
-                "('OUT003', '2024-02-01', 3)");
+                "('OUT003', '2024-02-01', 3), " +
+                "('OUT004', '2024-01-26', 3)");
 
         // Insertar datos en la tabla Product_Output_Detail
         db.execSQL("INSERT INTO " + TABLE_PRODUCT_OUTPUT_DETAIL + " (output_id, product_id, quantity) VALUES " +
                 "(1, 1, 10), " +
                 "(1, 2, 5), " +
                 "(2, 3, 20), " +
-                "(3, 4, 15)");
+                "(3, 4, 15), " +
+                "(4, 3, 5)");
 
         // Insertar datos en la tabla Inventory_Transaction
         db.execSQL("INSERT INTO " + TABLE_INVENTORY_TRANSACTION + " (transaction_type, transaction_id, detail) VALUES " +
@@ -200,7 +202,8 @@ public class conexion extends SQLiteOpenHelper {
                 "('entry',3,'compra')," +
                 "('output',1,'venta')," +
                 "('output',2,'venta')," +
-                "('output',3,'venta')");
+                "('output',3,'venta')," +
+                "('output',4,'venta')");
     }
 
     @Override
