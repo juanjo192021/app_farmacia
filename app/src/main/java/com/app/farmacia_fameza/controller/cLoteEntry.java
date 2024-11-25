@@ -92,19 +92,16 @@ public class cLoteEntry extends conexion{
                 Log.e("Insert Entry", "Error al insertar la entrada de producto");
                 return false;
             }
-
+            ContentValues detailValues = new ContentValues();
             // Insertar cada detalle en la tabla Product_Entry_Detail
             for (ProductEntryDetailDTO detail : productDetails) {
-                ContentValues detailValues = new ContentValues();
                 detailValues.put("entry_id", entryId);
 
                 int idProduct = CProduct.searchIdProduct(detail.getSKU());
                 detailValues.put("product_id", idProduct);
 
-                Double price = searchPriceProductByID(idProduct);
-
                 detailValues.put("quantity", detail.getQuantity());
-                detailValues.put("price_history",price);
+                detailValues.put("price_history",detail.getPriceHistory());
                 detailValues.put("expiration_date", detail.getExpiration_date());
                 detailValues.put("production_date", detail.getProduction_date());
                 detailValues.put("alert_date", detail.getAlert_date());
