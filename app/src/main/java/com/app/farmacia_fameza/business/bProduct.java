@@ -10,6 +10,7 @@ import com.app.farmacia_fameza.dto.ProductListDTO;
 import com.app.farmacia_fameza.dto.ProductUpdateDTO;
 import com.app.farmacia_fameza.models.Product;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class bProduct {
@@ -39,7 +40,9 @@ public class bProduct {
 
     public String searchProductName(String sku){return CProduct.searchProductName(sku);}
 
-    public Integer searchIdProduct(String sku){return  CProduct.searchIdProduct(sku);}
+    public Integer searchIdProduct(String sku){return CProduct.searchIdProduct(sku);}
+
+    public Double searchPriceProduct(Integer productId){return CProduct.searchPriceProduct(productId);}
 
     public boolean validateRegisterKardex(Integer idProduct){return CProduct.validateRegisterKardex(idProduct);}
 

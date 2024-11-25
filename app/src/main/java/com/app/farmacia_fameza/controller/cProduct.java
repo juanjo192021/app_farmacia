@@ -17,8 +17,12 @@ import com.app.farmacia_fameza.dto.ProductListDTO;
 import com.app.farmacia_fameza.dto.ProductUpdateDTO;
 import com.app.farmacia_fameza.models.Product;
 
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class cProduct extends conexion {
 
@@ -40,7 +44,7 @@ public class cProduct extends conexion {
         Cursor cursor = null;
 
         try {
-            String query = "SELECT id, name, unit_price, stock " +
+            String query = "SELECT id, name, stock " +
                     "FROM " + TABLE_PRODUCT + " p " +
                     "ORDER BY name ASC"; // Puedes ajustar el orden si es necesario
 
@@ -52,8 +56,7 @@ public class cProduct extends conexion {
                     ProductListDTO product = new ProductListDTO();
                     product.setId(cursor.getInt(cursor.getColumnIndex("id")));
                     product.setName(cursor.getString(cursor.getColumnIndex("name")));
-
-                    //product.setUnit_price(cursor.getDouble(cursor.getColumnIndex("unit_price")));
+                    product.setUnit_price(searchPriceProduct(cursor.getInt(cursor.getColumnIndex("id"))));
                     product.setStock_actual(cursor.getInt(cursor.getColumnIndex("stock")));
 
                     productList.add(product);
@@ -71,6 +74,32 @@ public class cProduct extends conexion {
         }
 
         return productList;
+    }
+
+    public Double searchPriceProduct(Integer productId){
+        double price = 0.0;
+        SQLiteDatabase database = this.getReadableDatabase();
+        Cursor cursor = null;
+        try {
+            String query = "SELECT * FROM " + TABLE_HISTORY_PRICE_PRODUCT +
+                    " WHERE product_id = ? " +
+                    " ORDER BY date_register DESC " +
+                    " LIMIT 1";
+            cursor = database.rawQuery(query, new String[]{String.valueOf(productId)});
+            if (cursor.moveToFirst()) {
+                price = cursor.getDouble(2);
+            }
+        }catch (Exception e){
+            Log.e("Get Search SKU Error", "Error al obtener SKU del producto: " + e.getMessage());
+        }finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            if (database != null && database.isOpen()) {
+                database.close();
+            }
+        }
+        return price;
     }
 
     @SuppressLint("Range")
@@ -97,12 +126,10 @@ public class cProduct extends conexion {
                 product.setDescription(cursor.getString(cursor.getColumnIndex("description")));
                 product.setImage(cursor.getString(cursor.getColumnIndex("image")));
                 product.setStock_actual(cursor.getInt(cursor.getColumnIndex("stock")));
-                product.setUnit_price(cursor.getDouble(cursor.getColumnIndex("unit_price")));
+                product.setUnit_price(searchPriceProduct(cursor.getInt(cursor.getColumnIndex("id"))));
                 product.setStatus(cursor.getInt(cursor.getColumnIndex("status")));
-
                 String categoryName = cursor.getString(cursor.getColumnIndex("category_name")); // Nombre de la categoría
                 String brandName = cursor.getString(cursor.getColumnIndex("brand_name")); // Nombre de la marca
-
                 product.getCategory().setName(categoryName);
                 product.getBrand().setName(brandName);
             }
@@ -120,29 +147,59 @@ public class cProduct extends conexion {
         return product;
     }
 
+    public Integer searchIdHistory(Double price){
+        int idHistory = 0;
+        SQLiteDatabase database = this.getReadableDatabase();
+        Cursor cursor = null;
+        try {
+            String query = "SELECT id FROM " + TABLE_HISTORY_PRICE_PRODUCT + " WHERE price = ?";
+            cursor = database.rawQuery(query, new String[]{String.valueOf(price)});
+            if (cursor.moveToFirst()) {
+                idHistory = cursor.getInt(0);
+            }
+        }catch (Exception e){
+            Log.e("Get Search ID Price Product Error", "Error al obtener el precio del producto: " + e.getMessage());
+        }finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            if (database != null && database.isOpen()) {
+                database.close();
+            }
+        }
+        return idHistory;
+    }
+
     public boolean insertProduct(ProductAddDTO productAddDTO){
         SQLiteDatabase database = this.getWritableDatabase();
         int idBrand = cBrand.getIDBrand(productAddDTO.getBrand());
         int idCategory = cCategory.getIDCategory(productAddDTO.getCategory());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        String currentDateAndTime = sdf.format(new Date());  // Fecha y hora actuales
         ContentValues values = new ContentValues();
+        ContentValues price = new ContentValues();
         try{
             values.put("sku", productAddDTO.getSku());
             values.put("name", productAddDTO.getName());
             values.put("description", productAddDTO.getDescription());
             values.put("image", productAddDTO.getImage());
-            values.put("unit_price", productAddDTO.getUnit_price());
             values.put("brand_id",idBrand);
             values.put("category_id",idCategory);
             values.put("stock", 0);
             values.put("status", 1);
 
+            price.put("product_id", searchIdProduct(productAddDTO.getSku()));
+            price.put("price", productAddDTO.getUnit_price());
+            price.put("date_register", currentDateAndTime);
+
             Log.d("Insert Product", "Datos:" + values);
             long result = database.insert(TABLE_PRODUCT, null, values);
-            if (result == -1) {
+            long result2 = database.insert(TABLE_HISTORY_PRICE_PRODUCT, null, price);
+            if (result == -1 && result2 == -1) {
                 Log.e("Insert Product", "Error al insertar el producto");
                 return false;
             } else {
-                Log.d("Insert Product", "Producto insertado exitosamente con ID: " + result);
+                Log.d("Insert Product", "Producto insertado exitosamente con ID: ");
                 return true;
             }
         } catch (Exception e){
@@ -160,12 +217,19 @@ public class cProduct extends conexion {
         SQLiteDatabase database = this.getWritableDatabase();
         int idBrand = cBrand.getIDBrand(productUpdateDTO.getBrand());
         int idCategory = cCategory.getIDCategory(productUpdateDTO.getCategory());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        String currentDateAndTime = sdf.format(new Date());  // Fecha y hora actuales
+        ContentValues values = new ContentValues();
+        ContentValues price = new ContentValues();
         try{
-            ContentValues values = new ContentValues();
             values.put("name", productUpdateDTO.getName());
             values.put("description", productUpdateDTO.getDescription());
             values.put("image", productUpdateDTO.getImage());
-            values.put("unit_price", productUpdateDTO.getUnit_price());
+
+            price.put("product_id", productUpdateDTO.getId());
+            price.put("price", productUpdateDTO.getUnit_price());
+            price.put("date_register", currentDateAndTime);
+
             values.put("brand_id",idBrand);
             values.put("category_id",idCategory);
             values.put("status", productUpdateDTO.getStatus());
@@ -173,8 +237,9 @@ public class cProduct extends conexion {
             String[] whereArgs = { String.valueOf(productUpdateDTO.getId()) };
 
             int rowsAffected = database.update(TABLE_PRODUCT, values, whereClause, whereArgs);
+            long result2 = database.insert(TABLE_HISTORY_PRICE_PRODUCT, null, price);
 
-            if (rowsAffected > 0) {
+            if (rowsAffected > 0 && result2 == -1) {
                 Log.d("Update Product", "Producto actualizado exitosamente con ID: " + productUpdateDTO.getId());
                 return true;
             } else {
@@ -367,7 +432,6 @@ public class cProduct extends conexion {
             }
         }
     }
-
 
     private int getCurrentStock(int productId, SQLiteDatabase database) {
         int stock = 0;

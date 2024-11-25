@@ -124,7 +124,7 @@ public class ProductListFragment extends Fragment implements productListAdapter.
 
         modalNameProduct.setText(product.getName());
         modalDescriptionProduct.setText(product.getDescription());
-        modalPriceProduct.setText(product.getUnit_price().toString());
+        modalPriceProduct.setText(BProduct.searchPriceProduct(product.getId()).toString());
         modalBrandProduct.setText(product.getBrand().getName());
         modalCategoryProduct.setText(product.getCategory().getName());
         modalStockProduct.setText(product.getStock_actual().toString());

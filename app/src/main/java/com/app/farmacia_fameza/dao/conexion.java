@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 
 public class conexion extends SQLiteOpenHelper {
     private static final String DB_NAME = "Farmacia.db";
-    private static final int DB_VERSION = 7;
+    private static final int DB_VERSION = 8;
 
     // Table Names
     public static final String TABLE_BRAND = "Brand";
@@ -228,6 +228,8 @@ public class conexion extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRODUCT);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRODUCT_ENTRY);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_INVENTORY_TRANSACTION);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_HISTORY_PRICE_PRODUCT);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRODUCT_ENTRY_DETAIL);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRODUCT_OUTPUT);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRODUCT_OUTPUT_DETAIL);
