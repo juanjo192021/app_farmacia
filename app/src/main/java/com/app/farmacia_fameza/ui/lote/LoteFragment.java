@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.app.farmacia_fameza.R;
 import com.app.farmacia_fameza.business.bLoteEntry;
+import com.app.farmacia_fameza.business.bProduct;
 import com.app.farmacia_fameza.business.bSupplier;
 import com.app.farmacia_fameza.databinding.FragmentLoteBinding;
 import com.app.farmacia_fameza.dto.ProductEntryDetailDTO;
@@ -46,6 +47,7 @@ public class LoteFragment extends Fragment {
 
     bLoteEntry BLoteEntry;
     bSupplier BSupplier;
+    bProduct BProduct;
 
     EditText txtNumberEntry, txtDateEntry;
 
@@ -63,6 +65,7 @@ public class LoteFragment extends Fragment {
         // Inicializar BloteEntry
         BLoteEntry = new bLoteEntry(getContext());
         BSupplier = new bSupplier(getContext());
+        BProduct = new bProduct(getContext());
 
         btnAddProduct = root.findViewById(R.id.btn_AgregarLote);
         btnSaveEntry = root.findViewById(R.id.btn_AgregarEntryLote);
@@ -199,7 +202,9 @@ public class LoteFragment extends Fragment {
 
     private void addProductToTable(String productSKU, int quantity, String expirationDate, String productionDate, String alertDate, Double price) {
         // Crear un nuevo producto y añadir a la lista
-        ProductEntryDetailDTO product = new ProductEntryDetailDTO(productSKU, quantity, expirationDate, productionDate, alertDate,price);
+        int idProduct = BProduct.searchIdProduct(productSKU);
+
+        ProductEntryDetailDTO product = new ProductEntryDetailDTO(idProduct, productSKU, quantity, expirationDate, productionDate, alertDate, price);
         productEntryDetailList.add(product);
 
         // Crear una nueva fila

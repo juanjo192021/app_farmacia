@@ -1,6 +1,7 @@
 package com.app.farmacia_fameza.dto;
 
 public class ProductEntryDetailDTO {
+    private Integer id;
     private String SKU;
     private Integer quantity;
     private String expiration_date;
@@ -9,6 +10,7 @@ public class ProductEntryDetailDTO {
     private Double priceHistory;
 
     public ProductEntryDetailDTO() {
+        this.id = 0;
         this.SKU = "SKU0000";
         this.quantity = 0;
         this.expiration_date = "expiration_date";
@@ -17,13 +19,22 @@ public class ProductEntryDetailDTO {
         this.priceHistory = 0.0;
     }
 
-    public ProductEntryDetailDTO(String SKU, Integer quantity, String expiration_date, String production_date, String alert_date, Double priceHistory) {
+    public ProductEntryDetailDTO(int id,String SKU, Integer quantity, String expiration_date, String production_date, String alert_date, Double priceHistory) {
+        this.id = id;
         this.SKU = SKU;
         this.quantity = quantity;
         this.expiration_date = expiration_date;
         this.production_date = production_date;
         this.alert_date = alert_date;
         this.priceHistory = priceHistory;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getSKU() {

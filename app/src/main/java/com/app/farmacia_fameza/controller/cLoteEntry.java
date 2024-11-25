@@ -80,6 +80,8 @@ public class cLoteEntry extends conexion{
 
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues entryValues = new ContentValues();
+        String transaction_type = "entry";
+        String detail_entry = "compra";
         try {
             // Insertar en la tabla Product_Entry
             entryValues.put("number_entry", numberEntry);
@@ -92,13 +94,18 @@ public class cLoteEntry extends conexion{
                 Log.e("Insert Entry", "Error al insertar la entrada de producto");
                 return false;
             }
+            ContentValues transactionValues = new ContentValues();
+            transactionValues.put("transaction_type", transaction_type);
+            transactionValues.put("detail", detail_entry);
+            transactionValues.put("transaction_id", entryId);
+            database.insert(TABLE_INVENTORY_TRANSACTION, null, transactionValues);
+
             ContentValues detailValues = new ContentValues();
             // Insertar cada detalle en la tabla Product_Entry_Detail
             for (ProductEntryDetailDTO detail : productDetails) {
                 detailValues.put("entry_id", entryId);
 
-                int idProduct = CProduct.searchIdProduct(detail.getSKU());
-                detailValues.put("product_id", idProduct);
+                detailValues.put("product_id", detail.getId());
 
                 detailValues.put("quantity", detail.getQuantity());
                 detailValues.put("price_history",detail.getPriceHistory());
@@ -108,12 +115,12 @@ public class cLoteEntry extends conexion{
 
                 long detailResult = database.insert(TABLE_PRODUCT_ENTRY_DETAIL, null, detailValues);
                 if (detailResult == -1) {
-                    Log.e("Insert Entry Detail", "Error al insertar el detalle de la entrada para producto ID: " + idProduct);
+                    Log.e("Insert Entry Detail", "Error al insertar el detalle de la entrada para producto ID: " + detail.getId());
                     return false;
                 }
 
                 // Actualizar el stock del producto - isAddition = true
-                CProduct.updateProductStock(idProduct, detail.getQuantity(), true);
+                CProduct.updateProductStock(detail.getId(), detail.getQuantity(), true);
             }
 
             Log.d("Insert Entry With Details", "Entrada y detalles insertados exitosamente");
