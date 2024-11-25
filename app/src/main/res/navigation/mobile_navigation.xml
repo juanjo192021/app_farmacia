@@ -81,5 +81,10 @@
         android:name="com.app.farmacia_fameza.BrandListFragment"
         android:label="fragment_brand_list"
         tools:layout="@layout/fragment_brand_list" />
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.app.farmacia_fameza.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
 
 </navigation>

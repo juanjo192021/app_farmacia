@@ -80,16 +80,7 @@ public class cUser extends conexion{
             values.put("last_name", user.getLast_name());
             values.put("email", user.getEmail());
             values.put("password", user.getPassword());
-
-            // Verificar si la fecha de nacimiento no es nula y formatearla
-            if (user.getDate_birth() != null) {
-                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-                String dateString = sdf.format(user.getDate_birth());
-                values.put("date_birth", dateString);
-            } else {
-                values.put("date_birth", ""); // o algún valor predeterminado
-            }
-
+            values.put("date_birth", user.getDate_birth());
             values.put("cell_phone", user.getCell_phone());
             values.put("role_id", user.getRole() != null ? user.getRole().getId() : 2);  // Validar el role
             values.put("status", user.getStatus() != null ? user.getStatus() : 0);  // Validar el status

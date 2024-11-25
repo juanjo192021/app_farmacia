@@ -41,6 +41,7 @@ public class frmRegister extends AppCompatActivity {
         apellido = findViewById(R.id.txtlastName);
 
     }
+
     public void register(View view) {
 
         String emailStr = correo.getText().toString().trim();
@@ -50,19 +51,9 @@ public class frmRegister extends AppCompatActivity {
         String firstNameStr = nombre.getText().toString().trim();
         String lastNameStr = apellido.getText().toString().trim();
 
-
         String validationError = validateFields(emailStr, passwordStr, phoneStr, birthDateStr, firstNameStr, lastNameStr);
         if (validationError != null) {
             Toast.makeText(this, validationError, Toast.LENGTH_SHORT).show();
-            return;
-        }
-        Date birthDateFormat = null;
-        try {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-            birthDateFormat = sdf.parse(birthDateStr);
-        } catch (ParseException e) {
-            e.printStackTrace();
-            Toast.makeText(this, "Invalid birth date format", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -70,7 +61,7 @@ public class frmRegister extends AppCompatActivity {
         newUser.setEmail(emailStr);
         newUser.setPassword(passwordStr);
         newUser.setCell_phone(phoneStr);
-        newUser.setDate_birth(birthDateFormat);
+        newUser.setDate_birth(birthDateStr);
         newUser.setFirst_name(firstNameStr);
         newUser.setLast_name(lastNameStr);
 
@@ -87,7 +78,6 @@ public class frmRegister extends AppCompatActivity {
         }
     }
 
-
     private String validateFields(String email, String password, String phone, String birthDate, String firstName, String lastName) {
 
         if (email.isEmpty() || password.isEmpty() || phone.isEmpty() || birthDate.isEmpty() || firstName.isEmpty() || lastName.isEmpty()) {
@@ -100,5 +90,9 @@ public class frmRegister extends AppCompatActivity {
             return "Password must be at least 6 characters.";
         }
         return null;
+    }
+
+    public void irLogin(View view){
+        finish();
     }
 }

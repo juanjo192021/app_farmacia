@@ -23,9 +23,11 @@
     <string name="product_add">Añadir Producto</string>
     <string name="login">Iniciar Sesión</string>
     <string name="irRegister">¿No tiene una cuenta? Registrate</string>
+    <string name="irLogin">¿Ya tienes una cuenta?</string>
     <string name="category_list_configuration">Configurar Categorias</string>
     <string name="menu_entry">Entradas</string>
     <string name="menu_output">Salidas</string>
     <string name="menu_kardex">Kardex</string>
+    <string name="logout">Cerrar Sesión</string>
 
 </resources>

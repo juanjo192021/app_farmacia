@@ -1,5 +1,7 @@
 package com.app.farmacia_fameza;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -9,6 +11,7 @@ import android.widget.Toast;
 import com.app.farmacia_fameza.view.ProductListFragment;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -19,7 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.app.farmacia_fameza.databinding.ActivityMenuBinding;
 
-public class Menu extends AppCompatActivity {
+public class Menu extends AppCompatActivity{
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMenuBinding binding;
@@ -34,6 +37,7 @@ public class Menu extends AppCompatActivity {
         setSupportActionBar(binding.appBarMenu.toolbar);
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -44,15 +48,34 @@ public class Menu extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+        navigationView.setNavigationItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.logout) {
+                // Lógica para logout (por ejemplo, cerrar sesión)
+                performLogout();
+                return true;
+            }
+            return NavigationUI.onNavDestinationSelected(item, navController);
+        });
         // Listener para detectar el fragmento actual y actualizar el menú o íconos
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
             invalidateOptionsMenu(); // Solicita una nueva preparación del menú
         });
     }
 
-    public void handleCategoryButtonClick() {
-        // Lógica que deseas ejecutar cuando se hace clic en el botón
-        // Aquí puedes invocar cualquier función que necesites
+    private void performLogout() {
+        // 1. Limpia credenciales locales
+        SharedPreferences preferences = getSharedPreferences("USER_PREFS", MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.clear();
+        editor.apply();
+
+        // 2. Redirige a pantalla de inicio de sesión
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+
+        // 3. Mensaje de confirmación
+        Toast.makeText(this, "Sesión cerrada correctamente", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -121,6 +144,11 @@ public class Menu extends AppCompatActivity {
             return true;
         }
 
+        if (id == R.id.logout) {
+            // Realiza las acciones de logout
+            handleLogout();
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -130,5 +158,21 @@ public class Menu extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_menu);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    private void handleLogout() {
+        // Limpiar datos del usuario (SharedPreferences o similares)
+        getSharedPreferences("USER_PREFS", MODE_PRIVATE).edit().clear().apply();
+
+        // Mostrar un mensaje al usuario
+        Toast.makeText(this, "Sesión cerrada", Toast.LENGTH_SHORT).show();
+
+        // Redirigir al login
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Borra la pila de actividades
+        startActivity(intent);
+
+        // Finalizar la actividad actual
+        finish();
     }
 }

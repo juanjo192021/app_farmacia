@@ -24,18 +24,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="181dp"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/imageView5"
-                android:layout_width="wrap_content"
-                android:layout_height="102dp"
-                app:srcCompat="@drawable/logo_fameza" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="12dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -58,7 +48,7 @@
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="12dp" />
+                android:layout_height="30dp" />
 
         </LinearLayout>
 
@@ -203,6 +193,20 @@
                 android:text="Registrar"
                 android:textColor="#FFFFFF"
                 android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/txtLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="25dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/alata"
+                android:onClick="irLogin"
+                android:textSize="15sp"
+                android:text="@string/irLogin"
+                android:textColor="@color/white" />
 
         </LinearLayout>
 

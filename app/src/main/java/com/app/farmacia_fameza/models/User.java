@@ -8,7 +8,7 @@ public class User {
     private String last_name;
     private String email;
     private String password;
-    private Date  date_birth;
+    private String  date_birth;
     private String cell_phone;
     private Role role;
     private Integer status;
@@ -19,7 +19,7 @@ public class User {
         this.last_name = "last_name";
         this.email = "email";
         this.password = "password";
-        this.date_birth = new Date();
+        this.date_birth = "date_birth";
         this.role = new Role();
         this.cell_phone = "cell_phone";
         this.status = 0;
@@ -30,7 +30,7 @@ public class User {
         this.password = password;
     }
 
-    public User(Integer id, String first_name, String last_name, String email, String password, Date date_birth, String cell_phone, Role role, Integer status) {
+    public User(Integer id, String first_name, String last_name, String email, String password, String date_birth, String cell_phone, Role role, Integer status) {
         this.id = id;
         this.first_name = first_name;
         this.last_name = last_name;
@@ -82,14 +82,13 @@ public class User {
         this.password = password;
     }
 
-    public Date getDate_birth() {
+    public String getDate_birth() {
         return date_birth;
     }
 
-    public void setDate_birth(Date date_birth) {
+    public void setDate_birth(String date_birth) {
         this.date_birth = date_birth;
     }
-
     public String getCell_phone() {
         return cell_phone;
     }
