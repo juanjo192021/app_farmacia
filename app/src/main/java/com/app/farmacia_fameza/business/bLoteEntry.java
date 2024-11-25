@@ -20,4 +20,8 @@ public class bLoteEntry {
     public String generateNextEntryCode(){
         return CLoteEntryl.generateNextEntryCode();
     }
+
+    public Double searchPriceProductByID(Integer id){return CLoteEntryl.searchPriceProductByID(id);}
+
+    public Integer searchIdProduct(String sku){return CLoteEntryl.searchIdProduct(sku);}
 }

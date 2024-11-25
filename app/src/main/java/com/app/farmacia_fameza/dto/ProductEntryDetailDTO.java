@@ -6,6 +6,7 @@ public class ProductEntryDetailDTO {
     private String expiration_date;
     private String production_date;
     private String alert_date;
+    private Double priceHistory;
 
     public ProductEntryDetailDTO() {
         this.SKU = "SKU0000";
@@ -13,14 +14,16 @@ public class ProductEntryDetailDTO {
         this.expiration_date = "expiration_date";
         this.production_date = "production_date";
         this.alert_date = "alert_date";
+        this.priceHistory = 0.0;
     }
 
-    public ProductEntryDetailDTO(String SKU, Integer quantity, String expiration_date, String production_date, String alert_date) {
+    public ProductEntryDetailDTO(String SKU, Integer quantity, String expiration_date, String production_date, String alert_date, Double priceHistory) {
         this.SKU = SKU;
         this.quantity = quantity;
         this.expiration_date = expiration_date;
         this.production_date = production_date;
         this.alert_date = alert_date;
+        this.priceHistory = priceHistory;
     }
 
     public String getSKU() {
@@ -61,5 +64,13 @@ public class ProductEntryDetailDTO {
 
     public void setAlert_date(String alert_date) {
         this.alert_date = alert_date;
+    }
+
+    public Double getPriceHistory() {
+        return priceHistory;
+    }
+
+    public void setPriceHistory(Double priceHistory) {
+        this.priceHistory = priceHistory;
     }
 }

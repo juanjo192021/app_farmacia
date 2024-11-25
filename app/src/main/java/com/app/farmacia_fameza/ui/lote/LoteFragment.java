@@ -104,12 +104,15 @@ public class LoteFragment extends Fragment {
                         String expirationDateString = expirationDate.getText().toString();
                         String alertDateString = calculateAlertDate(expirationDateString);
 
+                        Integer idPriceHistory = BLoteEntry.searchIdProduct(productSKU.getText().toString());
+                        double priceHistory = BLoteEntry.searchPriceProductByID(idPriceHistory);
                         addProductToTable(
                                 productSKU.getText().toString(),
                                 Integer.parseInt(quantity.getText().toString()),
                                 expirationDate.getText().toString(),
                                 productionDate.getText().toString(),
-                                alertDateString);
+                                alertDateString,
+                                priceHistory);
 
                         bottomSheetDialog.dismiss();
                     }
@@ -183,7 +186,7 @@ public class LoteFragment extends Fragment {
                 TableRow.LayoutParams.WRAP_CONTENT
         ));
 
-        String[] headers = {"Sku", "Cantidad", "Fecha Expiracion", "Fecha Produccion", "Fecha Alerta", "Acciones"};
+        String[] headers = {"Sku", "Cantidad", "Price","Fecha Expiracion", "Fecha Produccion", "Fecha Alerta", "Acciones"};
         for (String header : headers) {
             TextView textView = new TextView(getContext());
             textView.setText(header);
@@ -194,9 +197,9 @@ public class LoteFragment extends Fragment {
         tblInsertProducts.addView(newRow);
     }
 
-    private void addProductToTable(String productSKU, int quantity, String expirationDate, String productionDate, String alertDate) {
+    private void addProductToTable(String productSKU, int quantity, String expirationDate, String productionDate, String alertDate, Double price) {
         // Crear un nuevo producto y añadir a la lista
-        ProductEntryDetailDTO product = new ProductEntryDetailDTO(productSKU, quantity, expirationDate, productionDate, alertDate);
+        ProductEntryDetailDTO product = new ProductEntryDetailDTO(productSKU, quantity, expirationDate, productionDate, alertDate,price);
         productEntryDetailList.add(product);
 
         // Crear una nueva fila
@@ -206,6 +209,7 @@ public class LoteFragment extends Fragment {
         // Añadir TextViews
         newRow.addView(createTextView(productSKU));
         newRow.addView(createTextView(String.valueOf(quantity)));
+        newRow.addView(createTextView(String.valueOf(price)));
         newRow.addView(createTextView(expirationDate));
         newRow.addView(createTextView(productionDate));
         newRow.addView(createTextView(alertDate));

@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 
 public class conexion extends SQLiteOpenHelper {
     private static final String DB_NAME = "Farmacia.db";
-    private static final int DB_VERSION = 9;
+    private static final int DB_VERSION = 10;
 
     // Table Names
     public static final String TABLE_BRAND = "Brand";
