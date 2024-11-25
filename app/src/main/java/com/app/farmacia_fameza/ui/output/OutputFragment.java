@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.app.farmacia_fameza.R;
 import com.app.farmacia_fameza.business.bOutput;
+import com.app.farmacia_fameza.business.bProduct;
 import com.app.farmacia_fameza.databinding.FragmentOutputBinding;
 import com.app.farmacia_fameza.dto.ProductOutputDetailDTO;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -35,6 +36,7 @@ public class OutputFragment extends Fragment {
     FragmentOutputBinding binding;
 
     bOutput BOutput;
+    bProduct BProduct;
 
     Button btnAddProductOutput, btnSaveOutput;
 
@@ -51,6 +53,7 @@ public class OutputFragment extends Fragment {
         View root = binding.getRoot();
 
         BOutput = new bOutput(getContext());
+        BProduct = new bProduct(getContext());
 
         btnAddProductOutput = root.findViewById(R.id.btn_AgregarProductoSalida);
         btnSaveOutput = root.findViewById(R.id.btn_AgregarOutput);
@@ -84,9 +87,12 @@ public class OutputFragment extends Fragment {
                         EditText productSKU = bottomSheetView.findViewById(R.id.editTextSkuProdOutput);
                         EditText quantity = bottomSheetView.findViewById(R.id.editTextCantidadProdOutput);
 
+                        Integer idPriceHistory = BProduct.searchIdProduct(productSKU.getText().toString());
+                        double priceHistory = BProduct.searchPriceProductByID(idPriceHistory);
                         addProductToTable(
                                 productSKU.getText().toString(),
-                                Integer.parseInt(quantity.getText().toString()));
+                                Integer.parseInt(quantity.getText().toString()),
+                                priceHistory);
 
                         bottomSheetDialog.dismiss();
                     }
@@ -138,12 +144,12 @@ public class OutputFragment extends Fragment {
         return formattedDate;
     }
 
-    private void addProductToTable(String productSKU, int quantity) {
+    private void addProductToTable(String productSKU, int quantity, Double price) {
+        int ProductId = BProduct.searchIdProduct(productSKU);
+
         // Crear un nuevo producto y añadir a la lista
-        ProductOutputDetailDTO product = new ProductOutputDetailDTO(productSKU, quantity);
+        ProductOutputDetailDTO product = new ProductOutputDetailDTO(ProductId, productSKU, quantity, price);
         productOutputDetailList.add(product);
-
-
 
         // Crear una nueva fila
         TableRow newRow = new TableRow(getContext());
@@ -152,6 +158,8 @@ public class OutputFragment extends Fragment {
         // Añadir TextViews
         newRow.addView(createTextView(productSKU));
         newRow.addView(createTextView(String.valueOf(quantity)));
+        newRow.addView(createTextView(String.valueOf(price)));
+
 
         // Crear y añadir botón de eliminar
         Button btnDelete = new Button(getContext());
@@ -192,7 +200,7 @@ public class OutputFragment extends Fragment {
                 TableRow.LayoutParams.WRAP_CONTENT
         ));
 
-        String[] headers = {"Sku", "Cantidad", "Acciones"};
+        String[] headers = {"Sku", "Cantidad", "Precio", "Acciones"};
         for (String header : headers) {
             TextView textView = new TextView(getContext());
             textView.setText(header);

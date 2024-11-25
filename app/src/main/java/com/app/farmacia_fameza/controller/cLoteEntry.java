@@ -25,55 +25,6 @@ public class cLoteEntry extends conexion{
         CProduct = new cProduct(context);
     }
 
-    public Integer searchIdProduct(String sku){
-        Integer id = null;
-        SQLiteDatabase database = this.getReadableDatabase();
-        Cursor cursor = null;
-        try {
-            String query = "SELECT id FROM " + TABLE_PRODUCT + " WHERE sku = ?";
-            cursor = database.rawQuery(query, new String[]{sku});
-            if (cursor.moveToFirst()) {
-                id = cursor.getInt(0);
-            }
-        }catch (Exception e){
-            Log.e("Get Search ID Error", "Error al obtener ID del producto: " + e.getMessage());
-        }finally {
-            if (cursor != null) {
-                cursor.close();
-            }
-            if (database != null && database.isOpen()) {
-                database.close();
-            }
-        }
-        return id;
-    }
-
-    public Double searchPriceProductByID(Integer id){
-        double price = 0.0;
-        SQLiteDatabase database = this.getReadableDatabase();
-        Cursor cursor = null;
-        try {
-            String query = "SELECT * FROM " + TABLE_HISTORY_PRICE_PRODUCT +
-                    " WHERE product_id = ? " +
-                    " ORDER BY date_register DESC " +
-                    " LIMIT 1";
-            cursor = database.rawQuery(query, new String[]{String.valueOf(id)});
-            if (cursor.moveToFirst()) {
-                price = cursor.getDouble(2);
-            }
-        }catch (Exception e){
-            Log.e("Get Search SKU Error", "Error al obtener SKU del producto: " + e.getMessage());
-        }finally {
-            if (cursor != null) {
-                cursor.close();
-            }
-            if (database != null && database.isOpen()) {
-                database.close();
-            }
-        }
-        return price;
-    }
-
     public boolean insertProductEntryWithDetails(String numberEntry, String dateEntry, String supplierName, List<ProductEntryDetailDTO> productDetails) {
 
         int idSupplier = CSupplier.getIDSupplier(supplierName);

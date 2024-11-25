@@ -53,7 +53,7 @@ public class bProduct {
     /*public List<ProductInventoryDTO> completeTableKardex() {
         return CProduct.completeTableKardex();
     }*/
-
+    public Double searchPriceProductByID(Integer id){return CProduct.searchPriceProductByID(id);}
 
     public List<ProductInventoryDTO> completeTableKardexFilterMonthSKU(String mes,Integer idProduct){
         return  CProduct.completeTableKardexFilterMonthSKU(mes,idProduct);

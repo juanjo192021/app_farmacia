@@ -107,8 +107,8 @@ public class LoteFragment extends Fragment {
                         String expirationDateString = expirationDate.getText().toString();
                         String alertDateString = calculateAlertDate(expirationDateString);
 
-                        Integer idPriceHistory = BLoteEntry.searchIdProduct(productSKU.getText().toString());
-                        double priceHistory = BLoteEntry.searchPriceProductByID(idPriceHistory);
+                        Integer idPriceHistory = BProduct.searchIdProduct(productSKU.getText().toString());
+                        double priceHistory = BProduct.searchPriceProductByID(idPriceHistory);
                         addProductToTable(
                                 productSKU.getText().toString(),
                                 Integer.parseInt(quantity.getText().toString()),

@@ -27,7 +27,8 @@ public class cOutput extends conexion {
 
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues entryValues = new ContentValues();
-
+        String transaction_type = "output";
+        String detail_output = "venta";
         try {
             // Insertar en la tabla Product_Entry
             entryValues.put("output_code", numberOuput);
@@ -41,23 +42,28 @@ public class cOutput extends conexion {
                 return false;
             }
 
+            ContentValues transactionValues = new ContentValues();
+            transactionValues.put("transaction_type", transaction_type);
+            transactionValues.put("detail", detail_output);
+            transactionValues.put("transaction_id", outputId);
+            database.insert(TABLE_INVENTORY_TRANSACTION, null, transactionValues);
+
             // Insertar cada detalle en la tabla Product_Entry_Detail
             for (ProductOutputDetailDTO detail : productDetails) {
                 ContentValues detailValues = new ContentValues();
                 detailValues.put("output_id", outputId);
-
-                int idProduct = CProduct.getIDProductBySKU(detail.getSKU());
-                detailValues.put("product_id", idProduct);
+                detailValues.put("product_id", detail.getId());
                 detailValues.put("quantity", detail.getQuantity());
+                detailValues.put("price_history", detail.getPriceHistory());
 
                 long detailResult = database.insert(TABLE_PRODUCT_OUTPUT_DETAIL, null, detailValues);
                 if (detailResult == -1) {
-                    Log.e("Insert Output Detail", "Error al insertar el detalle de la salida para producto ID: " + idProduct);
+                    Log.e("Insert Output Detail", "Error al insertar el detalle de la salida para producto ID: " + detail.getId());
                     return false;
                 }
 
                 // Actualizar el stock del producto - isAddition = false
-                CProduct.updateProductStock(idProduct, detail.getQuantity(), false);
+                CProduct.updateProductStock(detail.getId(), detail.getQuantity(), false);
             }
 
             Log.d("Insert Output With Details", "Salida detalles insertados exitosamente");
