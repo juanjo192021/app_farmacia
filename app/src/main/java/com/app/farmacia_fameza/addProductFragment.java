@@ -33,7 +33,6 @@ public class addProductFragment extends Fragment{
     EditText nameProduct, skuProduct, descriptionProduct, priceProduct, imageProduct;
     Spinner brandProduct, categoryProduct;
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +78,8 @@ public class addProductFragment extends Fragment{
         brandProduct = view.findViewById(R.id.spinnerRegisterBrand);
         setupBrandSpinner(brandProduct);
 
+        skuProduct.setText(bProduct.generateNextSKU());
+
         categoryProduct = view.findViewById(R.id.spinnerRegisterCategory);
         setupCategorySpinner(categoryProduct);
 
@@ -106,20 +107,21 @@ public class addProductFragment extends Fragment{
 
     private ProductAddDTO completeDataProduct() {
         ProductAddDTO product = new ProductAddDTO();
-        String n = nameProduct.getText().toString();
-        String s = skuProduct.getText().toString();
-        String d = descriptionProduct.getText().toString();
-        String p = priceProduct.getText().toString();
-        String b = brandProduct.getSelectedItem().toString();
-        String c = categoryProduct.getSelectedItem().toString();
-        String i = imageProduct.getText().toString();
-        String url = "https://res.cloudinary.com/dwx7qadjn/image/upload/" + i;
-        product.setName(n);
-        product.setSku(s);
-        product.setDescription(d);
-        product.setUnit_price(Double.parseDouble(p));
-        product.setBrand(b);
-        product.setCategory(c);
+        int idBrand =  bBrand.getIDBrand(brandProduct.getSelectedItem().toString());
+        int idCategory =  bCategory.getIDCategory(categoryProduct.getSelectedItem().toString());
+
+        String name = nameProduct.getText().toString();
+        String sku = skuProduct.getText().toString();
+        String description = descriptionProduct.getText().toString();
+        String price = priceProduct.getText().toString();
+        String image = imageProduct.getText().toString();
+        String url = "https://res.cloudinary.com/dwx7qadjn/image/upload/" + image;
+        product.setName(name);
+        product.setSku(sku);
+        product.setDescription(description);
+        product.setUnit_price(Double.parseDouble(price));
+        product.setBrand(idBrand);
+        product.setCategory(idCategory);
         product.setImage(url);
         return product;
     }

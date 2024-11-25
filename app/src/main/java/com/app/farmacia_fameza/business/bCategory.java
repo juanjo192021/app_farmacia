@@ -30,6 +30,8 @@ public class bCategory {
         return CCategory.getCategoryName();
     }
 
+    public Integer getIDCategory(String nameCategory){return CCategory.getIDCategory(nameCategory);}
+
     public boolean addCategory(String name, int status){
         return CCategory.addCategory(name, status);
     }

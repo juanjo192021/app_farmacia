@@ -58,4 +58,8 @@ public class bProduct {
     public List<ProductInventoryDTO> completeTableKardexFilterMonthSKU(String mes,Integer idProduct){
         return  CProduct.completeTableKardexFilterMonthSKU(mes,idProduct);
     }
+
+    public String generateNextSKU(){
+        return CProduct.generateNextSKU();
+    }
 }

@@ -10,20 +10,10 @@
 
     <LinearLayout
         android:layout_width="382dp"
-        android:layout_height="778dp"
+        android:layout_height="match_parent"
         android:layout_gravity="center_horizontal|center_vertical"
         android:background="#2C348B"
         android:orientation="vertical">
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:src="@drawable/logo_fameza" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="20dp" />
 
         <TextView
             android:id="@+id/textView13"
@@ -33,40 +23,12 @@
             android:textAlignment="center"
             android:textColor="#FFFFFF"
             android:textSize="34dp"
+            android:layout_marginTop="30dp"
             android:textStyle="bold" />
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="20dp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="32dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="Nombre:"
-                android:textColor="#FFFFFF" />
-
-            <EditText
-                android:id="@+id/txtRegisterNombre"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/background_login"
-                android:backgroundTint="@color/white"
-                android:ems="10"
-                android:inputType="text" />
-        </LinearLayout>
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="15dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -90,6 +52,37 @@
                 android:background="@drawable/background_login"
                 android:backgroundTint="@color/white"
                 android:ems="10"
+                android:inputType="text"
+                android:paddingLeft="20dp"/>
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="15dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="32dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Nombre:"
+                android:textColor="#FFFFFF" />
+
+            <EditText
+                android:id="@+id/txtRegisterNombre"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/background_login"
+                android:backgroundTint="@color/white"
+                android:ems="10"
+                android:paddingLeft="20dp"
                 android:inputType="text" />
         </LinearLayout>
 
@@ -119,6 +112,7 @@
                 android:background="@drawable/background_login"
                 android:backgroundTint="@color/white"
                 android:ems="10"
+                android:paddingLeft="20dp"
                 android:inputType="text" />
         </LinearLayout>
 
@@ -138,6 +132,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="Precio:"
+                android:paddingLeft="10dp"
                 android:textColor="#FFFFFF" />
 
             <EditText
@@ -148,6 +143,7 @@
                 android:background="@drawable/background_login"
                 android:backgroundTint="@color/white"
                 android:ems="10"
+                android:paddingLeft="20dp"
                 android:inputType="text" />
         </LinearLayout>
 
@@ -174,6 +170,7 @@
                 android:layout_width="210dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:paddingLeft="10dp"
                 android:background="@drawable/background_login"
                 android:backgroundTint="@color/white" />
         </LinearLayout>
@@ -201,6 +198,7 @@
                 android:layout_width="210dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:paddingLeft="10dp"
                 android:background="@drawable/background_login"
                 android:backgroundTint="@color/white" />
 
@@ -232,6 +230,7 @@
                 android:background="@drawable/background_login"
                 android:backgroundTint="@color/white"
                 android:ems="10"
+                android:paddingLeft="20dp"
                 android:inputType="text" />
         </LinearLayout>
 

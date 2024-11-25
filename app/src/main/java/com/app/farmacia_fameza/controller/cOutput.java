@@ -80,25 +80,40 @@ public class cOutput extends conexion {
     }
 
     public String generateNextOutputCode() {
-        SQLiteDatabase database = this.getReadableDatabase();
-        String lastCodeQuery = "SELECT output_code FROM " + TABLE_PRODUCT_OUTPUT +
-                " ORDER BY output_code DESC LIMIT 1"; // Obtener el último código insertado
-
-        Cursor cursor = database.rawQuery(lastCodeQuery, null);
+        SQLiteDatabase database = null;
+        Cursor cursor = null;
         String newCode = "OUT001"; // Valor predeterminado en caso de no encontrar ningún código
 
-        if (cursor != null && cursor.moveToFirst()) {
-            String lastCode = cursor.getString(0);  // Obtener el último código
-            cursor.close();
+        try {
+            database = this.getReadableDatabase(); // Abrir la base de datos
+            String lastCodeQuery = "SELECT output_code FROM " + TABLE_PRODUCT_OUTPUT +
+                    " ORDER BY output_code DESC LIMIT 1"; // Consulta para obtener el último código
 
-            // Extraer la parte numérica del último código
-            String numberPart = lastCode.replaceAll("[^0-9]", ""); // Eliminar todas las letras
-            int nextNumber = Integer.parseInt(numberPart) + 1; // Incrementar el número
+            cursor = database.rawQuery(lastCodeQuery, null);
 
-            // Formatear el siguiente código con el prefijo y el número incrementado
-            newCode = "OUT" + String.format("%03d", nextNumber); // Asegurar que el número tenga 3 dígitos
+            if (cursor != null && cursor.moveToFirst()) {
+                String lastCode = cursor.getString(0); // Obtener el último código
+                // Extraer la parte numérica del último código
+                String numberPart = lastCode.replaceAll("[^0-9]", ""); // Eliminar todas las letras
+                int nextNumber = Integer.parseInt(numberPart) + 1; // Incrementar el número
+
+                // Formatear el siguiente código con el prefijo y el número incrementado
+                newCode = "OUT" + String.format("%03d", nextNumber); // Asegurar que el número tenga 3 dígitos
+            }
+        } catch (Exception e) {
+            // Manejo de excepciones (puedes agregar un log o un mensaje)
+            e.printStackTrace();
+        } finally {
+            // Asegurar que el cursor y la base de datos se cierren
+            if (cursor != null) {
+                cursor.close();
+            }
+            if (database != null) {
+                database.close();
+            }
         }
 
         return newCode;
     }
+
 }

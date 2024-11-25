@@ -4,12 +4,17 @@ import com.app.farmacia_fameza.models.Brand;
 import com.app.farmacia_fameza.models.Category;
 
 public class ProductAddDTO {
-    private String sku, name, description, image, brand, category;
+    private int id;
+    private String sku, name, description, image;
+    private int brand, category;
     private Double unit_price;
 
-    public ProductAddDTO() {}
+    public ProductAddDTO() {
 
-    public ProductAddDTO(String sku, String name, String description, String image, Double unit_price, String brand, String category) {
+    }
+
+    public ProductAddDTO(int id,String sku, String name, String description, String image, Double unit_price, int brand, int category) {
+        this.id = id;
         this.sku = sku;
         this.name = name;
         this.description = description;
@@ -17,6 +22,14 @@ public class ProductAddDTO {
         this.unit_price = unit_price;
         this.brand = brand;
         this.category = category;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getSku() {
@@ -51,19 +64,19 @@ public class ProductAddDTO {
         this.image = image;
     }
 
-    public String getBrand() {
+    public int getBrand() {
         return brand;
     }
 
-    public void setBrand(String brand) {
+    public void setBrand(int brand) {
         this.brand = brand;
     }
 
-    public String getCategory() {
+    public int getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(int category) {
         this.category = category;
     }
 

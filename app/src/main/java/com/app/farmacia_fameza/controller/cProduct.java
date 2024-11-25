@@ -173,9 +173,7 @@ public class cProduct extends conexion {
 
     public boolean insertProduct(ProductAddDTO productAddDTO){
         SQLiteDatabase database = this.getWritableDatabase();
-        int idBrand = cBrand.getIDBrand(productAddDTO.getBrand());
-        int idCategory = cCategory.getIDCategory(productAddDTO.getCategory());
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         String currentDateAndTime = sdf.format(new Date());  // Fecha y hora actuales
         ContentValues values = new ContentValues();
         ContentValues price = new ContentValues();
@@ -184,17 +182,16 @@ public class cProduct extends conexion {
             values.put("name", productAddDTO.getName());
             values.put("description", productAddDTO.getDescription());
             values.put("image", productAddDTO.getImage());
-            values.put("brand_id",idBrand);
-            values.put("category_id",idCategory);
+            values.put("brand_id",productAddDTO.getBrand());
+            values.put("category_id",productAddDTO.getCategory());
             values.put("stock", 0);
             values.put("status", 1);
+            long result = database.insert(TABLE_PRODUCT, null, values);
 
-            price.put("product_id", searchIdProduct(productAddDTO.getSku()));
+            price.put("product_id", result);
             price.put("price", productAddDTO.getUnit_price());
             price.put("date_register", currentDateAndTime);
 
-            Log.d("Insert Product", "Datos:" + values);
-            long result = database.insert(TABLE_PRODUCT, null, values);
             long result2 = database.insert(TABLE_HISTORY_PRICE_PRODUCT, null, price);
             if (result == -1 && result2 == -1) {
                 Log.e("Insert Product", "Error al insertar el producto");
@@ -218,7 +215,7 @@ public class cProduct extends conexion {
         SQLiteDatabase database = this.getWritableDatabase();
         int idBrand = cBrand.getIDBrand(productUpdateDTO.getBrand());
         int idCategory = cCategory.getIDCategory(productUpdateDTO.getCategory());
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         String currentDateAndTime = sdf.format(new Date());  // Fecha y hora actuales
         ContentValues values = new ContentValues();
         ContentValues price = new ContentValues();
@@ -610,6 +607,42 @@ public class cProduct extends conexion {
         database.close();
         return productInventoryDTOList;
     }
+
+    public String generateNextSKU() {
+        SQLiteDatabase database = null;
+        Cursor cursor = null;
+        String newSKU = "SKU001"; // Valor inicial predeterminado
+
+        try {
+            database = this.getReadableDatabase();
+            // Consulta para obtener el último SKU en la tabla
+            String query = "SELECT sku FROM " + TABLE_PRODUCT + " ORDER BY id DESC LIMIT 1";
+            cursor = database.rawQuery(query, null);
+
+            if (cursor != null && cursor.moveToFirst()) {
+                String lastSKU = cursor.getString(0); // Último SKU registrado
+                // Extraer la parte numérica del SKU
+                String numberPart = lastSKU.replaceAll("[^0-9]", ""); // Eliminar letras
+                int nextNumber = Integer.parseInt(numberPart) + 1; // Incrementar el número
+
+                // Generar el nuevo SKU con el prefijo "SKU" y el número incrementado
+                newSKU = "SKU" + String.format("%03d", nextNumber); // Asegurar que tenga 3 dígitos
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // Manejo de errores
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            if (database != null) {
+                database.close();
+            }
+        }
+
+        return newSKU;
+    }
+
+
     /*public List<ProductInventoryDTO>  completeTableKardex(){
         List<ProductInventoryDTO> productInventoryDTOList = new ArrayList<>();
         SQLiteDatabase database = this.getReadableDatabase();
