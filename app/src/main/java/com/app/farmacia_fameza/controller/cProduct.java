@@ -494,7 +494,10 @@ public class cProduct extends conexion {
         String query = "SELECT " +
                 "p.sku AS sku, " +
                 "p.name AS nameProduct, " +
-                "p.unit_price AS unit_price, " +
+                "CASE " +
+                "    WHEN it.transaction_type = 'entry' THEN ped.price_history " +
+                "    WHEN it.transaction_type = 'output' THEN pod.price_history " +
+                "END AS unit_price, " +
                 "CASE " +
                 "    WHEN it.transaction_type = 'entry' THEN pe.date_entry " +
                 "    WHEN it.transaction_type = 'output' THEN po.output_date " +
