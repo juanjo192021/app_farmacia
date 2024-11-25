@@ -1,4 +1,4 @@
-package com.app.farmacia_fameza.ui.category;
+package com.app.farmacia_fameza.view.ui.category;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 
-import com.app.farmacia_fameza.CategoryListFragment;
 import com.app.farmacia_fameza.R;
 
 import com.app.farmacia_fameza.databinding.FragmentCategoryBinding;

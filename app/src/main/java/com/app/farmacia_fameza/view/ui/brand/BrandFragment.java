@@ -1,4 +1,4 @@
-package com.app.farmacia_fameza.ui.brand;
+package com.app.farmacia_fameza.view.ui.brand;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.app.farmacia_fameza.BrandListFragment;
 import com.app.farmacia_fameza.R;
 import com.app.farmacia_fameza.databinding.FragmentBrandBinding;
 

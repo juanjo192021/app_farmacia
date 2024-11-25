@@ -1,4 +1,4 @@
-package com.app.farmacia_fameza;
+package com.app.farmacia_fameza.view.ui.auth;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,12 +15,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.app.farmacia_fameza.R;
 import com.app.farmacia_fameza.business.bUser;
 import com.app.farmacia_fameza.models.User;
-import com.app.farmacia_fameza.view.frmRegister;
+import com.app.farmacia_fameza.view.ui.others.MenuActivity;
 
 
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     EditText txtEmail, txtPassword;
     TextView Registrarse;
@@ -30,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -46,22 +47,22 @@ public class MainActivity extends AppCompatActivity {
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bUser BUser = new bUser(MainActivity.this);
+                bUser BUser = new bUser(LoginActivity.this);
 
                 String email = txtEmail.getText().toString();
                 String password = txtPassword.getText().toString();
 
                 if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                    Toast.makeText(MainActivity.this, "Por favor, ingresa un correo electrónico válido", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Por favor, ingresa un correo electrónico válido", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if(!BUser.login(new User(email,password))){
-                    Toast.makeText(MainActivity.this, "Correo electrónico o contraseña incorrectos", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Correo electrónico o contraseña incorrectos", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                Intent x=new Intent(MainActivity.this, Menu.class);
+                Intent x=new Intent(LoginActivity.this, MenuActivity.class);
                 startActivity(x);
                 finish();
             }
@@ -69,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void irRegistrarse(View view){
-        Intent intent = new Intent(this, frmRegister.class);
+        Intent intent = new Intent(this, RegisterFragment.class);
         startActivity(intent);
     }
 

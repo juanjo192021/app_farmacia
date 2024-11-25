@@ -1,4 +1,4 @@
-package com.app.farmacia_fameza.view;
+package com.app.farmacia_fameza.view.ui.auth;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,22 +12,17 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.app.farmacia_fameza.MainActivity;
 import com.app.farmacia_fameza.R;
 import com.app.farmacia_fameza.business.bUser;
 import com.app.farmacia_fameza.models.User;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-public class frmRegister extends AppCompatActivity {
+public class RegisterFragment extends AppCompatActivity {
     EditText correo, contra, cell, fecha, nombre, apellido;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_frm_register);
+        setContentView(R.layout.activity_register);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -70,7 +65,7 @@ public class frmRegister extends AppCompatActivity {
 
         if (success) {
             Toast.makeText(this, "User registered successfully", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(frmRegister.this, MainActivity.class);
+            Intent intent = new Intent(RegisterFragment.this, LoginActivity.class);
             startActivity(intent);
         } else {
 

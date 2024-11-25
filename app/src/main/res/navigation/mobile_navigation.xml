@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.app.farmacia_fameza.ui.home.HomeFragment"
+        android:name="com.app.farmacia_fameza.view.ui.product.ProductFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -17,74 +17,74 @@
 
     <fragment
         android:id="@+id/nav_category"
-        android:name="com.app.farmacia_fameza.ui.category.CategoryFragment"
+        android:name="com.app.farmacia_fameza.view.ui.category.CategoryFragment"
         android:label="@string/menu_category"
         tools:layout="@layout/fragment_category" />
 
     <fragment
         android:id="@+id/nav_brand"
-        android:name="com.app.farmacia_fameza.ui.brand.BrandFragment"
+        android:name="com.app.farmacia_fameza.view.ui.brand.BrandFragment"
         android:label="@string/menu_brand"
         tools:layout="@layout/fragment_brand" />
 
     <fragment
         android:id="@+id/nav_lote"
-        android:name="com.app.farmacia_fameza.ui.lote.LoteFragment"
+        android:name="com.app.farmacia_fameza.view.ui.lote.LoteFragment"
         android:label="@string/menu_entrylote"
         tools:layout="@layout/fragment_lote" />
 
     <fragment
         android:id="@+id/nav_output"
-        android:name="com.app.farmacia_fameza.ui.output.OutputFragment"
+        android:name="com.app.farmacia_fameza.view.ui.output.OutputFragment"
         android:label="@string/menu_output"
         tools:layout="@layout/fragment_output" />
 
     <fragment
         android:id="@+id/nav_kardex"
-        android:name="com.app.farmacia_fameza.KardexFragment"
+        android:name="com.app.farmacia_fameza.view.ui.kardex.KardexFragment"
         android:label="@string/menu_kardex"
         tools:layout="@layout/fragment_kardex" />
 
     <fragment
         android:id="@+id/productDetailFragment"
-        android:name="com.app.farmacia_fameza.ProductDetailFragment"
+        android:name="com.app.farmacia_fameza.view.ui.product.ProductDetailFragment"
         android:label="@string/product_detail_label"
         tools:layout="@layout/fragment_product_detail" />
     <fragment
         android:id="@+id/productListFragment"
-        android:name="com.app.farmacia_fameza.view.ProductListFragment"
+        android:name="com.app.farmacia_fameza.view.ui.product.ProductListFragment"
         android:label="@string/products_list_label"
         tools:layout="@layout/fragment_list_product" />
     <fragment
         android:id="@+id/categoryCrudFragment"
-        android:name="com.app.farmacia_fameza.CategoryCrudFragment"
+        android:name="com.app.farmacia_fameza.view.ui.category.CategoryCrudFragment"
         android:label="@string/category_configuration"
         tools:layout="@layout/fragment_category_crud" />
     <fragment
         android:id="@+id/brandCrudFragment"
-        android:name="com.app.farmacia_fameza.BrandCrudFragment"
+        android:name="com.app.farmacia_fameza.view.ui.brand.BrandCrudFragment"
         android:label="@string/brand_configuration"
         tools:layout="@layout/fragment_brand_crud" />
     <fragment
         android:id="@+id/addProductFragment"
-        android:name="com.app.farmacia_fameza.addProductFragment"
+        android:name="com.app.farmacia_fameza.view.ui.product.addProductFragment"
         android:label="@string/product_add"
         tools:layout="@layout/fragment_add_product" />
 
     <fragment
         android:id="@+id/categoryListFragment"
-        android:name="com.app.farmacia_fameza.CategoryListFragment"
+        android:name="com.app.farmacia_fameza.view.ui.category.CategoryListFragment"
         android:label="@string/category_list_configuration"
         tools:layout="@layout/fragment_category_list" />
     <fragment
         android:id="@+id/brandListFragment"
-        android:name="com.app.farmacia_fameza.BrandListFragment"
+        android:name="com.app.farmacia_fameza.view.ui.brand.BrandListFragment"
         android:label="fragment_brand_list"
         tools:layout="@layout/fragment_brand_list" />
     <activity
         android:id="@+id/mainActivity"
-        android:name="com.app.farmacia_fameza.MainActivity"
+        android:name="com.app.farmacia_fameza.view.ui.auth.LoginActivity"
         android:label="activity_main"
-        tools:layout="@layout/activity_main" />
+        tools:layout="@layout/activity_login" />
 
 </navigation>

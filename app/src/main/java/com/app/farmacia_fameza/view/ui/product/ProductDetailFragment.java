@@ -1,16 +1,10 @@
-package com.app.farmacia_fameza;
+package com.app.farmacia_fameza.view.ui.product;
 
-import android.annotation.SuppressLint;
-import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,25 +15,16 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.app.farmacia_fameza.R;
 import com.app.farmacia_fameza.business.bBrand;
 import com.app.farmacia_fameza.business.bCategory;
 import com.app.farmacia_fameza.business.bProduct;
-import com.app.farmacia_fameza.dto.ProductInventoryDTO;
-import com.app.farmacia_fameza.dto.ProductKardexDTO;
 import com.app.farmacia_fameza.dto.ProductUpdateDTO;
 import com.app.farmacia_fameza.models.Product;
-import com.app.farmacia_fameza.view.GetPDF;
-import com.itextpdf.layout.element.Cell;
-import com.itextpdf.layout.element.Paragraph;
 import com.squareup.picasso.Picasso;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 
 public class ProductDetailFragment extends Fragment {

@@ -1,4 +1,4 @@
-package com.app.farmacia_fameza;
+package com.app.farmacia_fameza.view.ui.kardex;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -14,20 +14,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.farmacia_fameza.R;
 import com.app.farmacia_fameza.dto.ProductInventoryDTO;
-import com.app.farmacia_fameza.dto.ProductUpdateDTO;
-import com.app.farmacia_fameza.view.GetPDF;
+import com.app.farmacia_fameza.view.ui.others.GetPDF;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Paragraph;
 import com.app.farmacia_fameza.business.bProduct;
-
-import org.bouncycastle.asn1.sec.SECNamedCurves;
 
 import java.io.OutputStream;
 import java.util.ArrayList;

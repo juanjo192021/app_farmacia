@@ -7,7 +7,7 @@
     android:background="#2C348B"
     android:backgroundTint="#2C348B"
     android:padding="20dp"
-    tools:context=".CategoryCrudFragment">
+    tools:context=".view.ui.category.CategoryCrudFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

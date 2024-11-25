@@ -1,4 +1,4 @@
-package com.app.farmacia_fameza.ui.home;
+package com.app.farmacia_fameza.view.ui.product;
 
 import android.os.Bundle;
 
@@ -14,9 +14,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.app.farmacia_fameza.R;
 import com.app.farmacia_fameza.databinding.FragmentHomeBinding;
 
-import com.app.farmacia_fameza.view.ProductListFragment;
-
-public class HomeFragment extends Fragment{
+public class ProductFragment extends Fragment{
 
     private FragmentHomeBinding binding;
     public static final String ARG_PRODUCT_LIST = "list_product";

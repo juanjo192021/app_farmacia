@@ -1,10 +1,9 @@
-package com.app.farmacia_fameza.view;
+package com.app.farmacia_fameza.view.ui.others;
 
 import android.content.Context;
 import android.os.Environment;
 import android.widget.Toast;
 
-import com.app.farmacia_fameza.dto.ProductKardexDTO;
 import com.itextpdf.kernel.colors.ColorConstants;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -14,13 +13,10 @@ import com.itextpdf.layout.element.Paragraph;
 import java.io.File;
 import java.io.FileOutputStream;
 
-import com.itextpdf.kernel.pdf.*;
-import com.itextpdf.layout.*;
 import com.itextpdf.layout.element.*;
 import com.itextpdf.layout.properties.TextAlignment;
 import com.itextpdf.layout.properties.UnitValue;
 import java.util.List;
-import java.util.Map;
 
 import com.itextpdf.layout.element.Cell;
 

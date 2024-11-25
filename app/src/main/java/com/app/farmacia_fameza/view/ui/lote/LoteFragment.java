@@ -1,4 +1,4 @@
-package com.app.farmacia_fameza.ui.lote;
+package com.app.farmacia_fameza.view.ui.lote;
 
 import android.os.Bundle;
 
@@ -90,7 +90,7 @@ public class LoteFragment extends Fragment {
                 );
                 View bottomSheetView = LayoutInflater.from(getActivity().getApplicationContext())
                         .inflate(
-                                R.layout.modal_detailproduct,
+                                R.layout.modal_detailproductentry,
                                 (LinearLayout) getView().findViewById(R.id.bottomDetailProductModal)
                         );
 

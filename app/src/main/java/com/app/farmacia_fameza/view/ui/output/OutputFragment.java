@@ -1,4 +1,4 @@
-package com.app.farmacia_fameza.ui.output;
+package com.app.farmacia_fameza.view.ui.output;
 
 import androidx.lifecycle.ViewModelProvider;
 

@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.farmacia_fameza.R;
 import com.app.farmacia_fameza.dto.ProductListDTO;
-import com.app.farmacia_fameza.models.Product;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +42,7 @@ public class productListAdapter extends RecyclerView.Adapter<itemViewHolder> {
     @NonNull
     @Override
     public itemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.item_list, parent, false);
+        View view = mInflater.inflate(R.layout.card_item_list, parent, false);
         return new itemViewHolder(view);
     }
 

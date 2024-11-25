@@ -1,18 +1,15 @@
-package com.app.farmacia_fameza;
+package com.app.farmacia_fameza.view.ui.others;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
-import com.app.farmacia_fameza.view.ProductListFragment;
+import com.app.farmacia_fameza.R;
+import com.app.farmacia_fameza.view.ui.auth.LoginActivity;
 import com.google.android.material.navigation.NavigationView;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -22,7 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.app.farmacia_fameza.databinding.ActivityMenuBinding;
 
-public class Menu extends AppCompatActivity{
+public class MenuActivity extends AppCompatActivity{
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMenuBinding binding;
@@ -70,7 +67,7 @@ public class Menu extends AppCompatActivity{
         editor.apply();
 
         // 2. Redirige a pantalla de inicio de sesión
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
 
@@ -168,7 +165,7 @@ public class Menu extends AppCompatActivity{
         Toast.makeText(this, "Sesión cerrada", Toast.LENGTH_SHORT).show();
 
         // Redirigir al login
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Borra la pila de actividades
         startActivity(intent);
 

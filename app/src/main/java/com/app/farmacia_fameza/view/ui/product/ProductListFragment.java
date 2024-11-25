@@ -1,4 +1,4 @@
-package com.app.farmacia_fameza.view;
+package com.app.farmacia_fameza.view.ui.product;
 
 import android.os.Bundle;
 
@@ -19,7 +19,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.app.farmacia_fameza.ProductDetailFragment;
 import com.app.farmacia_fameza.R;
 import com.app.farmacia_fameza.adapters.productListAdapter;
 import com.app.farmacia_fameza.business.bProduct;

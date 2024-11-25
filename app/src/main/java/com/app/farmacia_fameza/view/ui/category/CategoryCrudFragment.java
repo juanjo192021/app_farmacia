@@ -1,10 +1,9 @@
-package com.app.farmacia_fameza;
+package com.app.farmacia_fameza.view.ui.category;
 
 import android.content.Context;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +15,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.farmacia_fameza.R;
 import com.app.farmacia_fameza.business.bCategory;
 
 import java.util.Arrays;

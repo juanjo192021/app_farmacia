@@ -1,4 +1,4 @@
-package com.app.farmacia_fameza;
+package com.app.farmacia_fameza.view.ui.product;
 
 import android.content.Context;
 
@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.app.farmacia_fameza.R;
 import com.app.farmacia_fameza.business.bProduct;
 import com.app.farmacia_fameza.business.bBrand;
 import com.app.farmacia_fameza.business.bCategory;
