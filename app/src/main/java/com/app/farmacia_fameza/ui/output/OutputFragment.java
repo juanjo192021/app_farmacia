@@ -25,7 +25,10 @@ import com.app.farmacia_fameza.databinding.FragmentOutputBinding;
 import com.app.farmacia_fameza.dto.ProductOutputDetailDTO;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class OutputFragment extends Fragment {
 
@@ -57,6 +60,8 @@ public class OutputFragment extends Fragment {
 
         txtNumberOutput = root.findViewById(R.id.txt_codigoSalida);
         txtDateOutput = root.findViewById(R.id.txt_FechaSalida);
+
+        generateDataOutput();
 
         createHeaderToTable();
 
@@ -105,7 +110,7 @@ public class OutputFragment extends Fragment {
                     // Aquí puedes agregar lógica adicional si es necesario, como limpiar campos o actualizar la interfaz
                     // Limpiar tabla y campos de entrada
                     clearTable();
-                    clearFields();
+                    generateDataOutput();
                 } else {
                     // Mostrar un mensaje de error
                     Toast.makeText(getContext(), "Error al guardar la Salida de Productos", Toast.LENGTH_SHORT).show();
@@ -116,10 +121,29 @@ public class OutputFragment extends Fragment {
         return root;
     }
 
+    private void generateDataOutput(){
+        txtNumberOutput.setText(BOutput.generateNextOutputCode());
+        txtDateOutput.setText(getCurrentDateString());
+    }
+
+    public String getCurrentDateString() {
+        // Obtén la fecha actual
+        Calendar calendar = Calendar.getInstance();
+        Date currentDate = calendar.getTime();
+
+        // Define el formato de la fecha
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String formattedDate = dateFormat.format(currentDate);
+
+        return formattedDate;
+    }
+
     private void addProductToTable(String productSKU, int quantity) {
         // Crear un nuevo producto y añadir a la lista
         ProductOutputDetailDTO product = new ProductOutputDetailDTO(productSKU, quantity);
         productOutputDetailList.add(product);
+
+
 
         // Crear una nueva fila
         TableRow newRow = new TableRow(getContext());
@@ -152,11 +176,6 @@ public class OutputFragment extends Fragment {
         productOutputDetailList.clear(); // Limpiar la lista de productos
     }
 
-    // Método para limpiar los campos de entrada
-    private void clearFields() {
-        txtNumberOutput.setText("");
-        txtDateOutput.setText("");
-    }
 
     // Método auxiliar para crear TextView
     private TextView createTextView(String text) {

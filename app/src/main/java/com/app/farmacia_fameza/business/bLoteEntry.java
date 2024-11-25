@@ -16,4 +16,8 @@ public class bLoteEntry {
     public boolean insertProductEntryWithDetails(String numberEntry, String dateEntry, String supplierName, List<ProductEntryDetailDTO> productDetails){
         return CLoteEntryl.insertProductEntryWithDetails(numberEntry, dateEntry, supplierName, productDetails);
     }
+
+    public String generateNextEntryCode(){
+        return CLoteEntryl.generateNextEntryCode();
+    }
 }

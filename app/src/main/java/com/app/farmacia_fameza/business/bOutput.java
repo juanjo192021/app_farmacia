@@ -18,4 +18,8 @@ public class bOutput {
     public boolean insertProductOutputWithDetails(String numberOuput, String dateOutput, String userName, List<ProductOutputDetailDTO> productDetails) {
         return COputput.insertProductOutputWithDetails(numberOuput, dateOutput, userName, productDetails);
     }
+
+    public String generateNextOutputCode(){
+        return COputput.generateNextOutputCode();
+    }
 }

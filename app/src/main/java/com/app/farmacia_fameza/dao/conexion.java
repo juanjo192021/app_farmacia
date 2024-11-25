@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 
 public class conexion extends SQLiteOpenHelper {
     private static final String DB_NAME = "Farmacia.db";
-    private static final int DB_VERSION = 8;
+    private static final int DB_VERSION = 9;
 
     // Table Names
     public static final String TABLE_BRAND = "Brand";
@@ -106,6 +106,7 @@ public class conexion extends SQLiteOpenHelper {
                 "entry_id INTEGER, " +
                 "product_id INTEGER, " +
                 "quantity INTEGER NOT NULL, " +
+                "price_history DECIMAL(10,2) NOT NULL, " +
                 "expiration_date TEXT NOT NULL, " +
                 "production_date TEXT NOT NULL, " +
                 "alert_date TEXT NOT NULL, " +
@@ -126,6 +127,7 @@ public class conexion extends SQLiteOpenHelper {
                 "output_id INTEGER, " +
                 "product_id INTEGER, " +
                 "quantity INTEGER NOT NULL, " +
+                "price_history DECIMAL(10,2) NOT NULL, " +
                 "FOREIGN KEY (output_id) REFERENCES " + TABLE_PRODUCT_OUTPUT + "(id), " +
                 "FOREIGN KEY (product_id) REFERENCES " + TABLE_PRODUCT + "(id))");
 
@@ -188,11 +190,11 @@ public class conexion extends SQLiteOpenHelper {
                 "('ENT003', '2024-01-15', 3)");
 
         // Insertar datos en la tabla Product_Entry_Detail
-        db.execSQL("INSERT INTO " + TABLE_PRODUCT_ENTRY_DETAIL + " (entry_id, product_id, quantity, expiration_date, production_date, alert_date) VALUES " +
-                "(1, 1, 50, '2025-01-10', '2023-12-01', '2024-12-10'), " +
-                "(1, 2, 30, '2025-06-10', '2024-01-01', '2025-05-10'), " +
-                "(2, 3, 100, '2024-12-10', '2023-11-01', '2024-11-10'), " +
-                "(3, 4, 70, '2025-03-15', '2024-02-10', '2025-02-15')");
+        db.execSQL("INSERT INTO " + TABLE_PRODUCT_ENTRY_DETAIL + " (entry_id, product_id, quantity, price_history, expiration_date, production_date, alert_date) VALUES " +
+                "(1, 1, 50, 5.99, '2025-01-10', '2023-12-01', '2024-12-10'), " +
+                "(1, 2, 30, 12.49, '2025-06-10', '2024-01-01', '2025-05-10'), " +
+                "(2, 3, 100, 8.99, '2024-12-10', '2023-11-01', '2024-11-10'), " +
+                "(3, 4, 70, 4.99, '2025-03-15', '2024-02-10', '2025-02-15')");
 
         // Insertar datos en la tabla Product_Output
         db.execSQL("INSERT INTO " + TABLE_PRODUCT_OUTPUT + " (output_code, output_date, user_id) VALUES " +
@@ -202,12 +204,12 @@ public class conexion extends SQLiteOpenHelper {
                 "('OUT004', '2024-01-26', 3)");
 
         // Insertar datos en la tabla Product_Output_Detail
-        db.execSQL("INSERT INTO " + TABLE_PRODUCT_OUTPUT_DETAIL + " (output_id, product_id, quantity) VALUES " +
-                "(1, 1, 10), " +
-                "(1, 2, 5), " +
-                "(2, 3, 20), " +
-                "(3, 4, 15), " +
-                "(4, 3, 5)");
+        db.execSQL("INSERT INTO " + TABLE_PRODUCT_OUTPUT_DETAIL + " (output_id, product_id, quantity, price_history) VALUES " +
+                "(1, 1, 10, 5.99), " +
+                "(1, 2, 5, 12.49), " +
+                "(2, 3, 20, 8.99), " +
+                "(3, 4, 15, 4.99), " +
+                "(4, 3, 5, 8.99)");
 
         // Insertar datos en la tabla Inventory_Transaction
         db.execSQL("INSERT INTO " + TABLE_INVENTORY_TRANSACTION + " (transaction_type, transaction_id, detail) VALUES " +

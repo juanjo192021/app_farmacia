@@ -1,6 +1,7 @@
 package com.app.farmacia_fameza.controller;
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
@@ -29,14 +30,14 @@ public class cOutput extends conexion {
 
         try {
             // Insertar en la tabla Product_Entry
-            entryValues.put("number_entry", numberOuput);
-            entryValues.put("date_entry", dateOutput);
-            entryValues.put("supplier_id", userName);
+            entryValues.put("output_code", numberOuput);
+            entryValues.put("output_date", dateOutput);
+            entryValues.put("user_id", 1);
 
             // Insertar la entrada y obtener el ID
             long outputId = database.insert(TABLE_PRODUCT_OUTPUT, null, entryValues);
             if (outputId == -1) {
-                Log.e("Insert Entry", "Error al insertar la salida de producto");
+                Log.e("Insert Output", "Error al insertar la salida de producto");
                 return false;
             }
 
@@ -49,7 +50,7 @@ public class cOutput extends conexion {
                 detailValues.put("product_id", idProduct);
                 detailValues.put("quantity", detail.getQuantity());
 
-                long detailResult = database.insert(TABLE_PRODUCT_ENTRY_DETAIL, null, detailValues);
+                long detailResult = database.insert(TABLE_PRODUCT_OUTPUT_DETAIL, null, detailValues);
                 if (detailResult == -1) {
                     Log.e("Insert Output Detail", "Error al insertar el detalle de la salida para producto ID: " + idProduct);
                     return false;
@@ -70,5 +71,28 @@ public class cOutput extends conexion {
                 database.close();
             }
         }
+    }
+
+    public String generateNextOutputCode() {
+        SQLiteDatabase database = this.getReadableDatabase();
+        String lastCodeQuery = "SELECT output_code FROM " + TABLE_PRODUCT_OUTPUT +
+                " ORDER BY output_code DESC LIMIT 1"; // Obtener el último código insertado
+
+        Cursor cursor = database.rawQuery(lastCodeQuery, null);
+        String newCode = "OUT001"; // Valor predeterminado en caso de no encontrar ningún código
+
+        if (cursor != null && cursor.moveToFirst()) {
+            String lastCode = cursor.getString(0);  // Obtener el último código
+            cursor.close();
+
+            // Extraer la parte numérica del último código
+            String numberPart = lastCode.replaceAll("[^0-9]", ""); // Eliminar todas las letras
+            int nextNumber = Integer.parseInt(numberPart) + 1; // Incrementar el número
+
+            // Formatear el siguiente código con el prefijo y el número incrementado
+            newCode = "OUT" + String.format("%03d", nextNumber); // Asegurar que el número tenga 3 dígitos
+        }
+
+        return newCode;
     }
 }

@@ -1,6 +1,7 @@
 package com.app.farmacia_fameza.controller;
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
@@ -78,6 +79,29 @@ public class cLoteEntry extends conexion{
                 database.close();
             }
         }
+    }
+
+    public String generateNextEntryCode() {
+        SQLiteDatabase database = this.getReadableDatabase();
+        String lastCodeQuery = "SELECT number_entry FROM " + TABLE_PRODUCT_ENTRY +
+                " ORDER BY number_entry DESC LIMIT 1"; // Obtener el último código insertado
+
+        Cursor cursor = database.rawQuery(lastCodeQuery, null);
+        String newCode = "ENT001"; // Valor predeterminado en caso de no encontrar ningún código
+
+        if (cursor != null && cursor.moveToFirst()) {
+            String lastCode = cursor.getString(0);  // Obtener el último código
+            cursor.close();
+
+            // Extraer la parte numérica del último código
+            String numberPart = lastCode.replaceAll("[^0-9]", ""); // Eliminar todas las letras
+            int nextNumber = Integer.parseInt(numberPart) + 1; // Incrementar el número
+
+            // Formatear el siguiente código con el prefijo y el número incrementado
+            newCode = "ENT" + String.format("%03d", nextNumber); // Asegurar que el número tenga 3 dígitos
+        }
+
+        return newCode;
     }
 
 }

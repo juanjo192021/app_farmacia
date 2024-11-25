@@ -30,6 +30,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -73,6 +74,8 @@ public class LoteFragment extends Fragment {
         txtDateEntry = root.findViewById(R.id.txt_FechaLote);
         spinnerSupplier = root.findViewById(R.id.spinner_ProveedorLote);
         setupSupplierSpinner(spinnerSupplier);
+
+        generateDataLote();
 
         createHeaderToTable();
 
@@ -130,7 +133,8 @@ public class LoteFragment extends Fragment {
                     // Aquí puedes agregar lógica adicional si es necesario, como limpiar campos o actualizar la interfaz
                     // Limpiar tabla y campos de entrada
                     clearTable();
-                    clearFields();
+                    updateSpinner();
+                    generateDataLote();
                 } else {
                     // Mostrar un mensaje de error
                     Toast.makeText(getContext(), "Error al guardar la Entrada del Lote", Toast.LENGTH_SHORT).show();
@@ -139,6 +143,23 @@ public class LoteFragment extends Fragment {
         });
 
         return root;
+    }
+
+    private void generateDataLote(){
+        txtNumberEntry.setText(BLoteEntry.generateNextEntryCode());
+        txtDateEntry.setText(getCurrentDateString());
+    }
+
+    public String getCurrentDateString() {
+        // Obtén la fecha actual
+        Calendar calendar = Calendar.getInstance();
+        Date currentDate = calendar.getTime();
+
+        // Define el formato de la fecha
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String formattedDate = dateFormat.format(currentDate);
+
+        return formattedDate;
     }
 
     // Método para limpiar la tabla (excepto la fila de encabezado)
@@ -151,9 +172,7 @@ public class LoteFragment extends Fragment {
     }
 
     // Método para limpiar los campos de entrada
-    private void clearFields() {
-        txtNumberEntry.setText("");
-        txtDateEntry.setText("");
+    private void updateSpinner() {
         spinnerSupplier.setSelection(0); // Seleccionar el primer proveedor en el Spinner
     }
 
