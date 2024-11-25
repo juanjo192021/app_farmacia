@@ -102,6 +102,7 @@ public class cProduct extends conexion {
         return price;
     }
 
+
     @SuppressLint("Range")
     public Product getDetailProduct(int productId) {
         Product product = null;
