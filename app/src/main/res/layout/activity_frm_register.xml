@@ -88,7 +88,7 @@
                 android:drawablePadding="10dp"
                 android:ems="10"
                 android:hint="Password"
-                android:inputType="text"
+                android:inputType="textPassword"
                 android:minWidth="50dp"
                 android:minHeight="50dp"
                 android:padding="10dp"

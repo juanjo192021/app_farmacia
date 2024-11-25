@@ -29,5 +29,6 @@
     <string name="menu_output">Salidas</string>
     <string name="menu_kardex">Kardex</string>
     <string name="logout">Cerrar Sesión</string>
+    <string name="menu_entrylote">Entrada Lote</string>
 
 </resources>
