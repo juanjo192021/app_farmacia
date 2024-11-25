@@ -9,8 +9,9 @@ public class ProductInventoryDTO {
     private Integer salida;
     private Integer saldo;
     private Double precio;
+    private Double total;
 
-    public ProductInventoryDTO(String sku, String nameProduct, String fecha, String detalle, Integer entrada, Integer salida, Integer saldo, Double precio) {
+    public ProductInventoryDTO(String sku, String nameProduct, String fecha, String detalle, Integer entrada, Integer salida, Integer saldo, Double precio, Double total) {
         this.sku = sku;
         this.nameProduct = nameProduct;
         this.fecha = fecha;
@@ -19,6 +20,7 @@ public class ProductInventoryDTO {
         this.salida = salida;
         this.saldo = saldo;
         this.precio = precio;
+        this.total = total;
     }
 
     public String getSku() {
@@ -83,5 +85,13 @@ public class ProductInventoryDTO {
 
     public void setPrecio(Double precio) {
         this.precio = precio;
+    }
+
+    public Double getTotal() {
+        return total;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
     }
 }

@@ -88,7 +88,7 @@ public class OutputFragment extends Fragment {
                         EditText quantity = bottomSheetView.findViewById(R.id.editTextCantidadProdOutput);
 
                         Integer idPriceHistory = BProduct.searchIdProduct(productSKU.getText().toString());
-                        double priceHistory = BProduct.searchPriceProductByID(idPriceHistory);
+                        double priceHistory = Math.round(BProduct.searchPriceProductByID(idPriceHistory) * 1.15 * 10.0) / 10.0;
                         addProductToTable(
                                 productSKU.getText().toString(),
                                 Integer.parseInt(quantity.getText().toString()),

@@ -537,6 +537,11 @@ public class cProduct extends conexion {
                 "    WHEN it.transaction_type = 'output' THEN pod.quantity " +
                 "    ELSE 0 " +
                 "END AS salida, " +
+                "ROUND(CASE " +
+                "    WHEN it.transaction_type = 'entry' THEN ped.price_history * ped.quantity " + // Total para entradas
+                "    WHEN it.transaction_type = 'output' THEN pod.price_history * pod.quantity " + // Total para salidas
+                "    ELSE 0 " +
+                "END, 1) AS total, " + // Redondear el total a 1 decimal
                 "(SELECT SUM(CASE " +
                 "            WHEN it2.transaction_type = 'entry' THEN ped2.quantity " +
                 "            WHEN it2.transaction_type = 'output' THEN -pod2.quantity " +
@@ -584,6 +589,7 @@ public class cProduct extends conexion {
                 "           WHEN 'diciembre' THEN '12' " +
                 "       END " +
                 "ORDER BY fecha;";
+
         Cursor cursor = database.rawQuery(query, new String[]{String.valueOf(idProduct),month});
         if (cursor != null && cursor.moveToFirst()) {
             do{
@@ -594,9 +600,10 @@ public class cProduct extends conexion {
                 String detalle = cursor.getString(4);
                 Integer entrada = cursor.getInt(5);
                 Integer salida = cursor.getInt(6);
-                Integer saldo = cursor.getInt(7);
+                Double total = cursor.getDouble(7);
+                Integer saldo = cursor.getInt(8);
 
-                productInventoryDTOList.add(new ProductInventoryDTO(sku,nameProduct,fecha,detalle,entrada,salida,saldo,precio));
+                productInventoryDTOList.add(new ProductInventoryDTO(sku,nameProduct,fecha,detalle,entrada,salida,saldo,precio,total));
             }while(cursor.moveToNext());
             cursor.close();
         }

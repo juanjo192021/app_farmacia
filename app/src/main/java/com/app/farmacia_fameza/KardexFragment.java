@@ -158,6 +158,7 @@ public class KardexFragment extends Fragment {
                                         new Cell().add(new Paragraph(product.getDetalle())),
                                         new Cell().add(new Paragraph(String.valueOf(product.getEntrada()))),
                                         new Cell().add(new Paragraph(String.valueOf(product.getSalida()))),
+                                        new Cell().add(new Paragraph(String.valueOf(product.getTotal()))),
                                         new Cell().add(new Paragraph(String.valueOf(product.getSaldo())))
                                 });
                             }

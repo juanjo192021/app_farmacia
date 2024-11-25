@@ -38,11 +38,11 @@ public class GetPDF {
             document.add(new Paragraph("Reporte de Inventario").setBold().setFontSize(16).setTextAlignment(TextAlignment.CENTER));
 
             // Crear tabla con ancho de columnas proporcionado
-            Table table = new Table(UnitValue.createPercentArray(new float[]{2, 3, 2, 3, 2, 2, 2, 2}))
+            Table table = new Table(UnitValue.createPercentArray(new float[]{2, 3, 2, 3, 2, 2, 2, 2, 2}))
                     .useAllAvailableWidth();
 
             // Encabezados de la tabla
-            String[] headers = {"SKU", "Nombre", "Precio","Fecha", "Detalle", "Entrada", "Salida", "Saldo"};
+            String[] headers = {"SKU", "Nombre", "Precio","Fecha", "Detalle", "Entrada", "Salida", "Total","Saldo"};
             for (String header : headers) {
                 table.addHeaderCell(
                         new Cell()
