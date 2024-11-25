@@ -161,6 +161,32 @@ public class cBrand extends conexion {
         return brandList;
     }
 
+    public Double searchPriceProduct(Integer productId){
+        double price = 0.0;
+        SQLiteDatabase database = this.getReadableDatabase();
+        Cursor cursor = null;
+        try {
+            String query = "SELECT * FROM " + TABLE_HISTORY_PRICE_PRODUCT +
+                    " WHERE product_id = ? " +
+                    " ORDER BY date_register DESC " +
+                    " LIMIT 1";
+            cursor = database.rawQuery(query, new String[]{String.valueOf(productId)});
+            if (cursor.moveToFirst()) {
+                price = cursor.getDouble(2);
+            }
+        }catch (Exception e){
+            Log.e("Get Search SKU Error", "Error al obtener SKU del producto: " + e.getMessage());
+        }finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            if (database != null && database.isOpen()) {
+                database.close();
+            }
+        }
+        return price;
+    }
+
     @SuppressLint("Range")
     public List<ProductListDTO> getProductsByBrand(int brandId) {
         List<ProductListDTO> productList = new ArrayList<>();
@@ -168,7 +194,7 @@ public class cBrand extends conexion {
         Cursor cursor = null;
 
         try {
-            String query = "SELECT id, name, unit_price, stock " +
+            String query = "SELECT id, name, stock " +
                     "FROM " + TABLE_PRODUCT + " p " +
                     "WHERE p.brand_id = ? " +   // Correctamente dentro de la cadena
                     "ORDER BY name ASC";
@@ -180,7 +206,8 @@ public class cBrand extends conexion {
                     ProductListDTO product = new ProductListDTO();
                     product.setId(cursor.getInt(cursor.getColumnIndex("id")));
                     product.setName(cursor.getString(cursor.getColumnIndex("name")));
-                    product.setUnit_price(cursor.getDouble(cursor.getColumnIndex("unit_price")));
+                    Double price = searchPriceProduct(cursor.getInt(cursor.getColumnIndex("id")));
+                    product.setUnit_price(price);
                     product.setStock_actual(cursor.getInt(cursor.getColumnIndex("stock")));
 
                     productList.add(product);

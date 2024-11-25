@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +51,6 @@ public class ProductListFragment extends Fragment implements productListAdapter.
         // Inicializar BProduct
         BProduct = new bProduct(getContext());
 
-        getProducts();
         setupSearchFilter();
 
         return root;
@@ -83,15 +83,39 @@ public class ProductListFragment extends Fragment implements productListAdapter.
         super.onViewCreated(view, savedInstanceState);
     }
 
-    public void getProducts(){
+    @Override
+    public void onResume() {
+        super.onResume();
+        getProducts(); // Recargar los datos cada vez que la vista vuelve a ser visible
+        Log.d("MiAppLog", "Vista visible nuevamente");
+    }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        releaseAdapter(); // Liberar el adaptador al salir de la vista
+        Log.d("MiAppLog", "Vista ya no está visible, recursos liberados");
+    }
+
+    private void releaseAdapter() {
+        if (productListAdapter != null) {
+            productListAdapter = null; // Elimina la referencia al adaptador
+            binding.recyclerViewProduct.setAdapter(null); // Limpia el RecyclerView
+            listProducts = null; // Elimina la referencia a la lista de productos
+        }
+    }
+
+    public void getProducts(){
         // Intentar recuperar la lista de productos del Bundle
+
         if (getArguments() != null && getArguments().containsKey(ARG_PRODUCT_LIST)) {
             listProducts = (List<ProductListDTO>) getArguments().getSerializable(ARG_PRODUCT_LIST); // Recupera la lista de productos del Bundle
+            Log.d("MiAppLog", "Productos cargados de categoría o marca");
         }
-
-        if (listProducts == null || listProducts.isEmpty()) {
+        if (listProducts == null) {
             listProducts = BProduct.getProducts(); // Obtener productos desde la base de datos
+            Log.d("MiAppLog", "Productos cargados de producto");
+
         }
 
         productListAdapter = new productListAdapter(listProducts,this.getContext(),this);
