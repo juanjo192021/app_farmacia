@@ -52,7 +52,8 @@ public class cProduct extends conexion {
                     ProductListDTO product = new ProductListDTO();
                     product.setId(cursor.getInt(cursor.getColumnIndex("id")));
                     product.setName(cursor.getString(cursor.getColumnIndex("name")));
-                    product.setUnit_price(cursor.getDouble(cursor.getColumnIndex("unit_price")));
+
+                    //product.setUnit_price(cursor.getDouble(cursor.getColumnIndex("unit_price")));
                     product.setStock_actual(cursor.getInt(cursor.getColumnIndex("stock")));
 
                     productList.add(product);

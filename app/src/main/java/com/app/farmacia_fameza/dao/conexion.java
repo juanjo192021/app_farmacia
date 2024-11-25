@@ -22,6 +22,7 @@ public class conexion extends SQLiteOpenHelper {
     public static final String TABLE_PRODUCT_OUTPUT_DETAIL = "Product_Output_Detail";
     public static final String TABLE_SUPPLIER = "Supplier";
     public static final String TABLE_INVENTORY_TRANSACTION = "Inventory_Transaction";
+    public static final String TABLE_HISTORY_PRICE_PRODUCT = "History_Price_Product";
 
     // Constructor
     public conexion(@Nullable Context context) {
@@ -77,12 +78,19 @@ public class conexion extends SQLiteOpenHelper {
                 "description TEXT, " +
                 "image TEXT, " +
                 "stock INTEGER DEFAULT 0, " +
-                "unit_price DECIMAL(10, 2) NOT NULL, " +
                 "brand_id INTEGER, " +
                 "category_id INTEGER, " +
                 "status INTEGER DEFAULT 1, " +
                 "FOREIGN KEY (brand_id) REFERENCES " + TABLE_BRAND + "(id), " +
                 "FOREIGN KEY (category_id) REFERENCES " + TABLE_CATEGORY + "(id))");
+
+        // Create History Price Product
+        db.execSQL("CREATE TABLE " + TABLE_HISTORY_PRICE_PRODUCT + " (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "product_id INTEGER," + // Relación directa con TABLE_PRODUCT
+                "price DECIMAL(10,2) NOT NULL," +
+                "date_register TEXT NOT NULL, " +
+                "FOREIGN KEY (product_id) REFERENCES " + TABLE_PRODUCT + "(id))");
 
         // Create Product_Entry table
         db.execSQL("CREATE TABLE " + TABLE_PRODUCT_ENTRY + " (" +
@@ -161,11 +169,17 @@ public class conexion extends SQLiteOpenHelper {
                 "('Lab Salud C', '555555666', 'labsaludc@example.com')");
 
         // Insertar datos en la tabla Product
-        db.execSQL("INSERT INTO " + TABLE_PRODUCT + " (sku, name, description, image, stock, unit_price, brand_id, category_id, status) VALUES " +
-                "('SKU001', 'Paracetamol 500mg', 'Alivio del dolor y reducción de fiebre.', 'https://res.cloudinary.com/dwx7qadjn/image/upload/v1730146398/Farmacia/Paracetamol_w0lzpq.png', 100, 5.99, 1, 1, 1), " +
-                "('SKU002', 'Amoxicilina 500mg', 'Antibiótico para infecciones bacterianas.', 'https://res.cloudinary.com/dwx7qadjn/image/upload/v1730144177/Farmacia/Amoxicilina_uwibjr.png', 50, 12.49, 2, 2, 1), " +
-                "('SKU003', 'Vitamina C 1000mg', 'Suplemento de vitamina C para el sistema inmunológico.', 'https://res.cloudinary.com/dwx7qadjn/image/upload/v1730238645/Farmacia/VitaminaC_oalopf.png', 200, 8.99, 3, 3, 1), " +
-                "('SKU004', 'Loratadina 10mg', 'Antihistamínico para aliviar alergias.', 'https://res.cloudinary.com/dwx7qadjn/image/upload/v1730238706/Farmacia/Loratadina_grxdca.jpg', 80, 4.99, 4, 4, 1)");
+        db.execSQL("INSERT INTO " + TABLE_PRODUCT + " (sku, name, description, image, stock, brand_id, category_id, status) VALUES " +
+                "('SKU001', 'Paracetamol 500mg', 'Alivio del dolor y reducción de fiebre.', 'https://res.cloudinary.com/dwx7qadjn/image/upload/v1730146398/Farmacia/Paracetamol_w0lzpq.png', 100, 1, 1, 1), " +
+                "('SKU002', 'Amoxicilina 500mg', 'Antibiótico para infecciones bacterianas.', 'https://res.cloudinary.com/dwx7qadjn/image/upload/v1730144177/Farmacia/Amoxicilina_uwibjr.png', 50, 2, 2, 1), " +
+                "('SKU003', 'Vitamina C 1000mg', 'Suplemento de vitamina C para el sistema inmunológico.', 'https://res.cloudinary.com/dwx7qadjn/image/upload/v1730238645/Farmacia/VitaminaC_oalopf.png', 200, 3, 3, 1), " +
+                "('SKU004', 'Loratadina 10mg', 'Antihistamínico para aliviar alergias.', 'https://res.cloudinary.com/dwx7qadjn/image/upload/v1730238706/Farmacia/Loratadina_grxdca.jpg', 80, 4, 4, 1)");
+
+        db.execSQL("INSERT INTO " + TABLE_HISTORY_PRICE_PRODUCT + " (product_id, price, date_register) VALUES " +
+                "(1,5.99,'2024-11-24'), " +
+                "(2,12.49,'2024-11-24'), " +
+                "(3,8.99,'2024-11-24'), " +
+                "(4,4.99,'2024-11-24')");
 
         // Insertar datos en la tabla Product_Entry
         db.execSQL("INSERT INTO " + TABLE_PRODUCT_ENTRY + " (number_entry, date_entry, supplier_id) VALUES " +
